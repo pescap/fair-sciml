@@ -62,7 +62,7 @@ fair-sciml/
 
 ---
 
-## ** Installation **
+## **Installation**
 1. Clone the repository:
 ```bash
 git clone https://github.com/pescap/fair-sciml.git
