@@ -45,26 +45,10 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="simulators.html">Simulators Documentation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">DeepONet Model Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#ml.deeponet_trainer.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ml.deeponet_trainer.DataLoader.load_data"><code class="docutils literal notranslate"><span class="pre">DataLoader.load_data()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#ml.deeponet_trainer.DeepONetTrainer"><code class="docutils literal notranslate"><span class="pre">DeepONetTrainer</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ml.deeponet_trainer.DeepONetTrainer.evaluate"><code class="docutils literal notranslate"><span class="pre">DeepONetTrainer.evaluate()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ml.deeponet_trainer.DeepONetTrainer.predict"><code class="docutils literal notranslate"><span class="pre">DeepONetTrainer.predict()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ml.deeponet_trainer.DeepONetTrainer.prepare_data"><code class="docutils literal notranslate"><span class="pre">DeepONetTrainer.prepare_data()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ml.deeponet_trainer.DeepONetTrainer.train"><code class="docutils literal notranslate"><span class="pre">DeepONetTrainer.train()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#ml.deeponet_trainer.HuggingFaceLoader"><code class="docutils literal notranslate"><span class="pre">HuggingFaceLoader</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ml.deeponet_trainer.HuggingFaceLoader.load_data"><code class="docutils literal notranslate"><span class="pre">HuggingFaceLoader.load_data()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#ml.deeponet_trainer.LocalLoader"><code class="docutils literal notranslate"><span class="pre">LocalLoader</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#ml.deeponet_trainer.LocalLoader.load_data"><code class="docutils literal notranslate"><span class="pre">LocalLoader.load_data()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#ml.deeponet_trainer.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage-example">Usage Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#model-architecture">Model Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#metrics">Metrics</a></li>
 </ul>
 </li>
 </ul>
@@ -93,83 +77,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-ml.deeponet_trainer">
-<span id="deeponet-model-documentation"></span><h1>DeepONet Model Documentation<a class="headerlink" href="#module-ml.deeponet_trainer" title="Link to this heading"></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.DataLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ml.deeponet_trainer.</span></span><span class="sig-name descname"><span class="pre">DataLoader</span></span><a class="headerlink" href="#ml.deeponet_trainer.DataLoader" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Abstract base class for data loading.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.DataLoader.load_data">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ml.deeponet_trainer.DataLoader.load_data" title="Link to this definition"></a></dt>
-<dd><p>Load and return branch inputs, trunk inputs, and outputs.</p>
-</dd></dl>
+  <section id="deeponet-model-documentation">
+<h1>DeepONet Model Documentation<a class="headerlink" href="#deeponet-model-documentation" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The DeepONet model is designed for learning operators from data, which makes it ideal for
+applications involving PDEs. This section provides an example of how to use the model for training.</p>
+</section>
+<section id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading"></a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ml.deeponet_trainer</span> <span class="kn">import</span> <span class="n">DeepONetTrainer</span>
+<span class="kn">from</span> <span class="nn">data_loaders.huggingface_loader</span> <span class="kn">import</span> <span class="n">HuggingFaceLoader</span>
 
-</dd></dl>
+<span class="c1"># Initialize the data loader</span>
+<span class="n">repo_id</span> <span class="o">=</span> <span class="s2">&quot;aledhf/pde_sims&quot;</span>
+<span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;simulations.h5&quot;</span>
+<span class="n">data_loader</span> <span class="o">=</span> <span class="n">HuggingFaceLoader</span><span class="p">(</span><span class="n">repo_id</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
 
-<dl class="py class">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.DeepONetTrainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ml.deeponet_trainer.</span></span><span class="sig-name descname"><span class="pre">DeepONetTrainer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">branch_layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trunk_layers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_loader</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#ml.deeponet_trainer.DataLoader" title="ml.deeponet_trainer.DataLoader"><span class="pre">DataLoader</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ml.deeponet_trainer.DeepONetTrainer" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Handles training of DeepONet models.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.DeepONetTrainer.evaluate">
-<span class="sig-name descname"><span class="pre">evaluate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_true</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="headerlink" href="#ml.deeponet_trainer.DeepONetTrainer.evaluate" title="Link to this definition"></a></dt>
-<dd><p>Evaluate model performance.</p>
-</dd></dl>
+<span class="c1"># Initialize the trainer</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">DeepONetTrainer</span><span class="p">(</span>
+    <span class="n">branch_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">],</span>
+    <span class="n">trunk_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">],</span>
+    <span class="n">data_loader</span><span class="o">=</span><span class="n">data_loader</span>
+<span class="p">)</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.DeepONetTrainer.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">branch_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trunk_input</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="headerlink" href="#ml.deeponet_trainer.DeepONetTrainer.predict" title="Link to this definition"></a></dt>
-<dd><p>Make predictions using the trained model.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.DeepONetTrainer.prepare_data">
-<span class="sig-name descname"><span class="pre">prepare_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span></span></span><a class="headerlink" href="#ml.deeponet_trainer.DeepONetTrainer.prepare_data" title="Link to this definition"></a></dt>
-<dd><p>Load and preprocess data for training.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.DeepONetTrainer.train">
-<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">LossHistory</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ml.deeponet_trainer.DeepONetTrainer.train" title="Link to this definition"></a></dt>
-<dd><p>Train the DeepONet model.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.HuggingFaceLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ml.deeponet_trainer.</span></span><span class="sig-name descname"><span class="pre">HuggingFaceLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repo_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ml.deeponet_trainer.HuggingFaceLoader" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ml.deeponet_trainer.DataLoader" title="ml.deeponet_trainer.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a></p>
-<p>Load data from HuggingFace repository.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.HuggingFaceLoader.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ml.deeponet_trainer.HuggingFaceLoader.load_data" title="Link to this definition"></a></dt>
-<dd><p>Load and return branch inputs, trunk inputs, and outputs.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.LocalLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ml.deeponet_trainer.</span></span><span class="sig-name descname"><span class="pre">LocalLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ml.deeponet_trainer.LocalLoader" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ml.deeponet_trainer.DataLoader" title="ml.deeponet_trainer.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a></p>
-<p>Load data from local HDF5 file.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.LocalLoader.load_data">
-<span class="sig-name descname"><span class="pre">load_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#ml.deeponet_trainer.LocalLoader.load_data" title="Link to this definition"></a></dt>
-<dd><p>Load and return branch inputs, trunk inputs, and outputs.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="ml.deeponet_trainer.main">
-<span class="sig-prename descclassname"><span class="pre">ml.deeponet_trainer.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ml.deeponet_trainer.main" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
+<span class="c1"># Train the model</span>
+<span class="n">losshistory</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">epochs</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="model-architecture">
+<h2>Model Architecture<a class="headerlink" href="#model-architecture" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Branch Layers</strong>: [2, 128, 128, 128]</p></li>
+<li><p><strong>Trunk Layers</strong>: [2, 128, 128, 128]</p></li>
+<li><p><strong>Activation Function</strong>: ReLU</p></li>
+<li><p><strong>Optimizer</strong>: Adam</p></li>
+</ul>
+</section>
+<section id="metrics">
+<h2>Metrics<a class="headerlink" href="#metrics" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Mean Squared Error (MSE)</strong></p></li>
+<li><p><strong>L2 Relative Error</strong></p></li>
+</ul>
+</section>
 </section>
 
 

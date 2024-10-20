@@ -8,6 +8,11 @@ Welcome to fair-sciml Documentation!
    simulators
    deeponet
 
+Project Overview
+----------------
+
+This project includes PDE simulators and a DeepONet model for machine learning applications.
+
 Indices and tables
 ==================
 * :ref:`genindex`

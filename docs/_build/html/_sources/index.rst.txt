@@ -1,5 +1,5 @@
-Welcome to fair-sciml Documentation!
-====================================
+Welcome to DataObs Documentation!
+=================================
 
 .. toctree::
    :maxdepth: 2
@@ -7,6 +7,11 @@ Welcome to fair-sciml Documentation!
 
    simulators
    deeponet
+
+Project Overview
+----------------
+
+This project includes PDE simulators and a DeepONet model for machine learning applications.
 
 Indices and tables
 ==================
