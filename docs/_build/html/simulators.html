@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="DeepONet Model Documentation" href="deeponet.html" />
-    <link rel="prev" title="Welcome to fair-sciml Documentation!" href="index.html" /> 
+    <link rel="prev" title="Welcome to DataObs Documentation!" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,24 +45,10 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Simulators Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#simulators.base_simulator.BaseSimulator"><code class="docutils literal notranslate"><span class="pre">BaseSimulator</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#simulators.base_simulator.BaseSimulator.collect_metadata"><code class="docutils literal notranslate"><span class="pre">BaseSimulator.collect_metadata()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#simulators.base_simulator.BaseSimulator.run_session"><code class="docutils literal notranslate"><span class="pre">BaseSimulator.run_session()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#simulators.base_simulator.BaseSimulator.run_simulation"><code class="docutils literal notranslate"><span class="pre">BaseSimulator.run_simulation()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#simulators.base_simulator.BaseSimulator.setup_problem"><code class="docutils literal notranslate"><span class="pre">BaseSimulator.setup_problem()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#simulators.base_simulator.BaseSimulator.solve_problem"><code class="docutils literal notranslate"><span class="pre">BaseSimulator.solve_problem()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#module-simulators.poisson_simulator">Poisson Simulator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#simulators.poisson_simulator.PoissonSimulator"><code class="docutils literal notranslate"><span class="pre">PoissonSimulator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#simulators.poisson_simulator.PoissonSimulator.setup_problem"><code class="docutils literal notranslate"><span class="pre">PoissonSimulator.setup_problem()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#simulators.poisson_simulator.PoissonSimulator.solve_problem"><code class="docutils literal notranslate"><span class="pre">PoissonSimulator.solve_problem()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#simulators.poisson_simulator.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#simulators.poisson_simulator.parse_arguments"><code class="docutils literal notranslate"><span class="pre">parse_arguments()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#base-simulator">Base Simulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#poisson-simulator">Poisson Simulator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#biharmonic-simulator">Biharmonic Simulator</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="deeponet.html">DeepONet Model Documentation</a></li>
@@ -92,78 +78,52 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-simulators.base_simulator">
-<span id="simulators-documentation"></span><h1>Simulators Documentation<a class="headerlink" href="#module-simulators.base_simulator" title="Link to this heading"></a></h1>
-<dl class="py class">
-<dt class="sig sig-object py" id="simulators.base_simulator.BaseSimulator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simulators.base_simulator.</span></span><span class="sig-name descname"><span class="pre">BaseSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'simulations.h5'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simulators.base_simulator.BaseSimulator" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
-<p>Abstract base class for PDE simulators.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="simulators.base_simulator.BaseSimulator.collect_metadata">
-<span class="sig-name descname"><span class="pre">collect_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execution_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#simulators.base_simulator.BaseSimulator.collect_metadata" title="Link to this definition"></a></dt>
-<dd><p>Collect metadata specific to the simulation.</p>
-</dd></dl>
+  <section id="simulators-documentation">
+<h1>Simulators Documentation<a class="headerlink" href="#simulators-documentation" title="Link to this heading"></a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>The simulators in this project are built to solve different Partial Differential Equations (PDEs).
+Each simulator extends the <cite>BaseSimulator</cite> class and implements the problem-specific logic.</p>
+</section>
+<section id="base-simulator">
+<h2>Base Simulator<a class="headerlink" href="#base-simulator" title="Link to this heading"></a></h2>
+<p>The <cite>BaseSimulator</cite> class serves as the foundation for all simulators. It defines common methods
+for setting up and running simulations.</p>
+<p><strong>Example: `BaseSimulator` constructor</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BaseSimulator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mesh_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;simulations.h5&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mesh_size</span> <span class="o">=</span> <span class="n">mesh_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_path</span> <span class="o">=</span> <span class="n">output_path</span>
+</pre></div>
+</div>
+</section>
+<section id="poisson-simulator">
+<h2>Poisson Simulator<a class="headerlink" href="#poisson-simulator" title="Link to this heading"></a></h2>
+<p>The <cite>PoissonSimulator</cite> class solves the Poisson equation using FEniCS. Below is a usage example:</p>
+<p><strong>Example usage:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">simulators.poisson_simulator</span> <span class="kn">import</span> <span class="n">PoissonSimulator</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="simulators.base_simulator.BaseSimulator.run_session">
-<span class="sig-name descname"><span class="pre">run_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_ranges</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_simulations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#simulators.base_simulator.BaseSimulator.run_session" title="Link to this definition"></a></dt>
-<dd><p>Run a session of multiple simulations with varying parameters.</p>
-</dd></dl>
+<span class="n">simulator</span> <span class="o">=</span> <span class="n">PoissonSimulator</span><span class="p">(</span><span class="n">mesh_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;poisson_results.h5&quot;</span><span class="p">)</span>
+<span class="n">simulator</span><span class="o">.</span><span class="n">run_session</span><span class="p">(</span>
+    <span class="n">parameter_ranges</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;source_strength&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">),</span> <span class="s1">&#39;neumann_coefficient&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">)},</span>
+    <span class="n">num_simulations</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="biharmonic-simulator">
+<h2>Biharmonic Simulator<a class="headerlink" href="#biharmonic-simulator" title="Link to this heading"></a></h2>
+<p>The <cite>BiharmonicSimulator</cite> solves the biharmonic equation using a discontinuous Galerkin method.</p>
+<p><strong>Example usage:</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">simulators.biharmonic_simulator</span> <span class="kn">import</span> <span class="n">BiharmonicSimulator</span>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="simulators.base_simulator.BaseSimulator.run_simulation">
-<span class="sig-name descname"><span class="pre">run_simulation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#simulators.base_simulator.BaseSimulator.run_simulation" title="Link to this definition"></a></dt>
-<dd><p>Run a single simulation, using custom problem setup and solver.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="simulators.base_simulator.BaseSimulator.setup_problem">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#simulators.base_simulator.BaseSimulator.setup_problem" title="Link to this definition"></a></dt>
-<dd><p>Set up the problem to be solved. Can return any data structure.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="simulators.base_simulator.BaseSimulator.solve_problem">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">solve_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">problem_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="headerlink" href="#simulators.base_simulator.BaseSimulator.solve_problem" title="Link to this definition"></a></dt>
-<dd><p>Solve the problem. Returns the solution.</p>
-</dd></dl>
-
-</dd></dl>
-
-<section id="module-simulators.poisson_simulator">
-<span id="poisson-simulator"></span><h2>Poisson Simulator<a class="headerlink" href="#module-simulators.poisson_simulator" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="simulators.poisson_simulator.PoissonSimulator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">simulators.poisson_simulator.</span></span><span class="sig-name descname"><span class="pre">PoissonSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">32</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'simulations.h5'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#simulators.poisson_simulator.PoissonSimulator" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#simulators.base_simulator.BaseSimulator" title="simulators.base_simulator.BaseSimulator"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseSimulator</span></code></a></p>
-<p>Implementation of the Poisson equation simulator.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="simulators.poisson_simulator.PoissonSimulator.setup_problem">
-<span class="sig-name descname"><span class="pre">setup_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">parameters</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#simulators.poisson_simulator.PoissonSimulator.setup_problem" title="Link to this definition"></a></dt>
-<dd><p>Set up the Poisson equation with given parameters.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="simulators.poisson_simulator.PoissonSimulator.solve_problem">
-<span class="sig-name descname"><span class="pre">solve_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">problem_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Function</span></span></span><a class="headerlink" href="#simulators.poisson_simulator.PoissonSimulator.solve_problem" title="Link to this definition"></a></dt>
-<dd><p>Solve the Poisson equation.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="simulators.poisson_simulator.main">
-<span class="sig-prename descclassname"><span class="pre">simulators.poisson_simulator.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulators.poisson_simulator.main" title="Link to this definition"></a></dt>
-<dd><p>Main function to run the Poisson simulations.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="simulators.poisson_simulator.parse_arguments">
-<span class="sig-prename descclassname"><span class="pre">simulators.poisson_simulator.</span></span><span class="sig-name descname"><span class="pre">parse_arguments</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#simulators.poisson_simulator.parse_arguments" title="Link to this definition"></a></dt>
-<dd><p>Parse command-line arguments.</p>
-</dd></dl>
-
+<span class="n">simulator</span> <span class="o">=</span> <span class="n">BiharmonicSimulator</span><span class="p">(</span><span class="n">mesh_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="s2">&quot;biharmonic_results.h5&quot;</span><span class="p">)</span>
+<span class="n">simulator</span><span class="o">.</span><span class="n">run_session</span><span class="p">(</span>
+    <span class="n">parameter_ranges</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">)},</span>
+    <span class="n">num_simulations</span><span class="o">=</span><span class="mi">3</span>
+<span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -171,7 +131,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to fair-sciml Documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to DataObs Documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="deeponet.html" class="btn btn-neutral float-right" title="DeepONet Model Documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
