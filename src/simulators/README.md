@@ -90,7 +90,7 @@ python3 poisson_simulator.py \
 
 ## Accessing Pre-Generated Simulations
 
-If you prefer not to generate the simulations locally, pre-generated datasets are available on [Hugging Face]([https://huggingface.co/aledhf/pde_sims](https://huggingface.co/datasets/Aledhf/Simulations)). These datasets include:
+If you prefer not to generate the simulations locally, pre-generated datasets are available on [Hugging Face](https://huggingface.co/datasets/Aledhf/Simulations). These datasets include:
 
 - Simulations of the Poisson equation.
 - Simulations of the Biharmonic equation.
