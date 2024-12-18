@@ -88,6 +88,25 @@ python3 poisson_simulator.py \
 
 ---
 
+## Accessing Pre-Generated Simulations
+
+If you prefer not to generate the simulations locally, pre-generated datasets are available on [Hugging Face]([https://huggingface.co/aledhf/pde_sims](https://huggingface.co/datasets/Aledhf/Simulations)). These datasets include:
+
+- Simulations of the Poisson equation.
+- Simulations of the Biharmonic equation.
+
+Each dataset is stored in HDF5 format and includes:
+- Field inputs.
+- Spatial coordinates of the simulation domain.
+- Solution values for each simulation point.
+
+To use these datasets:
+1. Download the desired dataset from Hugging Face.
+2. Place the downloaded `.h5` file in your desired directory.
+3. Update the file path in the training or analysis scripts.
+
+---
+
 ### **HDF5 File Structure** ##
 
 Below is a simplified version of the PoissonSimulator class:
