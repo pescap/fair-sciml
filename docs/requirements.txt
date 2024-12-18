@@ -1,2 +1,4 @@
 sphinx>=4.3.2
-sphinx_rtd_theme
+sphinx-rtd-theme
+myst-parser
+sphinxcontrib-bibtex
