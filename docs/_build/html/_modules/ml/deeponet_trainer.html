@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ml.deeponet_trainer &#8212; fair-sciml 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for ml.deeponet_trainer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">deepxde</span> <span class="k">as</span> <span class="nn">dde</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+<span class="kn">from</span> <span class="nn">huggingface_hub</span> <span class="kn">import</span> <span class="n">hf_hub_download</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+
+<div class="viewcode-block" id="DataLoader">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.DataLoader">[docs]</a>
+<span class="k">class</span> <span class="nc">DataLoader</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Abstract base class for data loading.&quot;&quot;&quot;</span>
+    
+<div class="viewcode-block" id="DataLoader.load_data">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.DataLoader.load_data">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load and return branch inputs, trunk inputs, and outputs.&quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+</div>
+
+
+<div class="viewcode-block" id="HuggingFaceLoader">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.HuggingFaceLoader">[docs]</a>
+<span class="k">class</span> <span class="nc">HuggingFaceLoader</span><span class="p">(</span><span class="n">DataLoader</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load data from HuggingFace repository.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repo_id</span> <span class="o">=</span> <span class="n">repo_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_name</span> <span class="o">=</span> <span class="n">file_name</span>
+    
+<div class="viewcode-block" id="HuggingFaceLoader.load_data">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.HuggingFaceLoader.load_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="n">file_path</span> <span class="o">=</span> <span class="n">hf_hub_download</span><span class="p">(</span><span class="n">repo_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_id</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_from_h5</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span></div>
+
+    
+    <span class="k">def</span> <span class="nf">_load_from_h5</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="n">branch_inputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">trunk_inputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">with</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">h5file</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">equation_name</span> <span class="ow">in</span> <span class="n">h5file</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">eq_group</span> <span class="o">=</span> <span class="n">h5file</span><span class="p">[</span><span class="n">equation_name</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">session_name</span> <span class="ow">in</span> <span class="n">eq_group</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">session_group</span> <span class="o">=</span> <span class="n">eq_group</span><span class="p">[</span><span class="n">session_name</span><span class="p">]</span>
+                    <span class="k">for</span> <span class="n">sim_name</span> <span class="ow">in</span> <span class="n">session_group</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="n">sim_group</span> <span class="o">=</span> <span class="n">session_group</span><span class="p">[</span><span class="n">sim_name</span><span class="p">]</span>
+                        
+                        <span class="c1"># Get parameters</span>
+                        <span class="n">source_strength</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sim_group</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;parameter_source_strength&#39;</span><span class="p">])</span>
+                        <span class="n">neumann_coefficient</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sim_group</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s1">&#39;parameter_neumann_coefficient&#39;</span><span class="p">])</span>
+                        
+                        <span class="c1"># Get data</span>
+                        <span class="n">coordinates</span> <span class="o">=</span> <span class="n">sim_group</span><span class="p">[</span><span class="s2">&quot;coordinates&quot;</span><span class="p">][:]</span>
+                        <span class="n">values</span> <span class="o">=</span> <span class="n">sim_group</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">][:]</span>
+                        
+                        <span class="n">branch_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">source_strength</span><span class="p">,</span> <span class="n">neumann_coefficient</span><span class="p">])</span>
+                        <span class="n">trunk_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">coordinates</span><span class="p">)</span>
+                        <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">branch_inputs</span><span class="p">),</span> 
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">trunk_inputs</span><span class="p">),</span> 
+                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">outputs</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="LocalLoader">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.LocalLoader">[docs]</a>
+<span class="k">class</span> <span class="nc">LocalLoader</span><span class="p">(</span><span class="n">DataLoader</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load data from local HDF5 file.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_path</span> <span class="o">=</span> <span class="n">file_path</span>
+    
+<div class="viewcode-block" id="LocalLoader.load_data">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.LocalLoader.load_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="n">HuggingFaceLoader</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">_load_from_h5</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_path</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="DeepONetTrainer">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.DeepONetTrainer">[docs]</a>
+<span class="k">class</span> <span class="nc">DeepONetTrainer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Handles training of DeepONet models.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> 
+                 <span class="n">branch_layers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+                 <span class="n">trunk_layers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+                 <span class="n">data_loader</span><span class="p">:</span> <span class="n">DataLoader</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">branch_layers</span> <span class="o">=</span> <span class="n">branch_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trunk_layers</span> <span class="o">=</span> <span class="n">trunk_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_loader</span> <span class="o">=</span> <span class="n">data_loader</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scalers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;branch&#39;</span><span class="p">:</span> <span class="n">StandardScaler</span><span class="p">(),</span>
+            <span class="s1">&#39;trunk&#39;</span><span class="p">:</span> <span class="n">StandardScaler</span><span class="p">(),</span>
+            <span class="s1">&#39;output&#39;</span><span class="p">:</span> <span class="n">StandardScaler</span><span class="p">()</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
+    
+<div class="viewcode-block" id="DeepONetTrainer.prepare_data">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.DeepONetTrainer.prepare_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">prepare_data</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load and preprocess data for training.&quot;&quot;&quot;</span>
+        <span class="n">branch_inputs</span><span class="p">,</span> <span class="n">trunk_inputs</span><span class="p">,</span> <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_loader</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
+        
+        <span class="c1"># Scale the data</span>
+        <span class="n">branch_inputs_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalers</span><span class="p">[</span><span class="s1">&#39;branch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">branch_inputs</span><span class="p">)</span>
+        <span class="n">trunk_inputs_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalers</span><span class="p">[</span><span class="s1">&#39;trunk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">trunk_inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        
+        <span class="c1"># Scale outputs</span>
+        <span class="n">outputs_flat</span> <span class="o">=</span> <span class="n">outputs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">outputs_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalers</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">outputs_flat</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">outputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        
+        <span class="c1"># Split the data</span>
+        <span class="n">branch_train</span><span class="p">,</span> <span class="n">branch_test</span><span class="p">,</span> <span class="n">output_train</span><span class="p">,</span> <span class="n">output_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+            <span class="n">branch_inputs_scaled</span><span class="p">,</span> <span class="n">outputs_scaled</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Trunk inputs are constant</span>
+        <span class="n">trunk_train</span> <span class="o">=</span> <span class="n">trunk_inputs_scaled</span>
+        <span class="n">trunk_test</span> <span class="o">=</span> <span class="n">trunk_inputs_scaled</span>
+        
+        <span class="k">return</span> <span class="p">(</span><span class="n">branch_train</span><span class="p">,</span> <span class="n">trunk_train</span><span class="p">),</span> <span class="n">output_train</span><span class="p">,</span> <span class="p">(</span><span class="n">branch_test</span><span class="p">,</span> <span class="n">trunk_test</span><span class="p">),</span> <span class="n">output_test</span></div>
+
+    
+<div class="viewcode-block" id="DeepONetTrainer.train">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.DeepONetTrainer.train">[docs]</a>
+    <span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="n">learning_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0001</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">dde</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">LossHistory</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Train the DeepONet model.&quot;&quot;&quot;</span>
+        <span class="c1"># Prepare data</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prepare_data</span><span class="p">()</span>
+        
+        <span class="c1"># Create dataset</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">dde</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">TripleCartesianProd</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+        
+        <span class="c1"># Create model</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="n">dde</span><span class="o">.</span><span class="n">maps</span><span class="o">.</span><span class="n">DeepONetCartesianProd</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">branch_layers</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">trunk_layers</span><span class="p">,</span>
+            <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">,</span>
+            <span class="n">kernel_initializer</span><span class="o">=</span><span class="s2">&quot;Glorot normal&quot;</span><span class="p">,</span>
+            <span class="n">num_outputs</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+        
+        <span class="c1"># Compile and train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">dde</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">net</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;adam&quot;</span><span class="p">,</span> <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">,</span> 
+                     <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;mean squared error&quot;</span><span class="p">,</span> <span class="s2">&quot;l2 relative error&quot;</span><span class="p">])</span>
+        
+        <span class="n">losshistory</span><span class="p">,</span> <span class="n">train_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">epochs</span><span class="o">=</span><span class="n">epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Loss History type: </span><span class="si">{</span><span class="n">losshistory</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="c1"># Evaluate</span>
+        <span class="n">y_pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">losshistory</span><span class="p">,</span> <span class="n">metrics</span></div>
+
+    
+<div class="viewcode-block" id="DeepONetTrainer.evaluate">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.DeepONetTrainer.evaluate">[docs]</a>
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">y_true</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate model performance.&quot;&quot;&quot;</span>
+        <span class="c1"># Scaled metrics</span>
+        <span class="n">mse</span> <span class="o">=</span> <span class="n">dde</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">l2_error</span> <span class="o">=</span> <span class="n">dde</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">l2_relative_error</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        
+        <span class="c1"># Original scale metrics</span>
+        <span class="n">y_true_original</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalers</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+        <span class="n">y_pred_original</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalers</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">mse_original</span> <span class="o">=</span> <span class="n">dde</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_true_original</span><span class="p">,</span> <span class="n">y_pred_original</span><span class="p">)</span>
+        <span class="n">l2_error_original</span> <span class="o">=</span> <span class="n">dde</span><span class="o">.</span><span class="n">metrics</span><span class="o">.</span><span class="n">l2_relative_error</span><span class="p">(</span><span class="n">y_true_original</span><span class="p">,</span> <span class="n">y_pred_original</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;mse_scaled&#39;</span><span class="p">:</span> <span class="n">mse</span><span class="p">,</span>
+            <span class="s1">&#39;l2_error_scaled&#39;</span><span class="p">:</span> <span class="n">l2_error</span><span class="p">,</span>
+            <span class="s1">&#39;mse_original&#39;</span><span class="p">:</span> <span class="n">mse_original</span><span class="p">,</span>
+            <span class="s1">&#39;l2_error_original&#39;</span><span class="p">:</span> <span class="n">l2_error_original</span>
+        <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="DeepONetTrainer.predict">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.DeepONetTrainer.predict">[docs]</a>
+    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">branch_input</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">trunk_input</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Make predictions using the trained model.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Model has not been trained yet. Call train() first.&quot;</span><span class="p">)</span>
+            
+        <span class="c1"># Scale inputs</span>
+        <span class="n">branch_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalers</span><span class="p">[</span><span class="s1">&#39;branch&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">branch_input</span><span class="p">)</span>
+        <span class="n">trunk_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalers</span><span class="p">[</span><span class="s1">&#39;trunk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">trunk_input</span><span class="p">)</span>
+        
+        <span class="c1"># Make prediction</span>
+        <span class="n">prediction_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">((</span><span class="n">branch_scaled</span><span class="p">,</span> <span class="n">trunk_scaled</span><span class="p">))</span>
+        
+        <span class="c1"># Inverse transform the prediction</span>
+        <span class="n">prediction</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scalers</span><span class="p">[</span><span class="s1">&#39;output&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">prediction_scaled</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">prediction</span></div>
+</div>
+
+
+<div class="viewcode-block" id="main">
+<a class="viewcode-back" href="../../source/ml.html#ml.deeponet_trainer.main">[docs]</a>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="c1"># Example usage</span>
+    <span class="n">repo_id</span> <span class="o">=</span> <span class="s2">&quot;aledhf/pde_sims&quot;</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="s2">&quot;simulations.h5&quot;</span>
+    
+    <span class="c1"># Create data loader</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="n">HuggingFaceLoader</span><span class="p">(</span><span class="n">repo_id</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+    
+    <span class="c1"># Create trainer</span>
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">DeepONetTrainer</span><span class="p">(</span>
+        <span class="n">branch_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">],</span>
+        <span class="n">trunk_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">],</span>
+        <span class="n">data_loader</span><span class="o">=</span><span class="n">loader</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Train model</span>
+    <span class="n">losshistory</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">epochs</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+    
+    <span class="c1"># Print results</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training completed. Final metrics:&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">metric_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">fair-sciml</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deeponet.html">DeepONet Model Documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Eduardo Alvarez, Paul Escapil, Adolfo Parra.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

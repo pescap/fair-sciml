@@ -1,197 +1,183 @@
 import deepxde as dde
 import numpy as np
 import h5py
-from huggingface_hub import hf_hub_download
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from typing import Tuple, List, Optional
+from typing import Tuple, List, Dict
 from abc import ABC, abstractmethod
+
 
 class DataLoader(ABC):
     """Abstract base class for data loading."""
-    
+
     @abstractmethod
     def load_data(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Load and return branch inputs, trunk inputs, and outputs."""
         pass
 
-class HuggingFaceLoader(DataLoader):
-    """Load data from HuggingFace repository."""
-    
-    def __init__(self, repo_id: str, file_name: str):
-        self.repo_id = repo_id
-        self.file_name = file_name
-    
-    def load_data(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-        file_path = hf_hub_download(repo_id=self.repo_id, filename=self.file_name)
-        return self._load_from_h5(file_path)
-    
-    def _load_from_h5(self, file_path: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-        branch_inputs = []
-        trunk_inputs = []
-        outputs = []
-        
-        with h5py.File(file_path, "r") as h5file:
-            for equation_name in h5file.keys():
-                eq_group = h5file[equation_name]
-                for session_name in eq_group.keys():
-                    session_group = eq_group[session_name]
-                    for sim_name in session_group.keys():
-                        sim_group = session_group[sim_name]
-                        
-                        # Get parameters
-                        source_strength = float(sim_group.attrs['parameter_source_strength'])
-                        neumann_coefficient = float(sim_group.attrs['parameter_neumann_coefficient'])
-                        
-                        # Get data
-                        coordinates = sim_group["coordinates"][:]
-                        values = sim_group["values"][:]
-                        
-                        branch_inputs.append([source_strength, neumann_coefficient])
-                        trunk_inputs.append(coordinates)
-                        outputs.append(values)
-        
-        return (np.array(branch_inputs), 
-                np.array(trunk_inputs), 
-                np.array(outputs))
 
 class LocalLoader(DataLoader):
     """Load data from local HDF5 file."""
-    
+
     def __init__(self, file_path: str):
         self.file_path = file_path
-    
+
     def load_data(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-        return HuggingFaceLoader("", "")._load_from_h5(self.file_path)
+        field_inputs = []
+        trunk_inputs = []
+        outputs = []
+
+        with h5py.File(self.file_path, "r") as h5file:
+            for session_name in h5file.keys():
+                session_group = h5file[session_name]
+                for sim_name in session_group.keys():
+                    sim_group = session_group[sim_name]
+
+                    # Collect field_input_f
+                    if "field_input_f" in sim_group:
+                        field_inputs.append(sim_group["field_input_f"][:])
+
+                    # Get trunk inputs (coordinates) and outputs (values)
+                    coordinates = sim_group["coordinates"][:]
+                    values = sim_group["values"][:]
+
+                    trunk_inputs.append(coordinates)
+                    outputs.append(values)
+
+        return (
+            np.array(field_inputs),
+            np.array(trunk_inputs),
+            np.array(outputs),
+        )
+
 
 class DeepONetTrainer:
     """Handles training of DeepONet models."""
-    
-    def __init__(self, 
-                 branch_layers: List[int],
-                 trunk_layers: List[int],
-                 data_loader: DataLoader):
-        self.branch_layers = branch_layers
-        self.trunk_layers = trunk_layers
+
+    def __init__(
+        self,
+        branch_hidden_layers: List[int],
+        trunk_hidden_layers: List[int],
+        data_loader: DataLoader,
+    ):
+        self.branch_hidden_layers = branch_hidden_layers
+        self.trunk_hidden_layers = trunk_hidden_layers
         self.data_loader = data_loader
-        self.scalers = {
-            'branch': StandardScaler(),
-            'trunk': StandardScaler(),
-            'output': StandardScaler()
-        }
         self.model = None
-    
+
     def prepare_data(self) -> Tuple:
         """Load and preprocess data for training."""
-        branch_inputs, trunk_inputs, outputs = self.data_loader.load_data()
-        
-        # Scale the data
-        branch_inputs_scaled = self.scalers['branch'].fit_transform(branch_inputs)
-        trunk_inputs_scaled = self.scalers['trunk'].fit_transform(trunk_inputs[0])
-        
-        # Scale outputs
-        outputs_flat = outputs.flatten().reshape(-1, 1)
-        outputs_scaled = self.scalers['output'].fit_transform(outputs_flat).reshape(outputs.shape)
-        
+        field_inputs, spatial_inputs, outputs = self.data_loader.load_data()
+
+        branch_inputs = field_inputs[..., 0]  # Shape (n_samples, n_points)
+
+        trunk_inputs = spatial_inputs[0]  # Use spatial points from the first sample
+
+        # Flatten the branch inputs to match expected dimensions
+        branch_inputs_flattened = branch_inputs.reshape(branch_inputs.shape[0], -1)
+
         # Split the data
         branch_train, branch_test, output_train, output_test = train_test_split(
-            branch_inputs_scaled, outputs_scaled, train_size=0.8, random_state=42
+            branch_inputs_flattened, outputs, train_size=0.8, random_state=42
         )
-        
-        # Trunk inputs are constant
-        trunk_train = trunk_inputs_scaled
-        trunk_test = trunk_inputs_scaled
-        
-        return (branch_train, trunk_train), output_train, (branch_test, trunk_test), output_test
-    
-    def train(self, epochs: int = 10000, batch_size: int = 32, learning_rate: float = 0.0001) -> Tuple[dde.model.LossHistory, dict]:
-        """Train the DeepONet model."""
-        # Prepare data
-        X_train, y_train, X_test, y_test = self.prepare_data()
-        
-        # Create dataset
-        data = dde.data.TripleCartesianProd(X_train, y_train, X_test, y_test)
-        
-        # Create model
-        net = dde.maps.DeepONetCartesianProd(
-            self.branch_layers,
-            self.trunk_layers,
-            activation="relu",
-            kernel_initializer="Glorot normal",
-            num_outputs=1
+
+        # Flatten outputs
+        output_train = output_train.reshape(
+            output_train.shape[0], -1
+        )  # Shape (n_samples, n_points)
+        output_test = output_test.reshape(
+            output_test.shape[0], -1
+        )  # Shape (n_samples, n_points)
+
+        trunk_train, trunk_test = trunk_inputs, trunk_inputs
+
+        return (
+            (branch_train, trunk_train),
+            output_train,
+            (branch_test, trunk_test),
+            output_test,
         )
-        
-        # Compile and train
-        self.model = dde.Model(data, net)
-        self.model.compile("adam", lr=learning_rate, 
-                     metrics=["mean squared error", "l2 relative error"])
-        
-        losshistory, train_state = self.model.train(epochs=epochs, batch_size=batch_size)
-        print(f'Loss History type: {losshistory}')
-        # Evaluate
-        y_pred = self.model.predict(X_test)
-        metrics = self.evaluate(y_test, y_pred)
-        
-        return losshistory, metrics
-    
-    def evaluate(self, y_true: np.ndarray, y_pred: np.ndarray) -> dict:
+
+    def evaluate(self, y_true: np.ndarray, y_pred: np.ndarray) -> Dict[str, float]:
         """Evaluate model performance."""
-        # Scaled metrics
-        mse = dde.metrics.mean_squared_error(y_true, y_pred)
-        l2_error = dde.metrics.l2_relative_error(y_true, y_pred)
-        
-        # Original scale metrics
-        y_true_original = self.scalers['output'].inverse_transform(y_true)
-        y_pred_original = self.scalers['output'].inverse_transform(y_pred)
-        mse_original = dde.metrics.mean_squared_error(y_true_original, y_pred_original)
-        l2_error_original = dde.metrics.l2_relative_error(y_true_original, y_pred_original)
-        
+        mse = np.mean((y_true - y_pred) ** 2)
+        l2_relative_error = np.linalg.norm(y_true - y_pred) / np.linalg.norm(y_true)
+
         return {
-            'mse_scaled': mse,
-            'l2_error_scaled': l2_error,
-            'mse_original': mse_original,
-            'l2_error_original': l2_error_original
+            "mean_squared_error": mse,
+            "l2_relative_error": l2_relative_error,
         }
 
-    def predict(self, branch_input: np.ndarray, trunk_input: np.ndarray) -> np.ndarray:
-        """Make predictions using the trained model."""
-        if self.model is None:
-            raise ValueError("Model has not been trained yet. Call train() first.")
-            
-        # Scale inputs
-        branch_scaled = self.scalers['branch'].transform(branch_input)
-        trunk_scaled = self.scalers['trunk'].transform(trunk_input)
-        
-        # Make prediction
-        prediction_scaled = self.model.predict((branch_scaled, trunk_scaled))
-        
-        # Inverse transform the prediction
-        prediction = self.scalers['output'].inverse_transform(prediction_scaled)
-        
-        return prediction
+    def train(
+        self,
+        epochs: int = 10000,
+        batch_size: int = 32,
+        learning_rate: float = 0.0001,
+        metrics_file: str = None,
+    ) -> None:
+        """Train the DeepONet model."""
+        # Prepare data
+        (
+            (branch_train, trunk_train),
+            output_train,
+            (branch_test, trunk_test),
+            output_test,
+        ) = self.prepare_data()
+
+        # Define DeepONet architecture
+        n_fields = branch_train.shape[1]  # Number of fields
+        n_dims = trunk_train.shape[1]  # Spatial dimensions (e.g., x, y)
+
+        net = dde.maps.DeepONetCartesianProd(
+            [n_fields] + self.branch_hidden_layers,
+            [n_dims] + self.trunk_hidden_layers,
+            activation="relu",
+            kernel_initializer="Glorot normal",
+            num_outputs=1,
+        )
+
+        # Create dataset
+        data = dde.data.TripleCartesianProd(
+            (branch_train, trunk_train),
+            output_train,
+            (branch_test, trunk_test),
+            output_test,
+        )
+
+        # Compile and train
+        self.model = dde.Model(data, net)
+        self.model.compile(
+            "adam",
+            lr=learning_rate,
+            metrics=["mean squared error", "l2 relative error"],
+        )
+
+        losshistory, train_state = self.model.train(
+            epochs=epochs, batch_size=batch_size
+        )
+
 
 def main():
     # Example usage
-    repo_id = "aledhf/pde_sims"
-    file_name = "simulations.h5"
-    
+    file_path = "simulations/biharmonic_equation.h5"
+
     # Create data loader
-    loader = HuggingFaceLoader(repo_id, file_name)
-    
-    # Create trainer
+    loader = LocalLoader(file_path)
+
+    # Define trainer with model configuration
     trainer = DeepONetTrainer(
-        branch_layers=[2, 128, 128, 128],
-        trunk_layers=[2, 128, 128, 128],
-        data_loader=loader
+        branch_hidden_layers=[128, 128, 128],
+        trunk_hidden_layers=[128, 128, 128],
+        data_loader=loader,
     )
-    
-    # Train model
-    losshistory, metrics = trainer.train(epochs=10000, batch_size=32)
-    
-    # Print results
-    print("Training completed. Final metrics:")
-    for metric_name, value in metrics.items():
-        print(f"{metric_name}: {value}")
+
+    # Train model and save metrics
+    trainer.train(
+        epochs=20000,
+        batch_size=32,
+        learning_rate=1e-3,
+        metrics_file="deeponet_metrics.csv",
+    )
+
 
 if __name__ == "__main__":
     main()

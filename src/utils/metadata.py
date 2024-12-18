@@ -9,7 +9,9 @@ class MetadataCollector:
     """Handles collection and storage of simulation metadata."""
 
     @staticmethod
-    def collect_session_metadata(num_simulations: int) -> Dict[str, Any]:
+    def collect_session_metadata(
+        num_simulations: int, mesh_size: int
+    ) -> Dict[str, Any]:
         """Collect session-level metadata about hardware and execution environment."""
         cpu_info = cpuinfo.get_cpu_info()
         return {
@@ -17,7 +19,6 @@ class MetadataCollector:
             "hardware": {
                 "machine": platform.machine(),
                 "processor": cpu_info.get("brand_raw", "Unknown"),
-                "architecture": cpu_info.get("arch", "Unknown"),
                 "system": platform.system(),
                 "version": platform.version(),
                 "physical_cores": psutil.cpu_count(logical=False),
@@ -25,6 +26,7 @@ class MetadataCollector:
                 "total_memory": f"{psutil.virtual_memory().total / (1024 ** 3):.2f} GB",
             },
             "num_simulations": num_simulations,
+            "mesh_size": mesh_size,
         }
 
     @staticmethod
@@ -32,11 +34,13 @@ class MetadataCollector:
         parameters: Dict[str, Any], execution_time: float
     ) -> Dict[str, Any]:
         """Collect simulation-specific metadata."""
-        parameters = {
+        # Flatten parameters into top-level keys
+        flattened_parameters = {
             f"parameter_{k}": (v.item() if hasattr(v, "item") else v)
             for k, v in parameters.items()
         }
+
         return {
-            "parameters": parameters,
-            "execution_time": f"{execution_time:.4f} seconds",
+            **flattened_parameters,
+            "execution_time": execution_time,
         }

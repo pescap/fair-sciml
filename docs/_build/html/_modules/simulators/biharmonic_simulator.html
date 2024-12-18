@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>simulators.biharmonic_simulator &#8212; fair-sciml 1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/basic.css?v=686e5160" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css?v=27fed22d" />
+    <script src="../../_static/documentation_options.js?v=f2a433a1"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for simulators.biharmonic_simulator</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">simulators.base_simulator</span> <span class="kn">import</span> <span class="n">BaseSimulator</span>
+<span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<div class="viewcode-block" id="BiharmonicSimulator">
+<a class="viewcode-back" href="../../source/simulators.html#simulators.biharmonic_simulator.BiharmonicSimulator">[docs]</a>
+<span class="k">class</span> <span class="nc">BiharmonicSimulator</span><span class="p">(</span><span class="n">BaseSimulator</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Implementation of the Biharmonic equation simulator.&quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">_get_equation_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the name of the equation being simulated.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;biharmonic_equation&quot;</span>
+
+<div class="viewcode-block" id="BiharmonicSimulator.setup_problem">
+<a class="viewcode-back" href="../../source/simulators.html#simulators.biharmonic_simulator.BiharmonicSimulator.setup_problem">[docs]</a>
+    <span class="k">def</span> <span class="nf">setup_problem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">parameters</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set up the Biharmonic equation with given parameters.&quot;&quot;&quot;</span>
+        <span class="c1"># Extract penalty parameter (default value: 8.0)</span>
+        <span class="n">alpha_value</span> <span class="o">=</span> <span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">)</span>
+
+        <span class="c1"># Create mesh and function space (Quadratic elements)</span>
+        <span class="n">mesh</span> <span class="o">=</span> <span class="n">UnitSquareMesh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mesh_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh_size</span><span class="p">)</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">FunctionSpace</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;CG&quot;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># CG = Continuous Galerkin</span>
+
+        <span class="c1"># Define boundary condition</span>
+        <span class="k">class</span> <span class="nc">DirichletBoundary</span><span class="p">(</span><span class="n">SubDomain</span><span class="p">):</span>
+            <span class="k">def</span> <span class="nf">inside</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">on_boundary</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">on_boundary</span>
+
+        <span class="n">u0</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="n">bc</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">u0</span><span class="p">,</span> <span class="n">DirichletBoundary</span><span class="p">())</span>
+
+        <span class="c1"># Define trial and test functions</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">TrialFunction</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">TestFunction</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+
+        <span class="c1"># Define the source term: f = 4π⁴ sin(πx) sin(πy)</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="s2">&quot;4.0*pow(pi, 4)*sin(pi*x[0])*sin(pi*x[1])&quot;</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="c1"># Define normal component, mesh size, and penalty parameter</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">CellDiameter</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+        <span class="n">h_avg</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="n">h</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">))</span> <span class="o">/</span> <span class="mf">2.0</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">FacetNormal</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">(</span><span class="n">alpha_value</span><span class="p">)</span>
+
+        <span class="c1"># Define bilinear and linear forms</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">inner</span><span class="p">(</span><span class="n">div</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">)),</span> <span class="n">div</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span> <span class="o">*</span> <span class="n">dx</span>
+             <span class="o">-</span> <span class="n">inner</span><span class="p">(</span><span class="n">avg</span><span class="p">(</span><span class="n">div</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">))),</span> <span class="n">jump</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="n">dS</span>
+             <span class="o">-</span> <span class="n">inner</span><span class="p">(</span><span class="n">jump</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">n</span><span class="p">),</span> <span class="n">avg</span><span class="p">(</span><span class="n">div</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">v</span><span class="p">))))</span> <span class="o">*</span> <span class="n">dS</span>
+             <span class="o">+</span> <span class="n">alpha</span> <span class="o">/</span> <span class="n">h_avg</span> <span class="o">*</span> <span class="n">inner</span><span class="p">(</span><span class="n">jump</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">n</span><span class="p">),</span> <span class="n">jump</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">v</span><span class="p">),</span> <span class="n">n</span><span class="p">))</span> <span class="o">*</span> <span class="n">dS</span><span class="p">)</span>
+
+        <span class="n">L</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">v</span> <span class="o">*</span> <span class="n">dx</span>
+
+        <span class="c1"># Return problem components</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="n">a</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">:</span> <span class="n">L</span><span class="p">,</span> <span class="s2">&quot;u&quot;</span><span class="p">:</span> <span class="n">u</span><span class="p">,</span> <span class="s2">&quot;bc&quot;</span><span class="p">:</span> <span class="n">bc</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="BiharmonicSimulator.solve_problem">
+<a class="viewcode-back" href="../../source/simulators.html#simulators.biharmonic_simulator.BiharmonicSimulator.solve_problem">[docs]</a>
+    <span class="k">def</span> <span class="nf">solve_problem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">problem_data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Function</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Solve the Biharmonic equation.&quot;&quot;&quot;</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">bc</span> <span class="o">=</span> <span class="n">problem_data</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">problem_data</span><span class="p">[</span><span class="s2">&quot;L&quot;</span><span class="p">],</span> <span class="n">Function</span><span class="p">(</span><span class="n">problem_data</span><span class="p">[</span><span class="s2">&quot;u&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">function_space</span><span class="p">()),</span> <span class="n">problem_data</span><span class="p">[</span><span class="s2">&quot;bc&quot;</span><span class="p">]</span>
+        
+        <span class="c1"># Solve the problem</span>
+        <span class="n">solve</span><span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">L</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">u</span></div>
+</div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="c1"># Set up argument parsing</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Biharmonic Equation Simulation&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--alpha&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Penalty parameter value&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--mesh_size&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Size of the mesh&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--num_simulations&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Number of simulations to run&quot;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--output_path&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">&quot;biharmonic_simulations.h5&quot;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Output path for HDF5 file&quot;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="c1"># Create the simulator</span>
+    <span class="n">simulator</span> <span class="o">=</span> <span class="n">BiharmonicSimulator</span><span class="p">(</span><span class="n">mesh_size</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">mesh_size</span><span class="p">,</span> <span class="n">output_path</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">output_path</span><span class="p">)</span>
+
+    <span class="c1"># Define parameter ranges (for alpha, in this case)</span>
+    <span class="n">parameter_ranges</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;alpha&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">alpha</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">alpha</span><span class="p">)}</span>  <span class="c1"># Static value, no range needed</span>
+
+    <span class="c1"># Run the simulation session</span>
+    <span class="n">simulator</span><span class="o">.</span><span class="n">run_session</span><span class="p">(</span><span class="n">parameter_ranges</span><span class="p">,</span> <span class="n">num_simulations</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">num_simulations</span><span class="p">)</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">fair-sciml</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../deeponet.html">DeepONet Model Documentation</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Eduardo Alvarez, Paul Escapil, Adolfo Parra.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.1.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
