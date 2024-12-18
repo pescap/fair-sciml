@@ -6,34 +6,53 @@ This directory contains the **machine learning components** of the `fair-sciml` 
 
 ## **Contents**
 
-- [Overview](#overview)
-- [DeepONet](#deeponet)
-- [Usage](#usage)
-- [Training Workflow](#training-workflow)
-- [Dependencies](#dependencies)
-- [Contact](#contact)
-
+1. [Overview](#overview)
+2. [Models](#models)
+   - [DeepONet](#deeponet)
+   - [Fourier Neural Operator (FNO)](#fourier-neural-operator-fno)
+3. [Usage](#usage)
+4. [Training Workflow](#training-workflow)
+5. [Dependencies](#dependencies)
+   
 ---
 
 ## **Overview**
 
-The machine learning models in this directory focus on **operator learning** from the results of PDE simulations.
+The machine learning models in this directory aim to leverage advanced neural operators to approximate PDE solutions efficiently. These models are capable of learning mappings between input fields (parameters) and solution spaces, enabling faster inference compared to traditional solvers.
 
----
+## **Models**
 
-## **DeepONet**
+### **DeepONet**
+The **Deep Operator Network (DeepONet)** is designed to learn operators by mapping input parameters to PDE solutions. 
 
-The **DeepONet model** is implemented to predict PDE solutions given input parameters (branch inputs) and spatial coordinates (trunk inputs). It consists of:
+- **Branch Network**: Encodes input fields.
+- **Trunk Network**: Encodes spatial coordinates (e.g., \((x, y)\)) in the solution domain.
+- **Output**: Predicts scalar values corresponding to the PDE solution at each spatial point.
 
-- **Branch Network**: Encodes input parameters.
-- **Trunk Network**: Encodes spatial coordinates of the solution domain.
-- **Output**: Predicts scalar values corresponding to PDE solutions.
+**Features:**
+- Supports multiple input fields.
+- Modular architecture for branch and trunk networks.
+- Integration with local or cloud-stored simulation datasets in HDF5 format.
+
+### **Fourier Neural Operator (FNO)**
+The **Fourier Neural Operator (FNO)** utilizes spectral methods to model PDE solutions, capturing complex spatial dynamics efficiently.
+
+- **Input Channels**: Encodes input fields as channels for spatial points.
+- **Fourier Transform**: Operates in the Fourier domain to learn global dependencies.
+- **Output**: Maps input channels to solution fields in the same spatial domain.
+
+**Features:**
+- Discretization invariance: Adaptable to different grid resolutions without retraining.
+- Scalable to high-dimensional problems.
+- Supports efficient inference on new datasets.
 
 ---
 
 ## **Usage**
 
-You can train the DeepONet model using the `deeponet_trainer.py` script. Make sure the necessary simulation data (in HDF5 format) is available.
+Ensure that simulation data in HDF5 format is available before training. Use the `deeponet_trainer.py` script to train the model.
+
+Use the fno_trainer.py script to train the FNO model on simulation data.
 
 **Example:**
 
@@ -45,17 +64,21 @@ python3 deeponet_trainer.py
 
 ## **Training Workflow**
 
-1. **Load Data**: The `HuggingFaceLoader` or `LocalLoader` is used to load simulation data.
+1. **Load Data**: The `LocalLoader` is used to load simulation data.
 2. **Preprocess Data**: Data is scaled and split into training and testing sets.
-3. **Model Creation**: A DeepONet model with specified branch and trunk networks is built.
-4. **Training**: The model is trained using the Adam optimizer.
-5. **Evaluation**: Metrics such as MSE and L2 relative error are calculated.
+3. **Model Creation**:
+  - **DeepONet**: Define branch and trunk networks with desired hidden layers.
+  - **FNO**: Initialize the model with parameters such as n_modes, hidden_channels, and in_channels.
+5. **Training**: The model is trained using the Adam optimizer.
+6. **Evaluation**: Metrics such as MSE and L2 relative error are calculated.
 
 ---
 
 ## **Dependencies**
 
-- **DeepXDE**: For implementing DeepONet.  
+- **DeepXDE**: For implementing DeepONet.
+- **NeuralOperator**: For FNO implementation.
+- **PyTorch**: Backend for FNO.
 - **H5py**: For reading HDF5 files.  
 - **HuggingFace Hub**: For downloading datasets from HuggingFace.  
 - **Scikit-learn**: For data preprocessing and splitting.  
