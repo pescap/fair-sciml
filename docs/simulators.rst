@@ -12,6 +12,7 @@ Base Simulator
 The `BaseSimulator` class serves as the foundation for all PDE simulators. It implements reusable methods for setting up, running, and saving simulations, ensuring a modular and extensible structure. 
 
 **Key Features:**
+
 - **Metadata Management**: Collects and saves metadata such as simulation parameters, execution time, and hardware information.
 - **HDF5 File Handling**: Stores simulation results hierarchically in an HDF5 file.
 - **Reusability**: Abstract methods allow flexibility for specific PDE implementations.
@@ -26,6 +27,7 @@ The `BaseSimulator` class serves as the foundation for all PDE simulators. It im
             self.output_path = output_path
 
 **Key Methods:**
+
 - `setup_problem()`: Abstract method to set up the specific PDE problem.
 - `run_simulation()`: Executes a single simulation and stores results.
 - `run_session()`: Runs multiple simulations with varying parameters and saves them in the HDF5 format.
@@ -36,6 +38,7 @@ Poisson Simulator
 The `PoissonSimulator` solves the Poisson equation using FEniCS, incorporating Dirichlet and Neumann boundary conditions. It supports parameterization of the source term and Neumann coefficient, enabling dynamic simulations for various configurations.
 
 **Key Parameters:**
+
 - **Source Strength**: Controls the intensity of the source term.
 - **Neumann Coefficient**: Defines the boundary condition coefficient.
 
@@ -55,6 +58,7 @@ The `PoissonSimulator` solves the Poisson equation using FEniCS, incorporating D
     )
 
 **Output Data:**
+
 - **Field Inputs**: `field_input_f` (source term) and `field_input_g` (Neumann boundary).
 - **Solutions**: `values` containing PDE solutions at grid points.
 - **Metadata**: Parameter values, execution time, and hardware information.
@@ -65,10 +69,12 @@ Biharmonic Simulator
 The `BiharmonicSimulator` solves the biharmonic equation using a discontinuous Galerkin method. It supports parameterization of the source term for flexible simulation setups.
 
 **Key Features:**
+
 - Implements a penalty-based discontinuous Galerkin formulation.
 - Allows parameterization of the source term.
 
 **Key Parameter:**
+
 - **Source Coefficient**: Controls the amplitude of the source term in the PDE.
 
 **Example Usage:**
@@ -117,14 +123,16 @@ This structure ensures interoperability and reusability of the data.
 Advanced Usage
 --------------
 
-### Custom Parameter Ranges
+**Custom Parameter Ranges**
+
 You can easily modify the parameter ranges for any simulator to explore different PDE configurations. For example:
 
 .. code-block:: python
 
     parameter_ranges = {'source_strength': (5.0, 15.0), 'neumann_coefficient': (3.0, 7.0)}
 
-### Multiple Field Inputs
+**Multiple Field Inputs**
+
 Both `PoissonSimulator` and `BiharmonicSimulator` support handling multiple input fields. Simply define the fields in the `setup_problem` method and store them using the HDF5 file handler.
 
 Contact

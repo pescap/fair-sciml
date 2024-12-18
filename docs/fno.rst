@@ -40,8 +40,9 @@ The FNO 2D model operates on grid-based data with the following architecture:
   - Default: 64 hidden channels in the intermediate Fourier layers.
 - **Output Channels**:
   - 1 output channel, representing the solution field.
+  
+**Layers**
 
-### Layers
 - **Fourier Layers**:
   - Captures global spatial dependencies using Fourier transforms.
   - Operates on the input grid with specified modes in the height and width dimensions.
@@ -51,10 +52,12 @@ The FNO 2D model operates on grid-based data with the following architecture:
 - **Final Projection Layer**:
   - Maps the output of Fourier layers to the solution domain.
 
-### Activation Function
+**Activation Function**
+
 - ReLU activation is applied in intermediate layers.
 
-### Optimizer
+**Optimizer**
+
 - Adam optimizer with configurable learning rate.
 
 Key Features
@@ -92,6 +95,7 @@ Metrics
 -------
 
 The following metrics are logged during training and evaluation:
+
 - **Mean Squared Error (MSE)**: Measures the average squared difference between predictions and ground truth.
 - **L2 Relative Error**: Normalized error that accounts for the magnitude of the true solution.
 
@@ -114,13 +118,16 @@ Install dependencies using the following command:
 Advanced Usage
 --------------
 
-### Configurable Fourier Modes
+**Configurable Fourier Modes**
+
 You can adjust the number of Fourier modes in the height and width dimensions by modifying the `n_modes_height` and `n_modes_width` parameters in the `FNOTrainer` class.
 
-### Multi-Field Inputs
+**Multi-Field Inputs**
+
 The FNO model supports multiple input fields, such as source terms and coefficients. Simply add these fields to the HDF5 file and ensure the data loader correctly extracts them.
 
-### Extended Metrics
+**Extended Metrics**
+
 To include custom evaluation metrics, modify the `train_model` method in the `FNOTrainer` class.
 
 Contact
