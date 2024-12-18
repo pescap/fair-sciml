@@ -1,28 +1,34 @@
-# fair-sciml
-FAIR Scientific Machine Learning
+# FAIR Scientific Machine Learning
 
-This repository is dedicated to advancing the principles of Findable, Accessible, Interoperable, and Reusable (FAIR) data in the field of scientific machine learning, particularly focusing on the solutions of partial differential equations (PDEs). It provides well-documented datasets and code that facilitate the reproducible research and collaborative development of PDE-solving algorithms.
+This repository is dedicated to advancing the principles of **Findable, Accessible, Interoperable, and Reusable (FAIR)** data in the field of scientific machine learning, with a particular focus on solving partial differential equations (PDEs). The project provides modular simulators, machine learning models, and datasets to support reproducible research and collaborative development of PDE-solving algorithms.
 
-## **Table of Contents**
-
+## Table of Contents
 - [Project Structure](#project-structure)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
+  - [Running Simulators](#running-simulators)
+  - [Training Neural Operators](#training-neural-operators)
 - [Simulators](#simulators)
   - [Base Simulator](#base-simulator)
   - [Poisson Simulator](#poisson-simulator)
   - [Biharmonic Simulator](#biharmonic-simulator)
-- [DeepONet Training](#deeponet-training)
+- [Neural Operators](#neural-operators)
+  - [DeepONet Training](#deeponet-training)
+  - [Fourier Neural Operator (FNO) Training](#fourier-neural-operator-fno-training)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 ---
 
-## **Project Structure**
+## Project Structure
 
 ```bash
+
+fair-sciml/ │ ├── src/ # Source code for the project │ ├── simulators/ # PDE simulators │ │ ├── base_simulator.py │ │ ├── poisson_simulator.py │ │ └── biharmonic_simulator.py │ └── ml/ # Machine learning models │ ├── deeponet_trainer.py │ └── fno_2d.py ├── docs/ # Documentation files (for ReadTheDocs) │ ├── conf.py │ ├── index.rst │ ├── simulators.rst │ ├── deeponet.rst │ └── fno.rst ├── requirements.txt # Dependencies ├── README.md # Project overview and instructions └── LICENSE # Project license
+
 fair-sciml/
 │
 ├── src/                     # Source code for the project
@@ -31,12 +37,16 @@ fair-sciml/
 │   │   ├── poisson_simulator.py
 │   │   └── biharmonic_simulator.py
 │   └── ml/                  # Machine learning models (e.g., DeepONet)
-│       └── deeponet_trainer.py
+│       ├── deeponet_trainer.py
+│       └── fno_2d.py
 ├── docs/                    # Documentation files (for ReadTheDocs)
 │   ├── conf.py
 │   ├── index.rst
 │   ├── simulators.rst
 │   └── deeponet.rst
+├── utils/                  # Handles data and metadata
+│   ├── h5_handler.py
+│   └── metadata.py
 ├── requirements.txt         # List of dependencies
 ├── README.md                # Project overview and instructions (this file)
 └── LICENSE                  # Project license
@@ -46,19 +56,20 @@ fair-sciml/
 
 ## **Features**
 
-- Modular PDE Simulators:
-  - Abstract BaseSimulator for reusable logic.
-  - Poisson and Biharmonic equation simulators.
-  - Simulation results saved in HDF5 format with metadata.
+### Modular PDE Simulators:
+  - **BaseSimulator**: Provides a framework for reusable simulation logic, including metadata collection and HDF5 data handling.
+  - **Poisson Simulator**: Solves the Poisson equation with parameterized source strength and Neumann boundary conditions.
+  - **Biharmonic Simulator**: Solves the Biharmonic equation using a Discontinuous Galerkin method with parameterized coefficients.
+  - **Input Fields**: Supports the use of `field_input_f` (and others if applicable) for parameterized simulations.
 
-- DeepONet Model Training:
+### Neural Operator Training:
+- **DeepONet**: Trains dual-architecture branch and trunk networks to learn mappings from field inputs and spatial coordinates to PDE solutions.
+- **Fourier Neural Operator (FNO)**: Leverages spectral convolutions for efficient PDE solution approximation. Supports multi-field inputs and adaptive discretizations.
 
-  - Train Deep Operator Networks (DeepONet) using PDE simulations.
-  - Preprocessing pipelines with branch and trunk networks.
-
-- Support for Local and Cloud Data:
-
-  - Load simulation data from local HDF5 files or Hugging Face datasets.
+### FAIR Principles:
+  - **Data Formats**: Simulation results are stored in HDF5 format with hierarchical organization, metadata, and FAIR compliance.
+  - **Findable and Reusable Data**: Datasets can be accessed from local files or cloud platforms (e.g., Hugging Face).
+  - **Interoperable Code**: Modular design allows for easy extensions to new PDEs, machine learning models, and data workflows.
 
 ---
 
@@ -82,22 +93,43 @@ pip install -r requirements.txt
 
 ---
 
+## **Create a Virtual Environment**
+
+```bash
+python3 -m venv env
+source env/bin/activate  # On Linux/macOS
+```
+---
+
+## **Install Dependencies**
+
+```bash
+pip install -r requirements.txt
+```
+---
+
 ## **Usage**
 
-1. Run a Poisson simulation: 
+Run a Poisson simulation: 
 ```bash
 python3 src/simulators/poisson_simulator.py \
     --source_strength_min 10.0 \
     --source_strength_max 20.0 \
     --neumann_coefficient_min 5.0 \
     --neumann_coefficient_max 10.0 \
-    --num_simulations 5 \
+    --num_simulations 100 \
     --mesh_size 32 \
     --output_path "poisson_results.h5"
 ```
-2. Train the DeepONet model:
+
+Run a Biharmonic simulation:
 ```bash
-python3 src/ml/deeponet_trainer.py
+python3 src/simulators/biharmonic_simulator.py \
+    --coefficient_min 1.0 \
+    --coefficient_max 5.0 \
+    --num_simulations 50 \
+    --mesh_size 32 \
+    --output_path "biharmonic_results.h5"
 ```
 
 ---
@@ -106,21 +138,19 @@ python3 src/ml/deeponet_trainer.py
 
 ### **Base Simulator**
 
-The `BaseSimulator` class provides the foundation for all PDE simulators, implementing shared logic such as **metadata collection**, **HDF5 file handling**, and **simulation session management**. It defines two key methods:
-
-- **`setup_problem()`**: Abstract method for setting up the PDE.
-- **`run_simulation()`**: Runs a single simulation and stores the results.
+The `BaseSimulator` defines reusable logic for running PDE simulations, handling metadata, and storing results in a structured HDF5 format.
 
 ### **Poisson Simulator**
 
-The `PoissonSimulator` solves the **Poisson equation** with Dirichlet and Neumann boundary conditions. Example parameters:
+The `PoissonSimulator` solves the Poisson equation. Key features include:
 
-- **Source Strength**: Controls the source term's intensity.
-- **Neumann Coefficient**: Coefficient for the Neumann boundary condition.
+  - Parameterized source term (`source_strength`).
+  - Neumann boundary conditions (`neumann_coefficient`).
+  - Input field values (`field_input_f`, `field_input_g`) generated dynamically.
 
 ### **Biharmonic Simulator**
 
-The `BiharmonicSimulator` solves the **Biharmonic equation** using a discontinuous Galerkin method. It supports parameterized penalty terms.
+The `BiharmonicSimulator` solves the Biharmonic equation using a Discontinuous Galerkin method. Supports parameterized coefficients for flexibility in simulation generation.
 
 ---
 
@@ -128,19 +158,17 @@ The `BiharmonicSimulator` solves the **Biharmonic equation** using a discontinuo
 
 The `DeepONetTrainer` trains a **Deep Operator Network (DeepONet)** using data generated by the PDE simulators. The trainer supports:
 
-- **Branch network**: Encodes parameters such as source strength and Neumann coefficients.
-- **Trunk network**: Encodes coordinates for PDE solutions.
+  - **Branch network**: Encodes `field_input_f` values from simulations.
+  - **Trunk network**: Encodes spatial coordinates for PDE solutions.
+  - **Output mapping**: Maps combined branch and trunk inputs to the solution space.
 
-Example:
+## **Fourier Neural Operator (FNO) Training**
 
-```python
-from ml.deeponet_trainer import DeepONetTrainer
-from data_loaders.huggingface_loader import HuggingFaceLoader
+The `FNOTrainer` trains Fourier Neural Operators using spectral convolutions. Features include:
 
-data_loader = HuggingFaceLoader(repo_id="aledhf/pde_sims", file_name="simulations.h5")
-trainer = DeepONetTrainer(branch_layers=[2, 128, 128], trunk_layers=[2, 128, 128], data_loader=data_loader)
-trainer.train(epochs=10000, batch_size=32, learning_rate=0.0001)
-```
+  - Multi-field support for complex PDEs.
+  - Efficient learning of high-dimensional solution mappings.
+  - Robust to varying resolutions and discretizations.
 
 ---
 
@@ -169,3 +197,5 @@ If you use this data or code for your research, please cite this GitHub reposito
 - Built with [FEniCS](https://fenicsproject.org/).
 - Deep learning with [DeepXDE](https://github.com/lululxvi/deepxde).
 - Documentation powered by [ReadTheDocs](https://fair-sciml.readthedocs.io/).
+- H5py: For efficient hierarchical data storage. [H5Py](https://docs.h5py.org/en/stable/index.html)
+- NeuralOperator: For advanced neural operator architectures such as FNO. [neuraloperator](https://neuraloperator.github.io/dev/).
