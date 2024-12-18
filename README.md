@@ -7,8 +7,6 @@ This repository is dedicated to advancing the principles of **Findable, Accessib
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-  - [Running Simulators](#running-simulators)
-  - [Training Neural Operators](#training-neural-operators)
 - [Simulators](#simulators)
   - [Base Simulator](#base-simulator)
   - [Poisson Simulator](#poisson-simulator)
@@ -91,21 +89,6 @@ source env/bin/activate  # On Linux/macOS
 pip install -r requirements.txt
 ```
 
----
-
-## **Create a Virtual Environment**
-
-```bash
-python3 -m venv env
-source env/bin/activate  # On Linux/macOS
-```
----
-
-## **Install Dependencies**
-
-```bash
-pip install -r requirements.txt
-```
 ---
 
 ## **Usage**
