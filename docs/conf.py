@@ -17,4 +17,4 @@ extensions = ["sphinx.ext.autodoc", "sphinx.ext.napoleon"]
 master_doc = "index"
 
 # Options for HTML output
-html_theme = "alabaster"  # Use a lightweight theme
+html_theme = "sphinx_rtd_theme"
