@@ -21,8 +21,6 @@ This module provides utilities for creating and manipulating HDF5 files, includi
 ### `metadata.py`
 This module provides functionality for collecting and managing metadata associated with simulations.
 
----
-
 #### **Key Features:**
 - **Session Metadata**: Tracks attributes such as timestamp, number of simulations, and hardware information.
 - **Simulation Metadata**: Records parameters used in each simulation (e.g., `source_strength`, `neumann_coefficient`) and execution time.
