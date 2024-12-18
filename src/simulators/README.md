@@ -43,17 +43,13 @@ The **Poisson equation** is a second-order PDE used in many fields, such as elec
 
 ### **Equation**
 
-The Poisson equation on the unit square \(\Omega = [0,1] \times [0,1]\) is:
+The Poisson equation on the unit square Ω = [0,1] × [0,1] is:
 
-\[
--\nabla^2 u = f \quad \text{in} \quad \Omega
-\]
+    -∇²u = f  in  Ω
 
 With boundary conditions:
 
-\[
-u = 0 \quad \text{on} \quad \partial \Omega
-\]
+    u = 0  on  ∂Ω
 
 ---
 
@@ -98,17 +94,17 @@ Below is a simplified version of the PoissonSimulator class:
 
 ```bash
 poisson_results.h5
-└── poisson_equation
-    └── session_<session_id>
-        ├── simulation_<uuid>
-        │   ├── coordinates: Mesh coordinates
-        │   ├── values: PDE solution values
-        │   └── Metadata (parameters, execution time)
+└── session_<session_id>
+    ├── simulation_<uuid>
+    │   ├── coordinates: Mesh coordinates
+    │   ├── values: PDE solution values
+    │   ├── input_field: The solution of an input field such as f, g 
+    │   └── Metadata (parameters, execution time)
 ```
 
 ---
 
-### **How to Add a Mew Simulator** ##
+### **How to Add a New Simulator** ##
 
 You can create new simulators by subclassing the BaseSimulator. For example, the BiharmonicSimulator follows the same pattern but implements a different PDE.
 
