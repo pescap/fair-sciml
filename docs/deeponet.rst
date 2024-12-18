@@ -7,6 +7,7 @@ Overview
 The DeepONet model is a neural network architecture specifically designed for learning operators, making it ideal for applications involving Partial Differential Equations (PDEs). Unlike traditional neural networks, which learn mappings between finite-dimensional inputs and outputs, DeepONet learns mappings between functions (i.e., infinite-dimensional spaces). This enables it to approximate solutions of PDEs with high efficiency and flexibility.
 
 The model operates using a two-branch architecture:
+
 - **Branch Network**: Encodes the input functions (e.g., source terms, coefficients).
 - **Trunk Network**: Encodes spatial coordinates of the solution domain.
 
@@ -39,28 +40,35 @@ Here's an example of how to set up and train the DeepONet model:
 Model Architecture
 ------------------
 
-### General Design
+**General Design**
+
 The DeepONet model uses a dual-branch architecture:
+
 - **Branch Network**:
   - Dynamically adjusts the number of input neurons based on the dimensions of the input data (e.g., number of fields in the PDE).
   - Example for Poisson Equation: 1089 neurons (corresponding to grid points for `field_input_f`).
 - **Trunk Network**:
   - Dynamically adjusts the input size based on the spatial dimensions (e.g., 2 for \((x, y)\)).
 
-### Layers
+**Layers**
+
 - **Branch Network**: [Dynamic Input Size, 128, 128, 128]
 - **Trunk Network**: [Dynamic Input Size, 128, 128, 128]
 - **Output Layer**: Single scalar output per grid point.
 
-### Activation Function
+**Activation Function**
+
 - **Branch Network**: ReLU
 - **Trunk Network**: ReLU
 
-### Optimizer
+**Optimizer**
+
 - Adam optimizer with learning rate tuning.
 
-### Metrics
+**Metrics**
+
 The following metrics are calculated during training and evaluation:
+
 - **Mean Squared Error (MSE)**: Measures the average squared difference between predicted and actual values.
 - **L2 Relative Error**: Provides a normalized error measure.
 
@@ -113,13 +121,16 @@ Install dependencies using the following command:
 Advanced Usage
 --------------
 
-### Configurable Branch and Trunk Layers
+**Configurable Branch and Trunk Layers**
+
 The number of hidden layers and neurons per layer can be customized for specific applications by modifying the `branch_hidden_layers` and `trunk_hidden_layers` parameters in the `DeepONetTrainer` class.
 
-### Custom Data Loaders
+**Custom Data Loader**
+
 Users can implement their own data loaders by extending the `DataLoader` abstract base class. This allows seamless integration of new datasets and file formats.
 
-### Extending Metrics
+**Extending Metrics**
+
 To add custom evaluation metrics, modify the `evaluate` method in the `DeepONetTrainer` class.
 
 Contributing
