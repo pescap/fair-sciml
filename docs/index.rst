@@ -1,22 +1,24 @@
 Welcome to fair-sciml Documentation!
 ====================================
 
+Explore the documentation for fair-sciml, a project combining PDE simulators and machine learning models to solve and analyze partial differential equations efficiently.
+
+Contents
+--------
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   simulators  
-   deeponet
-   fno      
-   references  
+   simulators.rst
+   deeponet.rst
+   fno.rst
+   utils.rst
+   references.rst
 
-Project Overview
-----------------
+Additional Resources
+---------------------
 
-This project includes PDE simulators and a DeepONet and FNO model for machine learning applications. It also provides various utilities and machine learning tools for scientific computing.
-
-Indices and tables
-==================
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
