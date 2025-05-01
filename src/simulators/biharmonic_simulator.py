@@ -1,7 +1,16 @@
-from simulators.base_simulator import BaseSimulator
-import dolfin as df
-import numpy as np
 import argparse
+import numpy as np
+from simulators.base_simulator import BaseSimulator
+import ufl
+from ufl import dx, dS, inner, grad, div, jump, avg, CellDiameter, FacetNormal
+from mpi4py import MPI
+from petsc4py import PETSc
+import dolfinx 
+import dolfinx.mesh
+import dolfinx.fem as fem
+import dolfinx.io
+from dolfinx.mesh import create_unit_square
+from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
 
 
@@ -18,52 +27,56 @@ class BiharmonicSimulator(BaseSimulator):
         coefficient_value = parameters.get("coefficient", 1.0)
 
         # Define the source term (field input): f = coefficient * 4π⁴ sin(πx) sin(πy)
-        f_expression = df.Expression(
-            f"{coefficient_value}*4.0*pow(pi, 4)*sin(pi*x[0])*sin(pi*x[1])", degree=2
-        )
+        def f_expression(x):
+            return coefficient_value * 4.0 * np.pi**4 * np.sin(np.pi * x[0]) \
+                * np.sin(np.pi * x[1])
 
         # Create mesh and function space (Quadratic elements)
-        mesh = df.UnitSquareMesh(self.mesh_size, self.mesh_size)
-        V = df.FunctionSpace(mesh, "CG", 2)  # CG = Continuous Galerkin
+        mesh = create_unit_square(MPI.COMM_WORLD, self.mesh_size, self.mesh_size)
+        V = fem.functionspace(mesh, ("Lagrange", 2))
 
         # Define boundary condition
-        class DirichletBoundary(df.SubDomain):
-            def inside(self, x, on_boundary):
-                return on_boundary
+        def dirichlet_boundary(x):
+            return np.isclose(x[0], 0.0) | np.isclose(x[0], 1.0) | \
+                np.isclose(x[1], 0.0) | np.isclose(x[1], 1.0)
 
-        u0 = df.Constant(0.0)
-        bc = df.DirichletBC(V, u0, DirichletBoundary())
+        u0 = fem.Constant(mesh, PETSc.ScalarType(0.0))
+        dirichlet_dofs = fem.locate_dofs_geometrical(V, dirichlet_boundary)
+        bc = fem.dirichletbc(u0, dirichlet_dofs, V)
 
         # Define trial and test functions
-        u = df.TrialFunction(V)
-        v = df.TestFunction(V)
+        u = ufl.TrialFunction(V)
+        v = ufl.TestFunction(V)
 
         # Define normal component, mesh size
-        h = df.CellDiameter(mesh)
+        h = CellDiameter(mesh)
         h_avg = (h("+") + h("-")) / 2.0
-        n = df.FacetNormal(mesh)
+        n = FacetNormal(mesh)
+
+        f_interpolated = fem.Function(V)
+        f_interpolated.interpolate(f_expression)
 
         # Define bilinear and linear forms
         a = (
-            df.inner(df.div(df.grad(u)), df.div(df.grad(v))) * df.dx
-            - df.inner(df.avg(df.div(df.grad(u))), df.jump(df.grad(v), n)) * df.dS
-            - df.inner(df.jump(df.grad(u), n), df.avg(df.div(df.grad(v)))) * df.dS
-            + 8.0
-            / h_avg
-            * df.inner(df.jump(df.grad(u), n), df.jump(df.grad(v), n))
-            * df.dS
+            inner(div(grad(u)), div(grad(v))) * dx
+            - inner(avg(div(grad(u))), jump(grad(v), n)) * dS
+            - inner(jump(grad(u), n), avg(div(grad(v)))) * dS
+            + 15.0 / h_avg
+            * inner(jump(grad(u), n), jump(grad(v), n))  * dS
         )  # Fixed penalty parameter
 
-        L = f_expression * v * df.dx
+        u_sol = fem.Function(V)
+
+        L = inner(f_interpolated, v) * dx
 
         # Return problem components
         return {
             "mesh": mesh,
             "a": a,
             "L": L,
-            "u": u,
+            "u": u_sol,
             "bc": bc,
-            "field_input_f": f_expression,
+            "field_input_f": f_interpolated,
         }
 
     def solve_problem(self, problem_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -71,17 +84,19 @@ class BiharmonicSimulator(BaseSimulator):
         a, L, u, bc = (
             problem_data["a"],
             problem_data["L"],
-            df.Function(problem_data["u"].function_space()),
+            problem_data["u"],
             problem_data["bc"],
         )
 
         # Solve the problem
-        df.solve(a == L, u, bc)
+        problem = LinearProblem(a, L, bcs=[bc], u=u, petsc_options={"ksp_type": "preonly", "pc_type": "lu"})
+        problem.solve()
 
         # Extract coordinates, solution values, and field input values
-        coordinates = problem_data["mesh"].coordinates()
-        values = u.vector().get_local()
-        f_values = np.array([problem_data["field_input_f"](x) for x in coordinates])
+        coordinates = problem_data["mesh"].geometry.x
+        values = np.real(u.x.array)
+        f_values = np.real(problem_data["field_input_f"].x.array)
+        # f_values = np.array([problem_data["field_input_f"](x) for x in coordinates])
 
         return {"coordinates": coordinates, "values": values, "field_input_f": f_values}
 
