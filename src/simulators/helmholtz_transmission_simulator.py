@@ -170,3 +170,65 @@ class HelmholtzTransmissionSimulator(BaseSimulator):
             "values": values,
             "field_input_f": f_values,
         }
+    
+def parse_arguments():
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(description="Helmholtz Transmission Problem Simulation")
+    parser.add_argument(
+        "--coefficient_min",
+        type=float,
+        default=1.0,
+        help="Minimum coefficient for the wavenumber",
+    )
+    parser.add_argument(
+        "--coefficient_max",
+        type=float,
+        default=5.0,
+        help="Maximum coefficient for the wavenumber",
+    )
+    parser.add_argument(
+        "--ref_ind_min",
+        type=float,
+        default=1.0,
+        help="Minimum coefficient for the refractive index",
+    )
+    parser.add_argument(
+        "--ref_ind_max",
+        type=float,
+        default=5.0,
+        help="Maximum coefficient for the refractive index",
+    )
+    parser.add_argument("--mesh_size", type=int, default=32, help="Size of the mesh")
+    parser.add_argument(
+        "--num_simulations", type=int, default=10, help="Number of simulations to run"
+    )
+    parser.add_argument(
+        "--output_directory",
+        type=str,
+        default="simulations",
+        help="Output directory for HDF5 file",
+    )
+    return parser.parse_args()
+
+
+def main():
+    """Main function to run the Biharmonic simulations."""
+    args = parse_arguments()
+
+    # Create the simulator
+    simulator = HelmholtzTransmissionSimulator(
+        mesh_size=args.mesh_size, output_directory=args.output_directory
+    )
+
+    # Define parameter ranges (for coefficient of f)
+    parameter_ranges = {"wavenumber": (args.coefficient_min, args.coefficient_max),
+                        "ref_ind": (args.coefficient_min, args.coefficient_max)}
+
+    # Run the simulation session
+    simulator.run_session(parameter_ranges, num_simulations=args.num_simulations)
+
+
+if __name__ == "__main__":
+    main()
+
+
