@@ -5,7 +5,7 @@ import ufl
 from mpi4py import MPI
 from petsc4py import PETSc
 import dolfinx 
-import dolfinx.mesh
+from dolfinx.mesh import create_unit_square, Mesh
 import dolfinx.fem as fem
 import dolfinx.io
 from dolfinx.mesh import locate_entities_boundary, create_unit_square, meshtags
@@ -20,13 +20,12 @@ class PoissonSimulator(BaseSimulator):
         """Return the name of the equation being simulated."""
         return "poisson_equation"
 
-    def setup_problem(self, **parameters) -> Dict[str, Any]:
+    def setup_problem(self, mesh: Mesh, **parameters) -> Dict[str, Any]:
         """Set up the Poisson equation with given parameters."""
         source_strength = parameters.get("source_strength", 1.0)
         neumann_coefficient = parameters.get("neumann_coefficient", 1.0)
 
         # Create mesh and function space
-        mesh = create_unit_square(MPI.COMM_WORLD, self.mesh_size, self.mesh_size)
         V = fem.functionspace(mesh, ("Lagrange", 1))
 
         # Define boundary condition
@@ -159,8 +158,8 @@ def main():
             args.neumann_coefficient_max,
         ),
     }
-
-    simulator.run_session(parameter_ranges, num_simulations=args.num_simulations)
+    mesh = create_unit_square(MPI.COMM_WORLD, self.mesh_size, self.mesh_size)
+    simulator.run_session(mesh, parameter_ranges, num_simulations=args.num_simulations)
 
 
 if __name__ == "__main__":

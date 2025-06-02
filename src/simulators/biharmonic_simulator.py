@@ -9,7 +9,7 @@ import dolfinx
 import dolfinx.mesh
 import dolfinx.fem as fem
 import dolfinx.io
-from dolfinx.mesh import create_unit_square
+from dolfinx.mesh import Mesh, create_unit_square
 from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
 
@@ -21,7 +21,7 @@ class BiharmonicSimulator(BaseSimulator):
         """Return the name of the equation being simulated."""
         return "biharmonic_equation"
 
-    def setup_problem(self, **parameters) -> Dict[str, Any]:
+    def setup_problem(self, mesh: Mesh, **parameters) -> Dict[str, Any]:
         """Set up the Biharmonic equation with given parameters."""
         # Extract coefficient parameter for f
         coefficient_value = parameters.get("coefficient", 1.0)
@@ -32,7 +32,6 @@ class BiharmonicSimulator(BaseSimulator):
                 * np.sin(np.pi * x[1])
 
         # Create mesh and function space (Quadratic elements)
-        mesh = create_unit_square(MPI.COMM_WORLD, self.mesh_size, self.mesh_size)
         V = fem.functionspace(mesh, ("Lagrange", 2))
 
         # Define boundary condition
@@ -141,8 +140,11 @@ def main():
     # Define parameter ranges (for coefficient of f)
     parameter_ranges = {"coefficient": (args.coefficient_min, args.coefficient_max)}
 
+    mesh = create_unit_square(
+        MPI.COMM_WORLD, args.mesh_size, args.mesh_size
+    )
     # Run the simulation session
-    simulator.run_session(parameter_ranges, num_simulations=args.num_simulations)
+    simulator.run_session(mesh, parameter_ranges, num_simulations=args.num_simulations)
 
 
 if __name__ == "__main__":

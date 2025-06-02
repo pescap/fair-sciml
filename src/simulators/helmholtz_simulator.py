@@ -3,13 +3,12 @@ import numpy as np
 from simulators.base_simulator import BaseSimulator
 import ufl
 from ufl import dx, dS, inner, grad, div, jump, avg, CellDiameter, FacetNormal
-from mpi4py import MPI
 from petsc4py import PETSc
 import dolfinx 
-import dolfinx.mesh
+from dolfinx.mesh import Mesh, create_unit_square
+from mpi4py import MPI
 import dolfinx.fem as fem
 import dolfinx.io
-from dolfinx.mesh import create_unit_square
 from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
 
@@ -21,7 +20,7 @@ class HelmholtzSimulator(BaseSimulator):
         """Return the name of the equation being simulated."""
         return "helmholtz_equation"
 
-    def setup_problem(self, **parameters) -> Dict[str, Any]:
+    def setup_problem(self, mesh: Mesh, **parameters) -> Dict[str, Any]:
         """Set up the Helmholtz equation with given parameters."""
         # Extract coefficient parameter for kappa
         n = parameters.get("coefficient", 1.0)
@@ -32,7 +31,6 @@ class HelmholtzSimulator(BaseSimulator):
             return kappa**2 * np.sin(n*np.pi * x[0]) * np.sin(n*np.pi * x[1])
         
         # Create mesh and function space
-        mesh = create_unit_square(MPI.COMM_WORLD, self.mesh_size, self.mesh_size)
         V = fem.functionspace(mesh, ("Lagrange", 1))
 
         # Define boundary condition
@@ -90,6 +88,31 @@ class HelmholtzSimulator(BaseSimulator):
         f_values = np.real(problem_data["field_input_f"].x.array)
 
         return {"coordinates": coordinates, "values": values, "field_input_f": f_values}
+
+    def analytical_solution(self, mesh: Mesh, **parameters) -> Dict[str, Any]:
+        """Compute the analytical solution for the Helmholtz equation."""
+        V = fem.functionspace(mesh, ("Lagrange", 1))
+        n = parameters.get("coefficient", 1.0)
+        kappa = 2*n*np.pi
+
+        def f_expression(x):
+            return kappa**2 * np.sin(n*np.pi * x[0]) * np.sin(n*np.pi * x[1])
+        
+        def u_analytical(x):
+            return np.sin(n*np.pi*x[0]) * np.sin(n*np.pi*x[1])
+        
+        # Create a function to hold the analytical solution
+        u_analytical_func = fem.Function(V)
+        u_analytical_func.interpolate(u_analytical)
+        
+        f_interpolated = fem.Function(V)
+        f_interpolated.interpolate(f_expression)
+
+        coordinates = mesh.geometry.x
+        values = np.real(u_analytical_func.x.array)
+        f_values = np.real(f_interpolated.x.array)
+
+        return {"coordinates": coordinates, "values": values, "field_input_f": f_values}
     
 
 def parse_arguments():
@@ -121,7 +144,7 @@ def parse_arguments():
 
 
 def main():
-    """Main function to run the Biharmonic simulations."""
+    """Main function to run the Helmholtz simulations."""
     args = parse_arguments()
 
     # Create the simulator
@@ -132,8 +155,11 @@ def main():
     # Define parameter ranges (for coefficient of f)
     parameter_ranges = {"coefficient": (args.coefficient_min, args.coefficient_max)}
 
+    mesh = create_unit_square(
+        MPI.COMM_WORLD, args.mesh_size, args.mesh_size
+    )
     # Run the simulation session
-    simulator.run_session(parameter_ranges, num_simulations=args.num_simulations)
+    simulator.run_session(mesh, parameter_ranges, num_simulations=args.num_simulations)
 
 
 if __name__ == "__main__":

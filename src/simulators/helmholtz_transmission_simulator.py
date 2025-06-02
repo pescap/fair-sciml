@@ -9,7 +9,7 @@ import dolfinx
 import dolfinx.mesh
 import dolfinx.fem as fem
 import dolfinx.io
-from dolfinx.mesh import create_unit_square
+from dolfinx.mesh import create_unit_square, Mesh
 from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
 
@@ -20,20 +20,19 @@ class HelmholtzTransmissionSimulator(BaseSimulator):
         """Return the name of the equation being simulated."""
         return "helmholtz_transmission_equation"
 
-    def setup_problem(self, **parameters) -> Dict[str, Any]:
+    def setup_problem(self, mesh: Mesh, **parameters) -> Dict[str, Any]:
         """Set up the Helmholtz equation with given parameters."""
         '''                        Problem parameters                               '''
         k0 = parameters.get("wavenumber", 1.0)  # wavenumber
         ref_ind = parameters.get("ref_ind", 1.0)  # refractive index of scatterer
+        angle = parameters.get("direction", 0.0)  # direction of incident wave
+        dim_x = parameters.get("dim_x", 10.0)  # width of computational domain
         
         wave_len = 2*np.pi / k0  # wavelength
         radius = 0.5#4 * wave_len    # scatterer radius
-        dim_in = 4 * radius
-        dim_x = dim_in + 4*wave_len     # width of computational domain
 
         '''    Discretization parameters: polynomial degree and mesh resolution     '''
         degree = 3  # polynomial degree
-        n_wave = 5  # number of mesh elements per wavelength
 
         '''                   Adiabatic absorber settings                           '''
         # The adiabatic absorber is a PML-type layer in which absorption is used to
@@ -52,26 +51,12 @@ class HelmholtzTransmissionSimulator(BaseSimulator):
         RT = 1.0e-6       # round-trip reflection
         sigma0 = -(deg_absorb + 1) * np.log(RT) / (2.0 * d_absorb)
 
-        '''                             Meshing                                     '''
-        # For this problem we use a square mesh with triangular elements.
-        # The mesh element size is h_elem, and the #elements in one dimension is n_elem
-        h_elem = wave_len / n_wave
-        n_elem = int(np.round(dim_x/h_elem))
-        # n_elem = self.mesh_size
-        # TALK TO PAUL ABOUT HOW TO APROACH THIS!!
-
-        # Create mesh
-        mesh = mesh.create_rectangle(MPI.COMM_WORLD,
-                            [np.array([-dim_x/2, -dim_x/2]),
-                            np.array([dim_x/2, dim_x/2])],
-                            [n_elem, n_elem],
-                            mesh.CellType.triangle,
-                            ghost_mode=mesh.GhostMode.none)
 
         '''        Incident field, wavenumber and adiabatic absorber functions      '''
         def incident(x):
             # Plane wave travelling in positive x-direction
-            return np.exp(1.0j * k0 * x[0])
+            direction = np.array([np.cos(angle), np.sin(angle)])
+            return np.exp(1.0j * k0 * ( x[0] * direction[0] + x[1] * direction[1] ) )
 
 
         def wavenumber(x):
@@ -171,17 +156,42 @@ class HelmholtzTransmissionSimulator(BaseSimulator):
             "field_input_f": f_values,
         }
     
+    def analytical_solution(self, mesh, **parameters) -> Dict[str, Any]:
+        """Compute the analytical solution for the Helmholtz equation."""
+        V = fem.functionspace(mesh, ("Lagrange", 1))
+        n = parameters.get("coefficient", 1.0)
+        kappa = 2*n*np.pi
+
+        def f_expression(x):
+            return kappa**2 * np.sin(n*np.pi * x[0]) * np.sin(n*np.pi * x[1])
+        
+        def u_analytical(x):
+            return np.sin(n*np.pi*x[0]) * np.sin(n*np.pi*x[1])
+        
+        # Create a function to hold the analytical solution
+        u_analytical_func = fem.Function(V)
+        u_analytical_func.interpolate(u_analytical)
+        
+        f_interpolated = fem.Function(V)
+        f_interpolated.interpolate(f_expression)
+
+        coordinates = mesh.geometry.x
+        values = np.real(u_analytical_func.x.array)
+        f_values = np.real(f_interpolated.x.array)
+
+        return {"coordinates": coordinates, "values": values, "field_input_f": f_values}
+    
 def parse_arguments():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description="Helmholtz Transmission Problem Simulation")
     parser.add_argument(
-        "--coefficient_min",
+        "--wavenumber_min",
         type=float,
         default=1.0,
         help="Minimum coefficient for the wavenumber",
     )
     parser.add_argument(
-        "--coefficient_max",
+        "--wavenumber_max",
         type=float,
         default=5.0,
         help="Maximum coefficient for the wavenumber",
@@ -198,6 +208,18 @@ def parse_arguments():
         default=5.0,
         help="Maximum coefficient for the refractive index",
     )
+    parser.add_argument(
+        "--angle_min",
+        type=float,
+        default=0.0,
+        help="Minimum value for the angle of incidence",
+    )
+    parser.add_argument(
+        "--angle_max",
+        type=float,
+        default=2*np.pi,
+        help="Maximum value for the angle of incidence",
+    )
     parser.add_argument("--mesh_size", type=int, default=32, help="Size of the mesh")
     parser.add_argument(
         "--num_simulations", type=int, default=10, help="Number of simulations to run"
@@ -212,7 +234,7 @@ def parse_arguments():
 
 
 def main():
-    """Main function to run the Biharmonic simulations."""
+    """Main function to run the Helmholtz transmission simulations."""
     args = parse_arguments()
 
     # Create the simulator
@@ -221,11 +243,32 @@ def main():
     )
 
     # Define parameter ranges (for coefficient of f)
-    parameter_ranges = {"wavenumber": (args.coefficient_min, args.coefficient_max),
-                        "ref_ind": (args.coefficient_min, args.coefficient_max)}
+    parameter_ranges = {"wavenumber": (args.wavenumber_min, args.wavenumber_max),
+                        "ref_ind": (args.ref_ind_min, args.ref_ind_max),
+                        "angle": (args.angle_min, args.angle_max)}
+
+    radius = 0.5#4 * wave_len    # scatterer radius
+    dim_in = 4 * radius
+    dim_x = dim_in + 4*(2*np.pi / args.wavenumber_min)
+
+    n_wave = 5  # min number of mesh elements per wavelength
+    h_elem = (2*np.pi / args.wavenumber_max) / n_wave
+    n_elem = int(np.round(dim_x/h_elem))
+
+    # Create mesh
+    mesh = mesh.create_rectangle(MPI.COMM_WORLD,
+                        [np.array([-dim_x/2, -dim_x/2]),
+                        np.array([dim_x/2, dim_x/2])],
+                        [n_elem, n_elem],
+                        mesh.CellType.triangle,
+                        ghost_mode=mesh.GhostMode.none)
+
+    mesh_parameters = {
+        "dim_x": dim_x
+    }
 
     # Run the simulation session
-    simulator.run_session(parameter_ranges, num_simulations=args.num_simulations)
+    simulator.run_session(mesh, parameter_ranges, num_simulations=args.num_simulations, **mesh_parameters)
 
 
 if __name__ == "__main__":
