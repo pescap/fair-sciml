@@ -99,7 +99,7 @@ class HelmholtzSimulator(BaseSimulator):
             return kappa**2 * np.sin(n*np.pi * x[0]) * np.sin(n*np.pi * x[1])
         
         def u_analytical(x):
-            return np.sin(n*np.pi*x[0]) * np.sin(n*np.pi*x[1])
+            return -2*np.sin(n*np.pi*x[0]) * np.sin(n*np.pi*x[1])
         
         # Create a function to hold the analytical solution
         u_analytical_func = fem.Function(V)

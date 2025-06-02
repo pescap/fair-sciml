@@ -158,7 +158,7 @@ def main():
             args.neumann_coefficient_max,
         ),
     }
-    mesh = create_unit_square(MPI.COMM_WORLD, self.mesh_size, self.mesh_size)
+    mesh = create_unit_square(MPI.COMM_WORLD, args.mesh_size, args.mesh_size)
     simulator.run_session(mesh, parameter_ranges, num_simulations=args.num_simulations)
 
 
