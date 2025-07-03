@@ -12,6 +12,7 @@ import dolfinx.io
 from dolfinx.mesh import create_unit_square, Mesh
 from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
+from scipy.special import spherical_jn as jn, spherical_yn as yn, eval_legendre
 
 class HelmholtzTransmissionSimulator(BaseSimulator):
     """Implementation of the Helmholtz equation simulator with transmission conditions."""
@@ -156,30 +157,86 @@ class HelmholtzTransmissionSimulator(BaseSimulator):
             "field_input_f": f_values,
         }
     
+    def coefficients_for_transmission(
+        k_ext           : np.float32,
+        k_int           : np.float32,
+        rho_ext         : np.float32,
+        rho_int         : np.float32,
+        r               : np.float32=1,
+        max_ite         : int=50,
+    ):
+        h2n = lambda n,a,derivative=False: jn(n, a, derivative=derivative) - 1j * yn(n, a, derivative=derivative)
+        psca_coef = np.zeros(max_ite, dtype=np.complex128)
+        pint_coef = np.zeros(max_ite, dtype=np.complex128)
+
+        rho = rho_int/rho_ext
+        k = k_ext/k_int
+
+        n = 0
+        while n < max_ite:
+            jn_int = jn(n, k_int * r)
+            jn_ext = jn(n, k_ext * r)
+            h2n_ext = h2n(n, k_ext * r)
+
+            d_jn_int = jn(n, k_int * r, derivative=True)
+            d_jn_ext = jn(n, k_ext * r, derivative=True)
+            d_h2n_ext = h2n(n, k_ext * r, derivative=True)
+
+            tau_num = (2*n + 1) * (-1j)**n * (d_jn_int * jn_ext - rho * k * jn_int * d_jn_ext)
+            tau_den = rho * k * jn_int * d_h2n_ext - d_jn_int * h2n_ext
+
+            tau_n = tau_num/tau_den
+            ups_n = ((2*n + 1) * (-1j)**n * jn_ext + tau_n * h2n_ext) / jn_int
+
+            psca_coef[n] = tau_n
+            pint_coef[n] = ups_n
+
+            n += 1
+
+        return psca_coef, pint_coef
+
     def analytical_solution(self, mesh, **parameters) -> Dict[str, Any]:
         """Compute the analytical solution for the Helmholtz equation."""
-        V = fem.functionspace(mesh, ("Lagrange", 1))
-        n = parameters.get("coefficient", 1.0)
-        kappa = 2*n*np.pi
 
-        def f_expression(x):
-            return kappa**2 * np.sin(n*np.pi * x[0]) * np.sin(n*np.pi * x[1])
+        h2n = lambda n,a,derivative=False: jn(n, a, derivative=derivative) - 1j * yn(n, a, derivative=derivative)
+        k0 = parameters.get("wavenumber", 1.0)  # wavenumber
+        ref_ind = parameters.get("ref_ind", 1.0)  # refractive index of scatterer
+        angle = parameters.get("direction", 0.0)  # direction of incident wave
         
-        def u_analytical(x):
-            return np.sin(n*np.pi*x[0]) * np.sin(n*np.pi*x[1])
-        
-        # Create a function to hold the analytical solution
-        u_analytical_func = fem.Function(V)
-        u_analytical_func.interpolate(u_analytical)
-        
-        f_interpolated = fem.Function(V)
-        f_interpolated.interpolate(f_expression)
+        radius = 0.5#4 * wave_len    # scatterer radius
+
+        coef = self.coefficients_for_transmission(k0, k0*ref_ind, 1, 1, r=radius)
 
         coordinates = mesh.geometry.x
-        values = np.real(u_analytical_func.x.array)
-        f_values = np.real(f_interpolated.x.array)
+        R = np.array([[np.cos(angle), -np.sin(angle)]
+                ,[np.sin(angle), np.cos(angle)]])
+        coordinates = np.dot(coordinates, R.T)
+        x = coordinates[:, 0]
+        z = coordinates[:, 1]
+        rs = np.sqrt(coordinates[:, 0]**2 + coordinates[:, 1]**2)
+        ps = coordinates[:, 1] / rs
+        if np.any(rs == 0):
+            ind = np.where(rs == 0)[0]
+            ps[ind] = 0.0
+        ext = rs > radius
+        pinc = np.zeros_like(rs, dtype=np.complex128)
+        pinc[ext] = np.exp(-1j * k0 * z[ext])
 
-        return {"coordinates": coordinates, "values": values, "field_input_f": f_values}
+        psca = np.zeros_like(x, dtype=np.complex128)
+        pint = np.zeros_like(x, dtype=np.complex128)
+
+        for n, (an, bn) in enumerate(zip(*coef)):
+            psca[ext] += an * h2n(n, k0 * rs[ext]) * eval_legendre(n, ps[ext])
+
+            pint[~ext] += bn* jn(n, ref_ind*k0 * rs[~ext]) * eval_legendre(n, ps[~ext])
+
+        ptot = (psca + pinc + pint)
+        
+        coordinates = mesh.geometry.x
+        values = np.real(ptot)
+        # f_values = np.real(f_interpolated.x.array)
+
+        return {"coordinates": coordinates, "values": values}
     
 def parse_arguments():
     """Parse command-line arguments."""
