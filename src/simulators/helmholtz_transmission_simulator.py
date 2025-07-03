@@ -157,12 +157,12 @@ class HelmholtzTransmissionSimulator(BaseSimulator):
             "field_input_f": f_values,
         }
     
-    def coefficients_for_transmission(
+    def coefficients_for_transmission(self,
         k_ext           : np.float32,
         k_int           : np.float32,
         rho_ext         : np.float32,
         rho_int         : np.float32,
-        r               : np.float32=1,
+        r               : np.float32,
         max_ite         : int=50,
     ):
         h2n = lambda n,a,derivative=False: jn(n, a, derivative=derivative) - 1j * yn(n, a, derivative=derivative)
@@ -205,12 +205,12 @@ class HelmholtzTransmissionSimulator(BaseSimulator):
         
         radius = 0.5#4 * wave_len    # scatterer radius
 
-        coef = self.coefficients_for_transmission(k0, k0*ref_ind, 1, 1, r=radius)
+        coef = self.coefficients_for_transmission(k0, k0*ref_ind, 1, 1, 0.5)
 
         coordinates = mesh.geometry.x
         R = np.array([[np.cos(angle), -np.sin(angle)]
                 ,[np.sin(angle), np.cos(angle)]])
-        coordinates = np.dot(coordinates, R.T)
+        coordinates = np.dot(coordinates[:, 0:2], R.T)
         x = coordinates[:, 0]
         z = coordinates[:, 1]
         rs = np.sqrt(coordinates[:, 0]**2 + coordinates[:, 1]**2)
