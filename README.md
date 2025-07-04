@@ -57,7 +57,7 @@ fair-sciml/
 ### Modular PDE Simulators:
   - **BaseSimulator**: Provides a framework for reusable simulation logic, including metadata collection and HDF5 data handling.
   - **Poisson Simulator**: Solves the Poisson equation with parameterized source strength and Neumann boundary conditions.
-  - **Biharmonic Simulator**: Solves the Biharmonic equation using a Discontinuous Galerkin method with parameterized coefficients.
+  - **Biharmonic Simulator**: Solves the Biharmonic equation using a C0 Interior Penalty Galerkin method with continuous Lagrange elements with parameterized coefficients.
   - **Input Fields**: Supports the use of `field_input_f` (and others if applicable) for parameterized simulations.
 
 ### Neural Operator Training:

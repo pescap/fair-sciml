@@ -3,42 +3,41 @@ import numpy as np
 from simulators.base_simulator import BaseSimulator
 import ufl
 from ufl import dx, dS, inner, grad, div, jump, avg, CellDiameter, FacetNormal
-from mpi4py import MPI
 from petsc4py import PETSc
 import dolfinx 
-import dolfinx.mesh
+from dolfinx.mesh import Mesh, create_unit_square
+from mpi4py import MPI
 import dolfinx.fem as fem
 import dolfinx.io
-from dolfinx.mesh import Mesh, create_unit_square
 from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
 
 
-class BiharmonicSimulator(BaseSimulator):
-    """Implementation of the Biharmonic equation simulator."""
+class HelmholtzSimulator(BaseSimulator):
+    """Implementation of the Helmholtz equation simulator."""
 
     def _get_equation_name(self) -> str:
         """Return the name of the equation being simulated."""
-        return "biharmonic_equation"
+        return "helmholtz_equation"
 
     def setup_problem(self, mesh: Mesh, **parameters) -> Dict[str, Any]:
-        """Set up the Biharmonic equation with given parameters."""
-        # Extract coefficient parameter for f
-        coefficient_value = parameters.get("coefficient", 1.0)
+        """Set up the Helmholtz equation with given parameters."""
+        # Extract coefficient parameter for kappa
+        n = parameters.get("coefficient", 1.0)
+        print(f"Using coefficient n = {n}")
+        kappa = 2*n*np.pi
 
-        # Define the source term (field input): f = coefficient * 4π⁴ sin(πx) sin(πy)
         def f_expression(x):
-            return coefficient_value * 4.0 * np.pi**4 * np.sin(np.pi * x[0]) \
-                * np.sin(np.pi * x[1])
-
-        # Create mesh and function space (Quadratic elements)
-        V = fem.functionspace(mesh, ("Lagrange", 2))
+            return kappa**2 * np.sin(n*np.pi * x[0]) * np.sin(n*np.pi * x[1])
+        
+        # Create mesh and function space
+        V = fem.functionspace(mesh, ("Lagrange", 1))
 
         # Define boundary condition
         def dirichlet_boundary(x):
             return np.isclose(x[0], 0.0) | np.isclose(x[0], 1.0) | \
                 np.isclose(x[1], 0.0) | np.isclose(x[1], 1.0)
-
+        
         u0 = fem.Constant(mesh, PETSc.ScalarType(0.0))
         dirichlet_dofs = fem.locate_dofs_geometrical(V, dirichlet_boundary)
         bc = fem.dirichletbc(u0, dirichlet_dofs, V)
@@ -47,28 +46,15 @@ class BiharmonicSimulator(BaseSimulator):
         u = ufl.TrialFunction(V)
         v = ufl.TestFunction(V)
 
-        # Define normal component, mesh size
-        h = CellDiameter(mesh)
-        h_avg = (h("+") + h("-")) / 2.0
-        n = FacetNormal(mesh)
-
         f_interpolated = fem.Function(V)
         f_interpolated.interpolate(f_expression)
 
         # Define bilinear and linear forms
-        a = (
-            inner(div(grad(u)), div(grad(v))) * dx
-            - inner(avg(div(grad(u))), jump(grad(v), n)) * dS
-            - inner(jump(grad(u), n), avg(div(grad(v)))) * dS
-            + 15.0 / h_avg
-            * inner(jump(grad(u), n), jump(grad(v), n))  * dS
-        )  # Fixed penalty parameter
+        a = inner(grad(u), grad(v)) * dx - kappa**2 * inner(u, v) * dx
+        L = inner(f_interpolated, v) * dx
 
         u_sol = fem.Function(V)
 
-        L = inner(f_interpolated, v) * dx
-
-        # Return problem components
         return {
             "mesh": mesh,
             "a": a,
@@ -76,10 +62,11 @@ class BiharmonicSimulator(BaseSimulator):
             "u": u_sol,
             "bc": bc,
             "field_input_f": f_interpolated,
+            "kappa": kappa,
         }
-
+    
     def solve_problem(self, problem_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Solve the Biharmonic equation."""
+        """Solve the Helmholtz problem."""
         a, L, u, bc = (
             problem_data["a"],
             problem_data["L"],
@@ -87,33 +74,61 @@ class BiharmonicSimulator(BaseSimulator):
             problem_data["bc"],
         )
 
-        # Solve the problem
+        # Create the linear problem
         problem = LinearProblem(a, L, bcs=[bc], u=u, petsc_options={"ksp_type": "preonly", "pc_type": "lu"})
         problem.solve()
 
-        # Extract coordinates, solution values, and field input values
+
+        # Solve the problem
+        problem.solve()
+
+        # Extract coordinates and solution values
         coordinates = problem_data["mesh"].geometry.x
         values = np.real(u.x.array)
         f_values = np.real(problem_data["field_input_f"].x.array)
-        # f_values = np.array([problem_data["field_input_f"](x) for x in coordinates])
 
         return {"coordinates": coordinates, "values": values, "field_input_f": f_values}
 
+    def analytical_solution(self, mesh: Mesh, **parameters) -> Dict[str, Any]:
+        """Compute the analytical solution for the Helmholtz equation."""
+        V = fem.functionspace(mesh, ("Lagrange", 1))
+        n = parameters.get("coefficient", 1.0)
+        kappa = 2*n*np.pi
+
+        def f_expression(x):
+            return kappa**2 * np.sin(n*np.pi * x[0]) * np.sin(n*np.pi * x[1])
+        
+        def u_analytical(x):
+            return -2*np.sin(n*np.pi*x[0]) * np.sin(n*np.pi*x[1])
+        
+        # Create a function to hold the analytical solution
+        u_analytical_func = fem.Function(V)
+        u_analytical_func.interpolate(u_analytical)
+        
+        f_interpolated = fem.Function(V)
+        f_interpolated.interpolate(f_expression)
+
+        coordinates = mesh.geometry.x
+        values = np.real(u_analytical_func.x.array)
+        f_values = np.real(f_interpolated.x.array)
+
+        return {"coordinates": coordinates, "values": values, "field_input_f": f_values}
+    
 
 def parse_arguments():
     """Parse command-line arguments."""
-    parser = argparse.ArgumentParser(description="Biharmonic Equation Simulation")
+    parser = argparse.ArgumentParser(description="Helmholtz Equation Simulation")
     parser.add_argument(
         "--coefficient_min",
         type=float,
         default=1.0,
-        help="Minimum coefficient for the source term",
+        help="Minimum coefficient for the wavenumber",
     )
     parser.add_argument(
         "--coefficient_max",
         type=float,
         default=5.0,
-        help="Maximum coefficient for the source term",
+        help="Maximum coefficient for the wavenumber",
     )
     parser.add_argument("--mesh_size", type=int, default=32, help="Size of the mesh")
     parser.add_argument(
@@ -129,11 +144,11 @@ def parse_arguments():
 
 
 def main():
-    """Main function to run the Biharmonic simulations."""
+    """Main function to run the Helmholtz simulations."""
     args = parse_arguments()
 
     # Create the simulator
-    simulator = BiharmonicSimulator(
+    simulator = HelmholtzSimulator(
         mesh_size=args.mesh_size, output_directory=args.output_directory
     )
 
@@ -149,3 +164,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

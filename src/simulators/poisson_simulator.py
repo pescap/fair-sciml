@@ -1,7 +1,15 @@
 import argparse
 import numpy as np
 from simulators.base_simulator import BaseSimulator
-import dolfin as df
+import ufl
+from mpi4py import MPI
+from petsc4py import PETSc
+import dolfinx 
+from dolfinx.mesh import create_unit_square, Mesh
+import dolfinx.fem as fem
+import dolfinx.io
+from dolfinx.mesh import locate_entities_boundary, create_unit_square, meshtags
+from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
 
 
@@ -12,43 +20,56 @@ class PoissonSimulator(BaseSimulator):
         """Return the name of the equation being simulated."""
         return "poisson_equation"
 
-    def setup_problem(self, **parameters) -> Dict[str, Any]:
+    def setup_problem(self, mesh: Mesh, **parameters) -> Dict[str, Any]:
         """Set up the Poisson equation with given parameters."""
         source_strength = parameters.get("source_strength", 1.0)
         neumann_coefficient = parameters.get("neumann_coefficient", 1.0)
 
         # Create mesh and function space
-        mesh = df.UnitSquareMesh(self.mesh_size, self.mesh_size)
-        V = df.FunctionSpace(mesh, "Lagrange", 1)
+        V = fem.functionspace(mesh, ("Lagrange", 1))
 
         # Define boundary condition
-        def boundary(x):
-            return x[0] < df.DOLFIN_EPS or x[0] > 1.0 - df.DOLFIN_EPS
+        def dirichlet_boundary(x):
+            return np.isclose(x[0], 0.0) | np.isclose(x[0], 1.0)
 
-        bc = df.DirichletBC(V, df.Constant(0.0), boundary)
+        
+        # Locate DOFs for Dirichlet BC
+        u_bc_value = fem.Constant(mesh, PETSc.ScalarType(0.0))
+        dirichlet_dofs = fem.locate_dofs_geometrical(V, dirichlet_boundary)
+        bc = fem.dirichletbc(u_bc_value, dirichlet_dofs, V)
 
-        # Define variational problem components
-        u = df.TrialFunction(V)
-        v = df.TestFunction(V)
+        # Define variational problem
+        def f(x):
+            return source_strength * np.exp(-((x[0] - 0.5)**2 + (x[1] - 0.5)**2) / 0.02)
+        
+        def g(x):
+            return np.sin(neumann_coefficient * x[0])
 
-        f = df.Expression(
-            f"{source_strength}*exp(-(pow(x[0] - 0.5, 2) + pow(x[1] - 0.5, 2)) / 0.02)",
-            degree=2,
-        )
-        g = df.Expression(f"sin({neumann_coefficient}*x[0])", degree=2)
+        u = ufl.TrialFunction(V)
+        v = ufl.TestFunction(V)
 
-        a = df.inner(df.grad(u), df.grad(v)) * df.dx
-        L = f * v * df.dx + g * v * df.ds
+        # Source term f
+        f_interpolated = fem.Function(V)
+        f_interpolated.interpolate(f)
 
-        u = df.Function(V)
+        # Neumann term g
+        g_interpolated = fem.Function(V)
+        g_interpolated.interpolate(g)
+
+        # Weak form
+        a = ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx
+        L = ufl.inner(f_interpolated, v) * ufl.dx + ufl.inner(g_interpolated, v) * ufl.ds  # Only Neumann boundary
+
+        u_sol = fem.Function(V)
+
         return {
             "mesh": mesh,
             "a": a,
             "L": L,
-            "u": u,
+            "u": u_sol,
             "bc": bc,
-            "field_input_f": f,
-            "field_input_g": g,
+            "field_input_f": f_interpolated,
+            "field_input_g": g_interpolated,
         }
 
     def solve_problem(self, problem_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -59,15 +80,19 @@ class PoissonSimulator(BaseSimulator):
             problem_data["u"],
             problem_data["bc"],
         )
-        df.solve(a == L, u, bc)
+        problem = LinearProblem(a, L, bcs=[bc], u=u, petsc_options={"ksp_type": "preonly", "pc_type": "lu"})
+        problem.solve()
 
         # Extract coordinates and solution values
-        coordinates = problem_data["mesh"].coordinates()
-        values = u.vector().get_local()
+        coordinates = problem_data["mesh"].geometry.x
+        values = np.real(u.x.array)
 
-        # Discretize `f` and `g`
-        f_values = np.array([problem_data["field_input_f"](x) for x in coordinates])
-        g_values = np.array([problem_data["field_input_g"](x) for x in coordinates])
+        f_values = np.zeros(coordinates.shape[0], dtype=PETSc.ScalarType)
+        g_values = np.zeros(coordinates.shape[0], dtype=PETSc.ScalarType)
+
+        f_values = np.real(problem_data["field_input_f"].x.array)
+        g_values = np.real(problem_data["field_input_g"].x.array)
+
 
         return {
             "coordinates": coordinates,
@@ -133,8 +158,8 @@ def main():
             args.neumann_coefficient_max,
         ),
     }
-
-    simulator.run_session(parameter_ranges, num_simulations=args.num_simulations)
+    mesh = create_unit_square(MPI.COMM_WORLD, args.mesh_size, args.mesh_size)
+    simulator.run_session(mesh, parameter_ranges, num_simulations=args.num_simulations)
 
 
 if __name__ == "__main__":
