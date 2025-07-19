@@ -2,13 +2,11 @@ import argparse
 import numpy as np
 from simulators.base_simulator import BaseSimulator
 import ufl
-from ufl import dx, dS, inner, grad, div, jump, avg, CellDiameter, FacetNormal
+from ufl import dx, inner, grad
 from petsc4py import PETSc
-import dolfinx 
 from dolfinx.mesh import Mesh, create_unit_square
 from mpi4py import MPI
 import dolfinx.fem as fem
-import dolfinx.io
 from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
 
@@ -25,19 +23,23 @@ class HelmholtzSimulator(BaseSimulator):
         # Extract coefficient parameter for kappa
         n = parameters.get("coefficient", 1.0)
         print(f"Using coefficient n = {n}")
-        kappa = 2*n*np.pi
+        kappa = 2 * n * np.pi
 
         def f_expression(x):
-            return kappa**2 * np.sin(n*np.pi * x[0]) * np.sin(n*np.pi * x[1])
-        
+            return kappa**2 * np.sin(n * np.pi * x[0]) * np.sin(n * np.pi * x[1])
+
         # Create mesh and function space
         V = fem.functionspace(mesh, ("Lagrange", 1))
 
         # Define boundary condition
         def dirichlet_boundary(x):
-            return np.isclose(x[0], 0.0) | np.isclose(x[0], 1.0) | \
-                np.isclose(x[1], 0.0) | np.isclose(x[1], 1.0)
-        
+            return (
+                np.isclose(x[0], 0.0)
+                | np.isclose(x[0], 1.0)
+                | np.isclose(x[1], 0.0)
+                | np.isclose(x[1], 1.0)
+            )
+
         u0 = fem.Constant(mesh, PETSc.ScalarType(0.0))
         dirichlet_dofs = fem.locate_dofs_geometrical(V, dirichlet_boundary)
         bc = fem.dirichletbc(u0, dirichlet_dofs, V)
@@ -64,7 +66,7 @@ class HelmholtzSimulator(BaseSimulator):
             "field_input_f": f_interpolated,
             "kappa": kappa,
         }
-    
+
     def solve_problem(self, problem_data: Dict[str, Any]) -> Dict[str, Any]:
         """Solve the Helmholtz problem."""
         a, L, u, bc = (
@@ -75,9 +77,15 @@ class HelmholtzSimulator(BaseSimulator):
         )
 
         # Create the linear problem
-        problem = LinearProblem(a, L, bcs=[bc], u=u, petsc_options={"ksp_type": "preonly", "pc_type": "lu"})
+        problem = LinearProblem(
+            a,
+            L,
+            bcs=[bc],
+            u=u,
+            petsc_options={"ksp_type": "preonly", "pc_type": "lu"},
+            petsc_options_prefix="helmholtz_",
+        )
         problem.solve()
-
 
         # Solve the problem
         problem.solve()
@@ -93,18 +101,18 @@ class HelmholtzSimulator(BaseSimulator):
         """Compute the analytical solution for the Helmholtz equation."""
         V = fem.functionspace(mesh, ("Lagrange", 1))
         n = parameters.get("coefficient", 1.0)
-        kappa = 2*n*np.pi
+        kappa = 2 * n * np.pi
 
         def f_expression(x):
-            return kappa**2 * np.sin(n*np.pi * x[0]) * np.sin(n*np.pi * x[1])
-        
+            return kappa**2 * np.sin(n * np.pi * x[0]) * np.sin(n * np.pi * x[1])
+
         def u_analytical(x):
-            return -2*np.sin(n*np.pi*x[0]) * np.sin(n*np.pi*x[1])
-        
+            return -2 * np.sin(n * np.pi * x[0]) * np.sin(n * np.pi * x[1])
+
         # Create a function to hold the analytical solution
         u_analytical_func = fem.Function(V)
         u_analytical_func.interpolate(u_analytical)
-        
+
         f_interpolated = fem.Function(V)
         f_interpolated.interpolate(f_expression)
 
@@ -113,7 +121,7 @@ class HelmholtzSimulator(BaseSimulator):
         f_values = np.real(f_interpolated.x.array)
 
         return {"coordinates": coordinates, "values": values, "field_input_f": f_values}
-    
+
 
 def parse_arguments():
     """Parse command-line arguments."""
@@ -155,13 +163,10 @@ def main():
     # Define parameter ranges (for coefficient of f)
     parameter_ranges = {"coefficient": (args.coefficient_min, args.coefficient_max)}
 
-    mesh = create_unit_square(
-        MPI.COMM_WORLD, args.mesh_size, args.mesh_size
-    )
+    mesh = create_unit_square(MPI.COMM_WORLD, args.mesh_size, args.mesh_size)
     # Run the simulation session
     simulator.run_session(mesh, parameter_ranges, num_simulations=args.num_simulations)
 
 
 if __name__ == "__main__":
     main()
-

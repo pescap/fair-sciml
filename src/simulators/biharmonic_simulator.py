@@ -5,10 +5,7 @@ import ufl
 from ufl import dx, dS, inner, grad, div, jump, avg, CellDiameter, FacetNormal
 from mpi4py import MPI
 from petsc4py import PETSc
-import dolfinx 
-import dolfinx.mesh
 import dolfinx.fem as fem
-import dolfinx.io
 from dolfinx.mesh import Mesh, create_unit_square
 from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
@@ -28,16 +25,25 @@ class BiharmonicSimulator(BaseSimulator):
 
         # Define the source term (field input): f = coefficient * 4π⁴ sin(πx) sin(πy)
         def f_expression(x):
-            return coefficient_value * 4.0 * np.pi**4 * np.sin(np.pi * x[0]) \
+            return (
+                coefficient_value
+                * 4.0
+                * np.pi**4
+                * np.sin(np.pi * x[0])
                 * np.sin(np.pi * x[1])
+            )
 
         # Create mesh and function space (Quadratic elements)
         V = fem.functionspace(mesh, ("Lagrange", 2))
 
         # Define boundary condition
         def dirichlet_boundary(x):
-            return np.isclose(x[0], 0.0) | np.isclose(x[0], 1.0) | \
-                np.isclose(x[1], 0.0) | np.isclose(x[1], 1.0)
+            return (
+                np.isclose(x[0], 0.0)
+                | np.isclose(x[0], 1.0)
+                | np.isclose(x[1], 0.0)
+                | np.isclose(x[1], 1.0)
+            )
 
         u0 = fem.Constant(mesh, PETSc.ScalarType(0.0))
         dirichlet_dofs = fem.locate_dofs_geometrical(V, dirichlet_boundary)
@@ -60,8 +66,7 @@ class BiharmonicSimulator(BaseSimulator):
             inner(div(grad(u)), div(grad(v))) * dx
             - inner(avg(div(grad(u))), jump(grad(v), n)) * dS
             - inner(jump(grad(u), n), avg(div(grad(v)))) * dS
-            + 15.0 / h_avg
-            * inner(jump(grad(u), n), jump(grad(v), n))  * dS
+            + 15.0 / h_avg * inner(jump(grad(u), n), jump(grad(v), n)) * dS
         )  # Fixed penalty parameter
 
         u_sol = fem.Function(V)
@@ -88,7 +93,14 @@ class BiharmonicSimulator(BaseSimulator):
         )
 
         # Solve the problem
-        problem = LinearProblem(a, L, bcs=[bc], u=u, petsc_options={"ksp_type": "preonly", "pc_type": "lu"})
+        problem = LinearProblem(
+            a,
+            L,
+            bcs=[bc],
+            u=u,
+            petsc_options={"ksp_type": "preonly", "pc_type": "lu"},
+            petsc_options_prefix="biharmonic_",
+        )
         problem.solve()
 
         # Extract coordinates, solution values, and field input values
@@ -140,9 +152,7 @@ def main():
     # Define parameter ranges (for coefficient of f)
     parameter_ranges = {"coefficient": (args.coefficient_min, args.coefficient_max)}
 
-    mesh = create_unit_square(
-        MPI.COMM_WORLD, args.mesh_size, args.mesh_size
-    )
+    mesh = create_unit_square(MPI.COMM_WORLD, args.mesh_size, args.mesh_size)
     # Run the simulation session
     simulator.run_session(mesh, parameter_ranges, num_simulations=args.num_simulations)
 

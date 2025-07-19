@@ -6,8 +6,7 @@ import os
 import numpy as np
 from utils.metadata import MetadataCollector
 from utils.h5_handler import H5Handler
-from mpi4py import MPI
-from dolfinx.mesh import create_unit_square, Mesh
+from dolfinx.mesh import Mesh
 
 
 class BaseSimulator(ABC):
@@ -74,7 +73,7 @@ class BaseSimulator(ABC):
         print(
             f"Simulation {simulation_index} completed in {execution_time:.2f} seconds."
         )
-    
+
     def run_simulation_analytical(
         self, mesh: Mesh, session_id: str, simulation_index: int, **parameters
     ) -> None:
@@ -101,7 +100,11 @@ class BaseSimulator(ABC):
         )
 
     def run_session(
-        self, mesh: Mesh, parameter_ranges: Dict[str, tuple], num_simulations: int, **mesh_parameters
+        self,
+        mesh: Mesh,
+        parameter_ranges: Dict[str, tuple],
+        num_simulations: int,
+        **mesh_parameters,
     ) -> None:
         """Run a session of multiple simulations with varying parameters."""
         session_id = str(uuid.uuid4())
@@ -127,7 +130,11 @@ class BaseSimulator(ABC):
         print(f"All simulations for {self.equation_name} saved to {self.output_path}")
 
     def run_session_analytical(
-        self, mesh: Mesh, parameter_ranges: Dict[str, tuple], num_simulations: int, **mesh_parameters
+        self,
+        mesh: Mesh,
+        parameter_ranges: Dict[str, tuple],
+        num_simulations: int,
+        **mesh_parameters,
     ) -> None:
         """Run a session of multiple simulations with varying parameters."""
         session_id = str(uuid.uuid4())
@@ -148,6 +155,8 @@ class BaseSimulator(ABC):
         for i in range(num_simulations):
             params = {param: values[i] for param, values in parameter_values.items()}
             params = dict(params, **mesh_parameters)
-            self.run_simulation_analytical(mesh, session_id, simulation_index=i + 1, **params)
+            self.run_simulation_analytical(
+                mesh, session_id, simulation_index=i + 1, **params
+            )
 
         print(f"All simulations for {self.equation_name} saved to {self.output_path}")

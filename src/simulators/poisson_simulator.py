@@ -4,11 +4,8 @@ from simulators.base_simulator import BaseSimulator
 import ufl
 from mpi4py import MPI
 from petsc4py import PETSc
-import dolfinx 
 from dolfinx.mesh import create_unit_square, Mesh
 import dolfinx.fem as fem
-import dolfinx.io
-from dolfinx.mesh import locate_entities_boundary, create_unit_square, meshtags
 from dolfinx.fem.petsc import LinearProblem
 from typing import Dict, Any
 
@@ -32,7 +29,6 @@ class PoissonSimulator(BaseSimulator):
         def dirichlet_boundary(x):
             return np.isclose(x[0], 0.0) | np.isclose(x[0], 1.0)
 
-        
         # Locate DOFs for Dirichlet BC
         u_bc_value = fem.Constant(mesh, PETSc.ScalarType(0.0))
         dirichlet_dofs = fem.locate_dofs_geometrical(V, dirichlet_boundary)
@@ -40,8 +36,10 @@ class PoissonSimulator(BaseSimulator):
 
         # Define variational problem
         def f(x):
-            return source_strength * np.exp(-((x[0] - 0.5)**2 + (x[1] - 0.5)**2) / 0.02)
-        
+            return source_strength * np.exp(
+                -((x[0] - 0.5) ** 2 + (x[1] - 0.5) ** 2) / 0.02
+            )
+
         def g(x):
             return np.sin(neumann_coefficient * x[0])
 
@@ -58,7 +56,10 @@ class PoissonSimulator(BaseSimulator):
 
         # Weak form
         a = ufl.inner(ufl.grad(u), ufl.grad(v)) * ufl.dx
-        L = ufl.inner(f_interpolated, v) * ufl.dx + ufl.inner(g_interpolated, v) * ufl.ds  # Only Neumann boundary
+        L = (
+            ufl.inner(f_interpolated, v) * ufl.dx
+            + ufl.inner(g_interpolated, v) * ufl.ds
+        )  # Only Neumann boundary
 
         u_sol = fem.Function(V)
 
@@ -80,7 +81,14 @@ class PoissonSimulator(BaseSimulator):
             problem_data["u"],
             problem_data["bc"],
         )
-        problem = LinearProblem(a, L, bcs=[bc], u=u, petsc_options={"ksp_type": "preonly", "pc_type": "lu"})
+        problem = LinearProblem(
+            a,
+            L,
+            bcs=[bc],
+            u=u,
+            petsc_options={"ksp_type": "preonly", "pc_type": "lu"},
+            petsc_options_prefix="poisson_",
+        )
         problem.solve()
 
         # Extract coordinates and solution values
@@ -92,7 +100,6 @@ class PoissonSimulator(BaseSimulator):
 
         f_values = np.real(problem_data["field_input_f"].x.array)
         g_values = np.real(problem_data["field_input_g"].x.array)
-
 
         return {
             "coordinates": coordinates,

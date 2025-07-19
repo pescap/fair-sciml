@@ -1,0 +1,56 @@
+# Use the official DOLFINx Docker image as base
+FROM dolfinx/dolfinx:nightly
+
+# Set environment variables for reproducibility
+ENV PYTHONUNBUFFERED=1
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Activate the DOLFINx environment
+ENV PATH="/dolfinx-env/bin:$PATH"
+ENV PYTHONPATH="/dolfinx-env/lib/python3.12/site-packages:$PYTHONPATH"
+
+# Set working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    wget \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies for the simulator
+RUN pip install --no-cache-dir \
+    numpy>=1.21.0 \
+    h5py>=3.7.0 \
+    scipy>=1.7.0 \
+    matplotlib>=3.5.0 \
+    pandas>=1.3.0 \
+    pytest>=6.0.0 \
+    black>=21.0.0 \
+    flake8>=3.9.0
+
+# Copy requirements file for simulator dependencies
+COPY requirements-simulator.txt /app/requirements-simulator.txt
+
+# Install simulator-specific dependencies
+RUN pip install --no-cache-dir -r requirements-simulator.txt
+
+# Copy the source code
+COPY src/ /app/src/
+
+# Create output directory for simulations
+RUN mkdir -p /app/simulations
+
+# Set Python path to include the source directory
+ENV PYTHONPATH=/app:$PYTHONPATH
+
+# Create a non-root user for running simulations
+RUN useradd -m -s /bin/bash fenics_user && \
+    chown -R fenics_user:fenics_user /app
+USER fenics_user
+
+# Default command
+CMD ["/bin/bash"] 

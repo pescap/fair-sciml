@@ -32,14 +32,16 @@ class LocalLoader(DataLoader):
                 for sim_name in session_group.keys():
                     sim_group = session_group[sim_name]
 
-
                     # Get trunk inputs (coordinates) and outputs (values)
                     coordinates = sim_group["coordinates"][:]
                     values = sim_group["values"][:]
 
                     trunk_inputs.append(np.float32(coordinates))
                     outputs.append(np.float32(values))
-                    field_inputs.append(np.ones(values.shape, dtype=np.float32)*np.float32(sim_group.attrs["parameter_coefficient"]))
+                    field_inputs.append(
+                        np.ones(values.shape, dtype=np.float32)
+                        * np.float32(sim_group.attrs["parameter_coefficient"])
+                    )
 
         return (
             np.array(field_inputs),
@@ -77,10 +79,10 @@ class DeepONetTrainer:
         branch_train, branch_test, output_train, output_test = train_test_split(
             branch_inputs_flattened, outputs, train_size=0.8, random_state=42
         )
-        print('branch_train shape:', branch_train.shape)
-        print('branch_test shape:', branch_test.shape)
-        print('output_train shape:', output_train.shape)
-        print('output_test shape:', output_test.shape)
+        print("branch_train shape:", branch_train.shape)
+        print("branch_test shape:", branch_test.shape)
+        print("output_train shape:", output_train.shape)
+        print("output_test shape:", output_test.shape)
         # Flatten outputs
         output_train = output_train.reshape(
             output_train.shape[0], -1
@@ -88,11 +90,11 @@ class DeepONetTrainer:
         output_test = output_test.reshape(
             output_test.shape[0], -1
         )  # Shape (n_samples, n_points)
-        print('output_train shape after flattening:', output_train.shape)
-        print('output_test shape after flattening:', output_test.shape)
+        print("output_train shape after flattening:", output_train.shape)
+        print("output_test shape after flattening:", output_test.shape)
         trunk_train, trunk_test = trunk_inputs, trunk_inputs
-        print('trunk_train shape:', trunk_train.shape)
-        print('trunk_test shape:', trunk_test.shape)
+        print("trunk_train shape:", trunk_train.shape)
+        print("trunk_test shape:", trunk_test.shape)
         return (
             (branch_train, trunk_train),
             output_train,

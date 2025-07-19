@@ -1,0 +1,52 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Test files
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Data files (will be mounted as volumes)
+data/
+simulations/
+*.h5
+
+# ML components (separate installation)
+src/ml/
+
+# Docker files for other components
+Dockerfile.ml
+docker-compose.ml.yml 

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  fenics-simulator:
+    build:
+      context: .
+      dockerfile: Dockerfile.fenics
+    container_name: fair-sciml-fenics
+    volumes:
+      # Mount the source code for development
+      - ./src:/app/src:ro
+      - ./utils:/app/utils:ro
+      # Mount simulations output directory
+      - ./simulations:/app/simulations
+      # Mount a data directory for input/output
+      - ./data:/app/data
+    environment:
+      - PYTHONPATH=/app
+      - OMP_NUM_THREADS=1
+      - OPENBLAS_NUM_THREADS=1
+      - MKL_NUM_THREADS=1
+      - VECLIB_MAXIMUM_THREADS=1
+      - NUMEXPR_NUM_THREADS=1
+    working_dir: /app
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+    # Resource limits for reproducible performance
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G 
