@@ -61,5 +61,6 @@ def test_session_writes_the_dataset(tmp_path, analytical):
             assert sim["values"].shape == (64,)
             assert sim["field_values_imag"].shape == (64,)
             assert sim["field_input_k"].shape == (64,)
+            assert sim["field_input_f"].shape == (64,)
             assert np.all(np.isfinite(sim["values"][:]))
             assert "parameter_wavenumber" in sim.attrs

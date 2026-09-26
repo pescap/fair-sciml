@@ -80,6 +80,12 @@ def local_wavenumber(
     return np.where(inside_spheres(points, centers, radii), k_interior, k_exterior)
 
 
+def incident_wave(points: np.ndarray, k_exterior: float, angle: float) -> np.ndarray:
+    """Plane wave of direction (sin angle, 0, cos angle)."""
+    direction = np.array([np.sin(angle), 0.0, np.cos(angle)])
+    return np.exp(1j * k_exterior * points @ direction)
+
+
 def mie_total_field(
     points: np.ndarray,
     radius: float,
@@ -213,11 +219,14 @@ class SpheresHelmholtzSimulator(BaseSimulator):
             rotated_points, n, radii, rotated_centers, kii, big_l, traces
         )
         outside = ~inside_spheres(points, centers, radii)
-        u[outside] += np.exp(1j * k_exterior * rotated_points[outside, 2])
+        u[outside] += incident_wave(points[outside], k_exterior, angle)
         return u
 
     def solution_data(self, problem_data: Dict[str, Any], u: np.ndarray) -> Dict:
         sensors = problem_data["sensors"]
+        incident = incident_wave(
+            sensors, problem_data["k_exterior"], problem_data["angle"]
+        )
         return {
             "coordinates": problem_data["points"],
             "values": np.real(u),
@@ -229,6 +238,8 @@ class SpheresHelmholtzSimulator(BaseSimulator):
                 problem_data["k_exterior"],
                 problem_data["k_interior"],
             ),
+            "field_input_f": np.real(incident),
+            "field_input_f_imag": np.imag(incident),
             "field_sensor_coordinates": sensors,
             "field_centers": np.array(problem_data["centers"]),
             "field_radii": problem_data["radii"],
