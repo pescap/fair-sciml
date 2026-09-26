@@ -235,7 +235,7 @@ The `HelmholtzTransmissionSimulator` provides advanced Helmholtz solving capabil
 The `SpheresHelmholtzSimulator` solves the scattering of a plane wave by a cubic lattice of `n_side**3` disjoint spheres with random radii and positions, using [biosspheres](https://github.com/iamartineza/biosspheres) (spherical harmonics up to degree `big_l`, local multiple traces formulation). Each simulation samples the wavenumber, the refractive index of the spheres, the direction of incidence and the geometry. It stores:
 
   - `coordinates`, `values`: the real part of the total field on the plane `y = 0`, and `field_values_imag` its imaginary part.
-  - `field_input_k`: the local wavenumber on a coarse 3D grid of sensors, which encodes geometry and material and is the branch input of the DeepONet.
+  - `field_input_k`: the local wavenumber on a coarse 3D grid of sensors, which encodes geometry and material; `field_input_f` and `field_input_f_imag`: the incident wave at the same sensors, which encodes wavenumber and direction. Together they are the branch input of the DeepONet.
   - `field_centers`, `field_radii`: the geometry.
 
 With `--analytical` it uses the Mie series for one sphere instead of solving. It needs `pip install biosspheres` only (no FEniCS). To generate a dataset in parallel shards and train a DeepONet on it:
