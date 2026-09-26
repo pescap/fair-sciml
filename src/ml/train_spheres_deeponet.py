@@ -17,7 +17,10 @@ def main():
     trainer = DeepONetTrainer(
         branch_hidden_layers=[256, 256, 256],
         trunk_hidden_layers=[256, 256, 256],
-        data_loader=FieldLoader(sorted(glob.glob(args.data))),
+        data_loader=FieldLoader(
+            sorted(glob.glob(args.data)),
+            ("field_input_k", "field_input_f", "field_input_f_imag"),
+        ),
     )
     trainer.train(
         epochs=args.epochs,

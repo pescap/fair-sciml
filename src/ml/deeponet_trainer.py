@@ -51,12 +51,12 @@ class LocalLoader(DataLoader):
 
 
 class FieldLoader(DataLoader):
-    """Load a branch field sampled at sensors (e.g. field_input_k) from one or
-    more HDF5 files."""
+    """Load branch fields sampled at sensors (e.g. field_input_k), concatenated,
+    from one or more HDF5 files."""
 
-    def __init__(self, file_paths, branch_field: str = "field_input_k"):
+    def __init__(self, file_paths, branch_fields=("field_input_k",)):
         self.file_paths = [file_paths] if isinstance(file_paths, str) else file_paths
-        self.branch_field = branch_field
+        self.branch_fields = branch_fields
 
     def load_data(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         field_inputs, trunk_inputs, outputs = [], [], []
@@ -64,7 +64,9 @@ class FieldLoader(DataLoader):
             with h5py.File(file_path, "r") as h5file:
                 for session_group in h5file.values():
                     for sim_group in session_group.values():
-                        field = sim_group[self.branch_field][:]
+                        field = np.concatenate(
+                            [sim_group[name][:] for name in self.branch_fields]
+                        )
                         field_inputs.append(np.float32(field)[:, np.newaxis])
                         trunk_inputs.append(np.float32(sim_group["coordinates"][:]))
                         outputs.append(np.float32(sim_group["values"][:]))
