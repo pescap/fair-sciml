@@ -6,7 +6,6 @@ import os
 import numpy as np
 from utils.metadata import MetadataCollector
 from utils.h5_handler import H5Handler
-from dolfinx.mesh import Mesh
 
 
 class BaseSimulator(ABC):
@@ -50,7 +49,7 @@ class BaseSimulator(ABC):
         return metadata
 
     def run_simulation(
-        self, mesh: Mesh, session_id: str, simulation_index: int, **parameters
+        self, mesh: Any, session_id: str, simulation_index: int, **parameters
     ) -> None:
         """Run a single simulation, using custom problem setup and solver."""
         start_time = time()
@@ -75,7 +74,7 @@ class BaseSimulator(ABC):
         )
 
     def run_simulation_analytical(
-        self, mesh: Mesh, session_id: str, simulation_index: int, **parameters
+        self, mesh: Any, session_id: str, simulation_index: int, **parameters
     ) -> None:
         """Run a single simulation, obtaining the analytical solution."""
         start_time = time()
@@ -101,7 +100,7 @@ class BaseSimulator(ABC):
 
     def run_session(
         self,
-        mesh: Mesh,
+        mesh: Any,
         parameter_ranges: Dict[str, tuple],
         num_simulations: int,
         **mesh_parameters,
@@ -131,7 +130,7 @@ class BaseSimulator(ABC):
 
     def run_session_analytical(
         self,
-        mesh: Mesh,
+        mesh: Any,
         parameter_ranges: Dict[str, tuple],
         num_simulations: int,
         **mesh_parameters,

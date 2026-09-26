@@ -50,6 +50,29 @@ class LocalLoader(DataLoader):
         )
 
 
+class FieldLoader(DataLoader):
+    """Load branch fields sampled at sensors (e.g. field_input_k), concatenated,
+    from one or more HDF5 files."""
+
+    def __init__(self, file_paths, branch_fields=("field_input_k",)):
+        self.file_paths = [file_paths] if isinstance(file_paths, str) else file_paths
+        self.branch_fields = branch_fields
+
+    def load_data(self) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+        field_inputs, trunk_inputs, outputs = [], [], []
+        for file_path in self.file_paths:
+            with h5py.File(file_path, "r") as h5file:
+                for session_group in h5file.values():
+                    for sim_group in session_group.values():
+                        field = np.concatenate(
+                            [sim_group[name][:] for name in self.branch_fields]
+                        )
+                        field_inputs.append(np.float32(field)[:, np.newaxis])
+                        trunk_inputs.append(np.float32(sim_group["coordinates"][:]))
+                        outputs.append(np.float32(sim_group["values"][:]))
+        return np.array(field_inputs), np.array(trunk_inputs), np.array(outputs)
+
+
 class DeepONetTrainer:
     """Handles training of DeepONet models."""
 

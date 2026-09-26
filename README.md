@@ -68,6 +68,7 @@ fair-sciml/
   - **Biharmonic Simulator**: Solves the Biharmonic equation using a C0 Interior Penalty Galerkin method with continuous Lagrange elements with parameterized coefficients.
   - **Helmholtz Simulator**: Solves the Helmholtz equation with parameterized coefficients and boundary conditions.
   - **Helmholtz Transmission Simulator**: Advanced Helmholtz solver with transmission conditions and analytical solutions.
+  - **Spheres Helmholtz Simulator**: Helmholtz transmission by arrays of many disjoint spheres in 3D, solved with the multiple traces formulation of [biosspheres](https://github.com/iamartineza/biosspheres). No mesh, no FEniCS; one sphere has the Mie series as analytical solution.
   - **Input Fields**: Supports the use of `field_input_f` (and others if applicable) for parameterized simulations.
 
 ### Neural Operator Training:
@@ -229,6 +230,21 @@ The `HelmholtzSimulator` solves the Helmholtz equation with parameterized coeffi
 
 The `HelmholtzTransmissionSimulator` provides advanced Helmholtz solving capabilities with transmission conditions and analytical solutions.
 
+### **Spheres Helmholtz Simulator**
+
+The `SpheresHelmholtzSimulator` solves the scattering of a plane wave by a cubic lattice of `n_side**3` disjoint spheres with random radii and positions, using [biosspheres](https://github.com/iamartineza/biosspheres) (spherical harmonics up to degree `big_l`, local multiple traces formulation). Each simulation samples the wavenumber, the refractive index of the spheres, the direction of incidence and the geometry. It stores:
+
+  - `coordinates`, `values`: the real part of the total field on the plane `y = 0`, and `field_values_imag` its imaginary part.
+  - `field_input_k`: the local wavenumber on a coarse 3D grid of sensors, which encodes geometry and material; `field_input_f` and `field_input_f_imag`: the incident wave at the same sensors, which encodes wavenumber and direction. Together they are the branch input of the DeepONet.
+  - `field_centers`, `field_radii`: the geometry.
+
+With `--analytical` it uses the Mie series for one sphere instead of solving. It needs `pip install biosspheres` only (no FEniCS). To generate a dataset in parallel shards and train a DeepONet on it:
+
+```bash
+SHARDS=16 PER_SHARD=32 ./scripts/generate_spheres_dataset.sh --n_side 3 --big_l 8
+PYTHONPATH=src DDE_BACKEND=pytorch python src/ml/train_spheres_deeponet.py --data "simulations/spheres/*/*.h5"
+```
+
 ---
 
 ## **DeepONet Training**
@@ -275,6 +291,7 @@ If you use this data or code for your research, please cite this GitHub reposito
 
 - Built with [FEniCS](https://fenicsproject.org/) and [DOLFINx](https://docs.fenicsproject.org/dolfinx/).
 - Deep learning with [DeepXDE](https://github.com/lululxvi/deepxde).
+- Scattering by arrays of spheres with [biosspheres](https://github.com/iamartineza/biosspheres) (Martínez-Ávila, Jerez-Hanckes, Escapil-Inchauspé, Gebäck). If you use the spheres dataset, please also cite biosspheres (see its `CITATION.cff`).
 - Documentation powered by [ReadTheDocs](https://fair-sciml.readthedocs.io/).
 - H5py: For efficient hierarchical data storage. [H5Py](https://docs.h5py.org/en/stable/index.html)
 - NeuralOperator: For advanced neural operator architectures such as FNO. [neuraloperator](https://neuraloperator.github.io/dev/).
