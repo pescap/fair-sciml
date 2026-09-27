@@ -238,7 +238,7 @@ The `SpheresHelmholtzSimulator` solves the scattering of a plane wave by a cubic
   - `field_input_k`: the local wavenumber on a coarse 3D grid of sensors, which encodes geometry and material; `field_input_f` and `field_input_f_imag`: the incident wave at the same sensors, which encodes wavenumber and direction. Together they are the branch input of the DeepONet.
   - `field_centers`, `field_radii`: the geometry.
 
-With `--analytical` it uses the Mie series for one sphere instead of solving. It needs `pip install biosspheres` only (no FEniCS). To generate a dataset in parallel shards and train a DeepONet on it:
+With `--analytical` it uses the Mie series for one sphere instead of solving. It does not need FEniCS: `pip install -r requirements-spheres.txt` (biosspheres is pinned to a commit until a release includes the Helmholtz field reconstruction). To generate a dataset in parallel shards and train a DeepONet on it:
 
 ```bash
 SHARDS=16 PER_SHARD=32 ./scripts/generate_spheres_dataset.sh --n_side 3 --big_l 8
