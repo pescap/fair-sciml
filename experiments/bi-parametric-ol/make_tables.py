@@ -86,7 +86,9 @@ def tab_dichotomy():
     fl = {int(k[0]): v for k, v in log("dichotomy_theory_smooth.log").items()}
     kd = {int(k[0]): v for k, v in log("dichotomy_theory.log").items()}
     k16 = {int(k[0]): v for k, v in log("kappa_lowmodes_mu.log").items()}
-    rows = [["nu=0"] + sum([[fmt(fl[n]["nu0.0"]["floor"]), "", fmt(err(f"hsweep_s42/n{n}_pls"))] for n in N[:3]], [])]
+    disc = {int(m.group(1)): float(m.group(2)) for m in
+            (re.match(r"^(\d+) mean rel L2 of u_h - u: (\S+) %$", l.strip()) for l in open(f"{ROOT}/logs/disc_error.log")) if m}
+    rows = [["nu=0"] + sum([[fmt(disc[n]), "", fmt(err(f"hsweep_s42/n{n}_pls"))] for n in N[:3]], [])]
     for nu in (0.03, 0.1, 0.3):
         rows.append([f"nu={nu}"] + sum([[fmt(fl[n][f"nu{nu}"]["floor"]), "", fmt(err(f"coef/n{n}_pls_nus{nu}"))] for n in N[:3]], []))
     for mu in (0.3, 0.6, 0.9):
