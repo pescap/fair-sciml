@@ -28,6 +28,7 @@ diagnostics() {
   diag ac_lagged ac_lagged.py 129 257
   diag stokes_dual stokes_dual.py 0.07 0.035 0.0175 0.00875
   diag oseen_dual oseen_dual.py 0.07 0.035 0.0175
+  diag oseen_norms oseen_norms.py 0.07 0.035 0.0175
   diag bench_precond bench_precond.py 129 257 513
 }
 

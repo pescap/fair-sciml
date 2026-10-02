@@ -22,9 +22,9 @@ def top(op, v0):
     return float(np.real(sla.eigs(op, k=1, which="LM", tol=TOL, v0=v0, return_eigenvectors=False)[0]))
 
 
-def wind(P, fx, fy):
-    f = torch.zeros(1, P.n_u, 2, dtype=torch.float64)
-    f[..., 0], f[..., 1] = fx, fy
+def wind(P, mesh, tilt):
+    x, y = mesh.points.numpy().astype(np.float64).T
+    f = torch.as_tensor(np.stack([np.sin(np.pi * y), tilt * np.sin(np.pi * x)], 1))[None]
     u, _ = P.fem_reference(f)
     u = u[0].numpy()
     return u / np.linalg.norm(u, axis=1).max()
@@ -54,7 +54,7 @@ def run(h, Us):
     free = np.flatnonzero(~P.dirichlet_mask.numpy())
     nu = int((free < P.off_p).sum())
     n = len(free)
-    w, wl = wind(P, 1.0, 0.0), wind(P, 1.0, 0.3)
+    w, wl = wind(P, mesh, 0.0), wind(P, mesh, 0.3)
     Cw, Cl = convection(mesh, w), convection(mesh, wl)
     Cw, Cl = (Cw, Cl) if rows else (Cw.T, Cl.T)
 
@@ -102,6 +102,6 @@ def run(h, Us):
     print(h, n, round(time.time() - t), out, flush=True)
 
 
-Us = [0.0, 10.0, 30.0, 100.0, 300.0, 1000.0]
-for h in [float(a) for a in sys.argv[1:]]:
-    run(h, Us)
+if __name__ == "__main__":
+    for h in [float(a) for a in sys.argv[1:]]:
+        run(h, [0.0, 10.0, 30.0, 100.0, 300.0, 1000.0])

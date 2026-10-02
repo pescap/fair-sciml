@@ -170,7 +170,18 @@ def tab_stokes():
     table("tab:stokes", ["hmax", "N", "kappa_2(G_X)", "exact kappa_2", "exact kappa_G", "code kappa_2", "code kappa_G"], rows)
 
 
-for t in (tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_stokes):
+def tab_oseen():
+    rows = []
+    for line in open(f"{ROOT}/logs/oseen_dual.log"):
+        m = re.match(r"^(0\.\d+) (\d+) \d+ (\[.*\])$", line.strip())
+        if m:
+            r = ast.literal_eval(m.group(3))
+            rows.append([m.group(1), m.group(2)] + [f"{d['kG_stokes_weight']:.3g} / {d['rho_lagged']:.2f}" for d in r])
+    table("tab:oseen (kappa_G with the Stokes weight / rho of the lagged preconditioner)",
+          ["h", "N", "U=0", "U=10", "U=30", "U=100", "U=300", "U=1000"], rows)
+
+
+for t in (tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_stokes, tab_oseen):
     try:
         t()
     except (FileNotFoundError, KeyError) as e:

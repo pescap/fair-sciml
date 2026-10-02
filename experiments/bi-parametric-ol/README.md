@@ -48,10 +48,10 @@ runs on one GPU.
 | rough cycles | `rough`, `rough_hpc`, `degraded`, `coef/*_WA` | `bench_precond` (GPU), `kappa_lowmodes` |
 | Darcy | `darcy` | `cond_darcy_scaled`, `cond_own` |
 | Allen--Cahn | `ac_hsweep`, `ac_bmg_hpc` | `ac_lagged_small`, `ac_lagged` |
-| Stokes, Oseen | -- | `stokes_dual`, `oseen_dual` |
+| Stokes, Oseen | -- | `stokes_dual`, `oseen_dual`, `oseen_norms` |
 
 The diagnostics that import `tensorpils` (`dichotomy_theory*`, `disc_error`, `kappa_lowmodes`, `bench_precond`,
-`ac_lagged*`, `stokes_dual`, `oseen_dual`) measure the multigrid cycle and the problems of TensorPILS; the others
+`ac_lagged*`, `stokes_dual`, `oseen_dual`, `oseen_norms`) measure the multigrid cycle and the problems of TensorPILS; the others
 use only the `preconditioning` module.
 
 ## Environment
