@@ -1,0 +1,24 @@
+/data/home/pescapil/precond-pils/own/pol/mg.py:10: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  return torch.sparse_csr_tensor(torch.from_numpy(S.indptr.astype(np.int64)),
+0.5 33 {'contrast': 19.8094683172486, 'mean': 311.2697268630585, 'scaled': 23.194681716140202, 'own': 1.3112878864638828}
+0.5 65 {'contrast': 20.24157652977618, 'mean': 394.8526342878341, 'scaled': 26.396852300401815, 'own': 1.3579432960255862}
+0.5 129 {'contrast': 20.338017644233574, 'mean': 437.9885269306839, 'scaled': 27.317105566317295, 'own': 1.378231487663024}
+0.5 257 {'contrast': 20.36359215770515, 'mean': 467.4826756044672, 'scaled': 27.55799569205405, 'own': 1.3869751612381507}
+1.0 33 {'contrast': 392.4150350120762, 'mean': 95741.16441763456, 'scaled': 526.1197458382817, 'own': 1.6489108381220674}
+1.0 65 {'contrast': 409.7214204107859, 'mean': 149993.38018501576, 'scaled': 680.8015624987811, 'own': 1.7730309554872148}
+1.0 129 {'contrast': 413.63496169715637, 'mean': 173579.39499509396, 'scaled': 728.9714419804394, 'own': 1.8159573095813957}
+1.0 257 {'contrast': 414.67588556535065, 'mean': 188626.7603047658, 'scaled': 741.8010502511289, 'own': 1.8299097617271867}
+Traceback (most recent call last):
+  File "/data/home/pescapil/precond-pils/own/scripts/cond_darcy_scaled.py", line 38, in <module>
+    "mean": kappa_pls(A, V0),
+            ^^^^^^^^^^^^^^^^
+  File "/data/home/pescapil/precond-pils/own/./scripts/cond_own.py", line 22, in kappa_pls
+    lo = sla.eigsh(H, k=1, which="SA", tol=1e-6, return_eigenvectors=False)[0]
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/home/pescapil/precond-pils/.venv/lib/python3.11/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py", line 1779, in eigsh
+    params.iterate()
+  File "/data/home/pescapil/precond-pils/.venv/lib/python3.11/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py", line 625, in iterate
+    self._raise_no_convergence()
+  File "/data/home/pescapil/precond-pils/.venv/lib/python3.11/site-packages/scipy/sparse/linalg/_eigen/arpack/arpack.py", line 422, in _raise_no_convergence
+    raise ArpackNoConvergence(f"No convergence ({num_iter} iterations, "
+scipy.sparse.linalg._eigen.arpack.arpack.ArpackNoConvergence: ARPACK error -1: No convergence (9611 iterations, 0/1 eigenvectors converged)

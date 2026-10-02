@@ -1,0 +1,8 @@
+
+0.07 2289 17 [{'U': 0.0, 'kG_stokes_weight': 508.8, 'rho_lagged': np.float64(0.0)}, {'U': 10.0, 'kG_stokes_weight': 524.3, 'rho_lagged': np.float64(0.0727)}, {'U': 30.0, 'kG_stokes_weight': 572.3, 'rho_lagged': np.float64(0.2177)}, {'U': 100.0, 'kG_stokes_weight': 861.3, 'rho_lagged': np.float64(0.7242)}, {'U': 300.0, 'kG_stokes_weight': 3717.2, 'rho_lagged': np.float64(2.1918)}, {'U': 1000.0, 'kG_stokes_weight': 3878357.0, 'rho_lagged': np.float64(23.7244)}]
+
+0.035 8427 191 [{'U': 0.0, 'kG_stokes_weight': 505.2, 'rho_lagged': np.float64(0.0)}, {'U': 10.0, 'kG_stokes_weight': 517.6, 'rho_lagged': np.float64(0.037)}, {'U': 30.0, 'kG_stokes_weight': 550.9, 'rho_lagged': np.float64(0.1111)}, {'U': 100.0, 'kG_stokes_weight': 716.5, 'rho_lagged': np.float64(0.3722)}, {'U': 300.0, 'kG_stokes_weight': 1761.7, 'rho_lagged': np.float64(1.1579)}, {'U': 1000.0, 'kG_stokes_weight': 4500784.9, 'rho_lagged': np.float64(37.7625)}]
+/data/home/pescapil/precond-pils/TensorPILS/../own/scripts/oseen_dual.py:100: RuntimeWarning: invalid value encountered in sqrt
+  rho = np.sqrt(top(L(lambda x: gproj(lu_G.solve(Et(G @ E(x))))), v0))
+
+0.0175 32925 1767 [{'U': 0.0, 'kG_stokes_weight': 504.3, 'rho_lagged': np.float64(nan)}, {'U': 10.0, 'kG_stokes_weight': 511.9, 'rho_lagged': np.float64(0.0196)}, {'U': 30.0, 'kG_stokes_weight': 531.6, 'rho_lagged': np.float64(0.0588)}, {'U': 100.0, 'kG_stokes_weight': 617.6, 'rho_lagged': np.float64(0.1961)}, {'U': 300.0, 'kG_stokes_weight': 1014.4, 'rho_lagged': np.float64(0.5999)}, {'U': 1000.0, 'kG_stokes_weight': 7472122.7, 'rho_lagged': np.float64(3.6958)}]
