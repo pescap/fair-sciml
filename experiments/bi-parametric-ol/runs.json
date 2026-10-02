@@ -60,6 +60,42 @@
   "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --output_dir runs/ac_hsweep/n65_pls"
  },
  {
+  "run": "ac_seeds/n129_data_s43",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss data --output_dir runs/ac_seeds/n129_data_s43"
+ },
+ {
+  "run": "ac_seeds/n129_data_s44",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss data --output_dir runs/ac_seeds/n129_data_s44"
+ },
+ {
+  "run": "ac_seeds/n129_lagged_s43",
+  "machine": "H100",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n129_lagged_s43"
+ },
+ {
+  "run": "ac_seeds/n129_lagged_s44",
+  "machine": "H100",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n129_lagged_s44"
+ },
+ {
+  "run": "ac_seeds/n129_pls_s43",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n129_pls_s43"
+ },
+ {
+  "run": "ac_seeds/n129_pls_s44",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n129_pls_s44"
+ },
+ {
   "run": "coef/n129_pls_WA",
   "machine": "Quadro RTX 8000",
   "env": "TPILS_WA=1",
@@ -340,6 +376,12 @@
   "machine": "A100",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec fixed_diag --out runs/darcy/n129_s1.0_pls_fixed_diag.json"
+ },
+ {
+  "run": "darcy/n129_s1.0_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec own --out runs/darcy/n129_s1.0_pls_own.json"
  },
  {
   "run": "darcy/n257_s0.5_data_fixed",

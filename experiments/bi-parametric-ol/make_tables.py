@@ -42,12 +42,12 @@ def fmt(x, d=2):
     return x if isinstance(x, str) else str(Decimal(repr(x)).quantize(Decimal(1).scaleb(-d), ROUND_HALF_UP))
 
 
-def mean_range(runs):
-    v = [e for e in (err(r) for r in runs) if e is not None]
+def mean_range(runs, key="test_rl2", d=1):
+    v = [e for e in (err(r, key) for r in runs) if e is not None]
     if not v:
         return "--"
     m = sum(v) / len(v)
-    return fmt(m, 1) if len(v) == 1 else f"{fmt(m, 1)} +- {fmt((max(v) - min(v)) / 2, 1)} ({len(v)} seeds)"
+    return fmt(m, d) if len(v) == 1 else f"{fmt(m, d)} +- {fmt((max(v) - min(v)) / 2, d)} ({len(v)} seeds)"
 
 
 def table(title, header, rows):
@@ -69,8 +69,8 @@ def tab_rho():
 
 
 def tab_h():
-    floor = {**{int(k[0]): v["nu0.0"]["floor"] for k, v in log("dichotomy_theory.log").items()},
-             **{int(k[0]): v["nu0.0"]["floor"] for k, v in log("dichotomy_theory_smooth.log").items()}}
+    floor = {int(m.group(1)): float(m.group(2)) for m in
+             (re.match(r"^(\d+) mean rel L2 of u_h - u: (\S+) %$", l.strip()) for l in open(f"{ROOT}/logs/disc_error.log")) if m}
     table("tab:h", ["n", "D", "CA s=2", "A", "||u_h-u||/||u|| (%)"],
           [[n] + [mean_range([f"hsweep_s{s}/n{n}_{l}" for s in seeds]) for l in ("data", "pls", "galerkin")]
            + [fmt(floor.get(n))] for n in N])
@@ -156,6 +156,19 @@ def tab_ac_train():
           ["loss", "n=65 error", "epochs", "s/epoch", "n=129 error", "epochs", "s/epoch"], rows)
 
 
+def tab_ac_seeds():
+    rows = []
+    for name, s42, tag in (("D", "ac_hsweep/n{n}_data", "data"), ("CA frozen", "ac_hsweep/n{n}_pls", "pls"),
+                           ("CA lagged", "ac_bmg_hpc/n{n}_lagged", "lagged")):
+        row = [name]
+        for n in (65, 129):
+            runs = [s42.format(n=n)] + [f"ac_seeds/n{n}_{tag}_s{s}" for s in (43, 44)]
+            row += [mean_range(runs, "test_st_rel_l2", 2), " / ".join(str(epochs_to(r, 0.1, "val_errors")) for r in runs)]
+        rows.append(row)
+    table("tab:ac_train over seeds 42, 43, 44 (space-time error %, epochs to 10% per seed)",
+          ["loss", "n=65 error", "epochs", "n=129 error", "epochs"], rows)
+
+
 def tab_stokes():
     rows, cur = [], None
     for line in open(f"{ROOT}/logs/stokes_dual.log"):
@@ -181,7 +194,7 @@ def tab_oseen():
           ["h", "N", "U=0", "U=10", "U=30", "U=100", "U=300", "U=1000"], rows)
 
 
-for t in (tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_stokes, tab_oseen):
+for t in (tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_ac_seeds, tab_stokes, tab_oseen):
     try:
         t()
     except (FileNotFoundError, KeyError) as e:
