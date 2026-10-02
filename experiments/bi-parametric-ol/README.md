@@ -65,7 +65,9 @@ each run. Times per epoch depend on the GPU and on the load of the node.
 
 The archived results were produced before the code moved to `src/preconditioning`. The move kept the
 numerics: on the same GPU, the Darcy trainer reproduces the validation curve and the test error of the archived
-version bit for bit, the Darcy dataset is identical, and the diagnostics reproduce the archived logs. The
+version bit for bit, the Darcy dataset is identical, and the diagnostics reproduce the archived logs up to the last digits of
+the eigenvalue solver (tolerance `1e-6`; the trailing digits change with the number of threads), far below the
+precision of the tables. The
 seed-42 Poisson sweep predates the later patches, which are inactive without their environment variables; a
 rerun of `n65` with the final code reproduces its test error exactly.
 
