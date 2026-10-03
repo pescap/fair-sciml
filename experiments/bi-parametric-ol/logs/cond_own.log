@@ -1,0 +1,15 @@
+/data/home/pescapil/precond-pils/own/pol/mg.py:10: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  return torch.sparse_csr_tensor(torch.from_numpy(S.indptr.astype(np.int64)),
+poisson 17 1.1808907765300816
+poisson 33 1.26010818751959
+poisson 65 1.3043508924104679
+poisson 129 1.322492427561187
+poisson 257 1.3353259714978736
+darcy 0.5 33 {'kappa': 311.26972686304856, 'contrast': 19.8094683172486}
+darcy 0.5 65 {'kappa': 394.85263428789074, 'contrast': 20.24157652977618}
+darcy 0.5 129 {'kappa': 437.988526932263, 'contrast': 20.338017644233574}
+darcy 0.5 257 {'kappa': 467.48267560343925, 'contrast': 20.36359215770515}
+darcy 1.0 33 {'kappa': 95741.16441773625, 'contrast': 392.4150350120762}
+darcy 1.0 65 {'kappa': 149993.38018484446, 'contrast': 409.7214204107859}
+darcy 1.0 129 {'kappa': 173579.39499525473, 'contrast': 413.63496169715637}
+darcy 1.0 257 {'kappa': 188626.76030462835, 'contrast': 414.67588556535065}

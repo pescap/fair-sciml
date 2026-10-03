@@ -1,0 +1,884 @@
+[
+ {
+  "run": "ac_bmg_hpc/n129_frozen",
+  "machine": "H100",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=frozen",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 129 --mg_levels 5 --output_dir runs/ac_bmg_hpc/n129_frozen"
+ },
+ {
+  "run": "ac_bmg_hpc/n129_lagged",
+  "machine": "H100",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 129 --mg_levels 5 --output_dir runs/ac_bmg_hpc/n129_lagged"
+ },
+ {
+  "run": "ac_bmg_hpc/n65_frozen",
+  "machine": "H100",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=frozen",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 65 --mg_levels 4 --output_dir runs/ac_bmg_hpc/n65_frozen"
+ },
+ {
+  "run": "ac_bmg_hpc/n65_lagged",
+  "machine": "H100",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 65 --mg_levels 4 --output_dir runs/ac_bmg_hpc/n65_lagged"
+ },
+ {
+  "run": "ac_hsweep/n129_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 129 --mg_levels 5 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/ac_hsweep/n129_data"
+ },
+ {
+  "run": "ac_hsweep/n129_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 1e-3 --lr_min 1e-4 --output_dir runs/ac_hsweep/n129_galerkin"
+ },
+ {
+  "run": "ac_hsweep/n129_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 129 --mg_levels 5 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --output_dir runs/ac_hsweep/n129_pls"
+ },
+ {
+  "run": "ac_hsweep/n65_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/ac_hsweep/n65_data"
+ },
+ {
+  "run": "ac_hsweep/n65_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 1e-3 --lr_min 1e-4 --output_dir runs/ac_hsweep/n65_galerkin"
+ },
+ {
+  "run": "ac_hsweep/n65_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --output_dir runs/ac_hsweep/n65_pls"
+ },
+ {
+  "run": "ac_seeds/n129_data_s43",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss data --output_dir runs/ac_seeds/n129_data_s43"
+ },
+ {
+  "run": "ac_seeds/n129_data_s44",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss data --output_dir runs/ac_seeds/n129_data_s44"
+ },
+ {
+  "run": "ac_seeds/n129_lagged_s43",
+  "machine": "H100",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n129_lagged_s43"
+ },
+ {
+  "run": "ac_seeds/n129_lagged_s44",
+  "machine": "H100",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n129_lagged_s44"
+ },
+ {
+  "run": "ac_seeds/n129_pls_s43",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n129_pls_s43"
+ },
+ {
+  "run": "ac_seeds/n129_pls_s44",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n129_pls_s44"
+ },
+ {
+  "run": "ac_seeds/n65_data_s43",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss data --output_dir runs/ac_seeds/n65_data_s43"
+ },
+ {
+  "run": "ac_seeds/n65_data_s44",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss data --output_dir runs/ac_seeds/n65_data_s44"
+ },
+ {
+  "run": "ac_seeds/n65_lagged_s43",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n65_lagged_s43"
+ },
+ {
+  "run": "ac_seeds/n65_lagged_s44",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n65_lagged_s44"
+ },
+ {
+  "run": "ac_seeds/n65_pls_s43",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n65_pls_s43"
+ },
+ {
+  "run": "ac_seeds/n65_pls_s44",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n65_pls_s44"
+ },
+ {
+  "run": "coef/n129_pls_WA",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_WA"
+ },
+ {
+  "run": "coef/n129_pls_WA_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1 TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_WA_mu0.6"
+ },
+ {
+  "run": "coef/n129_pls_WA_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1 TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_WA_mu0.9"
+ },
+ {
+  "run": "coef/n129_pls_mu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_mu0.3"
+ },
+ {
+  "run": "coef/n129_pls_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_mu0.6"
+ },
+ {
+  "run": "coef/n129_pls_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_mu0.9"
+ },
+ {
+  "run": "coef/n129_pls_nu0.01",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.01",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_nu0.01"
+ },
+ {
+  "run": "coef/n129_pls_nu0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_nu0.03"
+ },
+ {
+  "run": "coef/n129_pls_nu0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_nu0.1"
+ },
+ {
+  "run": "coef/n129_pls_nu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_nu0.3"
+ },
+ {
+  "run": "coef/n129_pls_nus0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_nus0.03"
+ },
+ {
+  "run": "coef/n129_pls_nus0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_nus0.1"
+ },
+ {
+  "run": "coef/n129_pls_nus0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n129_pls_nus0.3"
+ },
+ {
+  "run": "coef/n33_pls_WA",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_WA"
+ },
+ {
+  "run": "coef/n33_pls_WA_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1 TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_WA_mu0.6"
+ },
+ {
+  "run": "coef/n33_pls_WA_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1 TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_WA_mu0.9"
+ },
+ {
+  "run": "coef/n33_pls_mu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_mu0.3"
+ },
+ {
+  "run": "coef/n33_pls_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_mu0.6"
+ },
+ {
+  "run": "coef/n33_pls_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_mu0.9"
+ },
+ {
+  "run": "coef/n33_pls_nu0.01",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.01",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_nu0.01"
+ },
+ {
+  "run": "coef/n33_pls_nu0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_nu0.03"
+ },
+ {
+  "run": "coef/n33_pls_nu0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_nu0.1"
+ },
+ {
+  "run": "coef/n33_pls_nu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_nu0.3"
+ },
+ {
+  "run": "coef/n33_pls_nus0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_nus0.03"
+ },
+ {
+  "run": "coef/n33_pls_nus0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_nus0.1"
+ },
+ {
+  "run": "coef/n33_pls_nus0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n33_pls_nus0.3"
+ },
+ {
+  "run": "coef/n65_pls_WA",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_WA"
+ },
+ {
+  "run": "coef/n65_pls_WA_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1 TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_WA_mu0.6"
+ },
+ {
+  "run": "coef/n65_pls_WA_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1 TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_WA_mu0.9"
+ },
+ {
+  "run": "coef/n65_pls_mu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_mu0.3"
+ },
+ {
+  "run": "coef/n65_pls_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_mu0.6"
+ },
+ {
+  "run": "coef/n65_pls_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_mu0.9"
+ },
+ {
+  "run": "coef/n65_pls_nu0.01",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.01",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_nu0.01"
+ },
+ {
+  "run": "coef/n65_pls_nu0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_nu0.03"
+ },
+ {
+  "run": "coef/n65_pls_nu0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_nu0.1"
+ },
+ {
+  "run": "coef/n65_pls_nu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_nu0.3"
+ },
+ {
+  "run": "coef/n65_pls_nus0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_nus0.03"
+ },
+ {
+  "run": "coef/n65_pls_nus0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_nus0.1"
+ },
+ {
+  "run": "coef/n65_pls_nus0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/coef/n65_pls_nus0.3"
+ },
+ {
+  "run": "darcy/n129_s0.5_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss data --prec fixed --out runs/darcy/n129_s0.5_data_fixed.json"
+ },
+ {
+  "run": "darcy/n129_s0.5_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss ls --prec fixed --out runs/darcy/n129_s0.5_ls_fixed.json"
+ },
+ {
+  "run": "darcy/n129_s0.5_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec fixed --out runs/darcy/n129_s0.5_pls_fixed.json"
+ },
+ {
+  "run": "darcy/n129_s0.5_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec fixed_diag --out runs/darcy/n129_s0.5_pls_fixed_diag.json"
+ },
+ {
+  "run": "darcy/n129_s0.5_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec own --out runs/darcy/n129_s0.5_pls_own.json"
+ },
+ {
+  "run": "darcy/n129_s1.0_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss data --prec fixed --out runs/darcy/n129_s1.0_data_fixed.json"
+ },
+ {
+  "run": "darcy/n129_s1.0_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec fixed --out runs/darcy/n129_s1.0_pls_fixed.json"
+ },
+ {
+  "run": "darcy/n129_s1.0_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec fixed_diag --out runs/darcy/n129_s1.0_pls_fixed_diag.json"
+ },
+ {
+  "run": "darcy/n129_s1.0_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec own --out runs/darcy/n129_s1.0_pls_own.json"
+ },
+ {
+  "run": "darcy/n257_s0.5_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss data --prec fixed --out runs/darcy/n257_s0.5_data_fixed.json"
+ },
+ {
+  "run": "darcy/n257_s0.5_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss ls --prec fixed --out runs/darcy/n257_s0.5_ls_fixed.json"
+ },
+ {
+  "run": "darcy/n257_s0.5_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec fixed --out runs/darcy/n257_s0.5_pls_fixed.json"
+ },
+ {
+  "run": "darcy/n257_s0.5_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec fixed_diag --out runs/darcy/n257_s0.5_pls_fixed_diag.json"
+ },
+ {
+  "run": "darcy/n257_s0.5_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec own --out runs/darcy/n257_s0.5_pls_own.json"
+ },
+ {
+  "run": "darcy/n65_s0.5_data_fixed",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss data --prec fixed --out runs/darcy/n65_s0.5_data_fixed.json"
+ },
+ {
+  "run": "darcy/n65_s0.5_ls_fixed",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss ls --prec fixed --out runs/darcy/n65_s0.5_ls_fixed.json"
+ },
+ {
+  "run": "darcy/n65_s0.5_pls_fixed",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec fixed --out runs/darcy/n65_s0.5_pls_fixed.json"
+ },
+ {
+  "run": "darcy/n65_s0.5_pls_fixed_diag",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec fixed_diag --out runs/darcy/n65_s0.5_pls_fixed_diag.json"
+ },
+ {
+  "run": "darcy/n65_s0.5_pls_own",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec own --out runs/darcy/n65_s0.5_pls_own.json"
+ },
+ {
+  "run": "darcy/n65_s1.0_data_fixed",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss data --prec fixed --out runs/darcy/n65_s1.0_data_fixed.json"
+ },
+ {
+  "run": "darcy/n65_s1.0_ls_fixed",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss ls --prec fixed --out runs/darcy/n65_s1.0_ls_fixed.json"
+ },
+ {
+  "run": "darcy/n65_s1.0_pls_fixed",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec fixed --out runs/darcy/n65_s1.0_pls_fixed.json"
+ },
+ {
+  "run": "darcy/n65_s1.0_pls_fixed_diag",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec fixed_diag --out runs/darcy/n65_s1.0_pls_fixed_diag.json"
+ },
+ {
+  "run": "darcy/n65_s1.0_pls_own",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec own --out runs/darcy/n65_s1.0_pls_own.json"
+ },
+ {
+  "run": "degraded/n129_pls_exact",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n129_pls_exact --mg_levels 1"
+ },
+ {
+  "run": "degraded/n129_pls_nu0",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n129_pls_nu0 --mg_pre_smooth 0 --mg_post_smooth 0"
+ },
+ {
+  "run": "degraded/n129_pls_nu1",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n129_pls_nu1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "degraded/n33_pls_exact",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n33_pls_exact --mg_levels 1"
+ },
+ {
+  "run": "degraded/n33_pls_nu0",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n33_pls_nu0 --mg_pre_smooth 0 --mg_post_smooth 0"
+ },
+ {
+  "run": "degraded/n33_pls_nu1",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n33_pls_nu1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "degraded/n65_pls_exact",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n65_pls_exact --mg_levels 1"
+ },
+ {
+  "run": "degraded/n65_pls_nu0",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n65_pls_nu0 --mg_pre_smooth 0 --mg_post_smooth 0"
+ },
+ {
+  "run": "degraded/n65_pls_nu1",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n65_pls_nu1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "hsweep_s42/n129_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 129 --mg_levels 5 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s42/n129_data"
+ },
+ {
+  "run": "hsweep_s42/n129_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s42/n129_galerkin"
+ },
+ {
+  "run": "hsweep_s42/n129_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s42/n129_pls"
+ },
+ {
+  "run": "hsweep_s42/n257_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s42/n257_data"
+ },
+ {
+  "run": "hsweep_s42/n257_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s42/n257_galerkin"
+ },
+ {
+  "run": "hsweep_s42/n257_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s42/n257_pls"
+ },
+ {
+  "run": "hsweep_s42/n33_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 33 --mg_levels 3 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s42/n33_data"
+ },
+ {
+  "run": "hsweep_s42/n33_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 33 --mg_levels 3 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s42/n33_galerkin"
+ },
+ {
+  "run": "hsweep_s42/n33_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s42/n33_pls"
+ },
+ {
+  "run": "hsweep_s42/n65_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 65 --mg_levels 4 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s42/n65_data"
+ },
+ {
+  "run": "hsweep_s42/n65_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s42/n65_galerkin"
+ },
+ {
+  "run": "hsweep_s42/n65_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s42/n65_pls"
+ },
+ {
+  "run": "hsweep_s43/n129_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 129 --mg_levels 5 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s43/n129_data "
+ },
+ {
+  "run": "hsweep_s43/n129_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s43/n129_galerkin "
+ },
+ {
+  "run": "hsweep_s43/n129_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s43/n129_pls "
+ },
+ {
+  "run": "hsweep_s43/n257_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s43/n257_data "
+ },
+ {
+  "run": "hsweep_s43/n257_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s43/n257_pls "
+ },
+ {
+  "run": "hsweep_s43/n33_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 33 --mg_levels 3 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s43/n33_data "
+ },
+ {
+  "run": "hsweep_s43/n33_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 33 --mg_levels 3 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s43/n33_galerkin "
+ },
+ {
+  "run": "hsweep_s43/n33_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s43/n33_pls "
+ },
+ {
+  "run": "hsweep_s43/n65_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 65 --mg_levels 4 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s43/n65_data "
+ },
+ {
+  "run": "hsweep_s43/n65_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s43/n65_galerkin "
+ },
+ {
+  "run": "hsweep_s43/n65_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s43/n65_pls "
+ },
+ {
+  "run": "hsweep_s44/n129_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 129 --mg_levels 5 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s44/n129_data "
+ },
+ {
+  "run": "hsweep_s44/n129_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s44/n129_galerkin "
+ },
+ {
+  "run": "hsweep_s44/n129_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s44/n129_pls "
+ },
+ {
+  "run": "hsweep_s44/n257_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s44/n257_data "
+ },
+ {
+  "run": "hsweep_s44/n257_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s44/n257_pls "
+ },
+ {
+  "run": "hsweep_s44/n33_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 33 --mg_levels 3 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s44/n33_data "
+ },
+ {
+  "run": "hsweep_s44/n33_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 33 --mg_levels 3 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s44/n33_galerkin "
+ },
+ {
+  "run": "hsweep_s44/n33_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s44/n33_pls "
+ },
+ {
+  "run": "hsweep_s44/n65_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 65 --mg_levels 4 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s44/n65_data "
+ },
+ {
+  "run": "hsweep_s44/n65_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s44/n65_galerkin "
+ },
+ {
+  "run": "hsweep_s44/n65_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s44/n65_pls "
+ },
+ {
+  "run": "nuh/n129_pls_nus0.01875",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.01875",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/nuh/n129_pls_nus0.01875"
+ },
+ {
+  "run": "nuh/n65_pls_nus0.075",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.075",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/nuh/n65_pls_nus0.075"
+ },
+ {
+  "run": "rough/n129_fp16",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_FP16=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n129_fp16"
+ },
+ {
+  "run": "rough/n129_ngp1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_NGP=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n129_ngp1"
+ },
+ {
+  "run": "rough/n129_ngp2",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_NGP=2",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n129_ngp2"
+ },
+ {
+  "run": "rough/n129_s1",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n129_s1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "rough/n129_s2",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n129_s2"
+ },
+ {
+  "run": "rough/n129_twogrid",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_COARSE_SWEEPS=4",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 2 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n129_twogrid"
+ },
+ {
+  "run": "rough/n65_fp16",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_FP16=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n65_fp16"
+ },
+ {
+  "run": "rough/n65_ngp1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_NGP=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n65_ngp1"
+ },
+ {
+  "run": "rough/n65_ngp2",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_NGP=2",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n65_ngp2"
+ },
+ {
+  "run": "rough/n65_s1",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n65_s1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "rough/n65_s2",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n65_s2"
+ },
+ {
+  "run": "rough/n65_twogrid",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_COARSE_SWEEPS=4",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 2 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough/n65_twogrid"
+ },
+ {
+  "run": "rough_hpc/n257_bf16",
+  "machine": "H100",
+  "env": "",
+  "command": "TPILS_MG_BF16=1 python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough_hpc/n257_bf16"
+ },
+ {
+  "run": "rough_hpc/n257_fp16",
+  "machine": "H100",
+  "env": "",
+  "command": "TPILS_MG_FP16=1 python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough_hpc/n257_fp16"
+ },
+ {
+  "run": "rough_hpc/n257_ngp2",
+  "machine": "H100",
+  "env": "TPILS_MG_NGP=2",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough_hpc/n257_ngp2"
+ },
+ {
+  "run": "rough_hpc/n257_s1",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough_hpc/n257_s1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "rough_hpc/n257_s2",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough_hpc/n257_s2"
+ }
+]

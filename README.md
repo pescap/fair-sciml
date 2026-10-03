@@ -16,6 +16,7 @@ This repository is dedicated to advancing the principles of **Findable, Accessib
 - [Neural Operators](#neural-operators)
   - [DeepONet Training](#deeponet-training)
   - [Fourier Neural Operator (FNO) Training](#fourier-neural-operator-fno-training)
+- [Operator Preconditioning](#operator-preconditioning)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
@@ -35,9 +36,18 @@ fair-sciml/
 │   │   ├── biharmonic_simulator.py
 │   │   ├── helmholtz_simulator.py
 │   │   └── helmholtz_transmission_simulator.py
-│   └── ml/                  # Machine learning models (e.g., DeepONet)
-│       ├── deeponet_trainer.py
-│       └── fno_2d.py
+│   ├── ml/                  # Machine learning models (e.g., DeepONet)
+│   │   ├── deeponet_trainer.py
+│   │   └── fno_2d.py
+│   └── preconditioning/     # Multigrid preconditioners for physics-informed training
+│       ├── fem.py
+│       ├── multigrid.py
+│       ├── batched.py
+│       ├── diagnostics.py
+│       └── darcy.py
+├── experiments/             # Code, runs, results and logs of papers
+│   └── bi-parametric-ol/
+├── tests/                   # pytest suite
 ├── docs/                    # Documentation files (for ReadTheDocs)
 │   ├── conf.py
 │   ├── index.rst
@@ -74,6 +84,12 @@ fair-sciml/
 ### Neural Operator Training:
 - **DeepONet**: Trains dual-architecture branch and trunk networks to learn mappings from field inputs and spatial coordinates to PDE solutions.
 - **Fourier Neural Operator (FNO)**: Leverages spectral convolutions for efficient PDE solution approximation. Supports multi-field inputs and adaptive discretizations.
+
+### Operator Preconditioning:
+- **Preconditioned residual loss**: multigrid cycles that make physics-informed training of neural operators mesh independent, a batched matrix-free cycle with one coefficient per sample, and diagnostics of the conditioning of the training problem, in [`src/preconditioning`](src/preconditioning/README.md).
+
+### Experiments:
+  - **Bi-parametric operator preconditioning for physics-informed operator learning**: run configurations, results, logs and `reproduce.sh`, which regenerates every table of the paper, in [`experiments/bi-parametric-ol`](experiments/bi-parametric-ol/README.md).
 
 ### FAIR Principles:
   - **Data Formats**: Simulation results are stored in HDF5 format with hierarchical organization, metadata, and FAIR compliance.
@@ -262,6 +278,26 @@ The `FNOTrainer` trains Fourier Neural Operators using spectral convolutions. Fe
   - Multi-field support for complex PDEs.
   - Efficient learning of high-dimensional solution mappings.
   - Robust to varying resolutions and discretizations.
+
+---
+
+## **Operator Preconditioning**
+
+The `preconditioning` module trains neural operators without labels through the preconditioned residual loss $\tfrac12\lVert P(Au_\theta - b)\rVert^2$, with $P$ one multigrid cycle for the finite element matrix $A$:
+
+  - `VCycle`: Galerkin V-cycle for an assembled matrix, differentiable in `torch`.
+  - `BMG`: batched matrix-free V-cycle for $-\nabla\cdot(a\nabla u) + cu$, one coefficient pair per sample.
+  - `kappa_pls`, `rho2`, `rhoA`, `gram_kappa`: conditioning of the training problem and contraction of the cycle.
+  - `darcy.train`: FNO for the Darcy problem with the data, residual or preconditioned residual loss.
+
+```python
+from preconditioning import VCycle, kappa_pls, stiffness
+
+A = stiffness(129)
+print(kappa_pls(A, VCycle(A, 129)))
+```
+
+Tests: `pytest tests/test_preconditioning.py`. The paper that introduced it is reproduced by [`experiments/bi-parametric-ol/reproduce.sh`](experiments/bi-parametric-ol/README.md).
 
 ---
 

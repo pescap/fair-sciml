@@ -1,0 +1,5 @@
+/data/home/pescapil/precond-pils/TensorPILS/tensorpils/preconditioners/multigrid.py:172: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  cache[key] = build(L).coalesce().to_sparse_csr()
+65 {'s2': 1.168, 's1': 1.587, 'ngp1': 1.276, 'twogrid': 965.966}
+129 {'s2': 1.173, 's1': 1.579, 'ngp1': 1.188, 'twogrid': 11661.258}
+257 {'s2': 1.177, 's1': 1.582, 'ngp1': 1.181, 'twogrid': 40245.447}

@@ -1,0 +1,4 @@
+/data/home/pescapil/precond-pils/own/pol/mg.py:10: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  return torch.sparse_csr_tensor(torch.from_numpy(S.indptr.astype(np.int64)),
+65 {'nu_iid0.1': (5.1, 1.49), 'nu_iid0.3': (69.29, 3.15), 'nu_smooth0.1': (1.74, 1.68), 'nu_smooth0.3': (3.86, 3.74), 'mu0.3': (66.72, 2.8), 'mu0.6': (888.17, 9.16), 'mu0.9': (6351.97, 51.55)}
+129 {'nu_iid0.1': (20.36, 1.49), 'nu_iid0.3': (732.94, 3.08), 'nu_smooth0.1': (1.81, 1.73), 'nu_smooth0.3': (4.05, 3.89), 'mu0.3': (745.12, 3.06), 'mu0.6': (12994.0, 11.38), 'mu0.9': (97856.08, 94.25)}
