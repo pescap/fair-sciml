@@ -30,6 +30,9 @@ diagnostics() {
   diag oseen_dual oseen_dual.py 0.07 0.035 0.0175
   diag oseen_norms oseen_norms.py 0.07 0.035 0.0175
   diag bench_precond bench_precond.py 129 257 513
+  diag nu_floor nu_floor.py 0.3 33 65 129 257
+  diag tangent_65 tangent_kappa.py "$out/runs" 65 512
+  diag tangent_129 tangent_kappa.py "$out/runs" 129 512
 }
 
 case ${1:-} in

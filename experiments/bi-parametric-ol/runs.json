@@ -96,6 +96,42 @@
   "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n129_pls_s44"
  },
  {
+  "run": "ac_seeds/n65_data_s43",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss data --output_dir runs/ac_seeds/n65_data_s43"
+ },
+ {
+  "run": "ac_seeds/n65_data_s44",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss data --output_dir runs/ac_seeds/n65_data_s44"
+ },
+ {
+  "run": "ac_seeds/n65_lagged_s43",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n65_lagged_s43"
+ },
+ {
+  "run": "ac_seeds/n65_lagged_s44",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n65_lagged_s44"
+ },
+ {
+  "run": "ac_seeds/n65_pls_s43",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n65_pls_s43"
+ },
+ {
+  "run": "ac_seeds/n65_pls_s44",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde ac --model fno --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/ac_seeds/n65_pls_s44"
+ },
+ {
   "run": "coef/n129_pls_WA",
   "machine": "Quadro RTX 8000",
   "env": "TPILS_WA=1",
