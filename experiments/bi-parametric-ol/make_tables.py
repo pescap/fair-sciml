@@ -199,7 +199,18 @@ def tab_oseen():
           ["h", "N", "U=0", "U=10", "U=30", "U=100", "U=300", "U=1000"], rows)
 
 
-for t in (tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_ac_seeds, tab_stokes, tab_oseen):
+def tab_gaot():
+    rows = []
+    for name, tag in (("D", "data"), ("A", "galerkin"), ("CA", "pls"), ("CA mu=0.9", "pls_mu0.9"), ("CA nu=0.1", "pls_nus0.1")):
+        row = [name]
+        for n in (65, 129):
+            run = f"gaot/n{n}_{tag}"
+            row += [fmt(err(run)), epochs_to(run, 0.2)]
+        rows.append(row)
+    table("tab:gaot (test error %, epochs to 20%)", ["loss", "n=65 error", "epochs", "n=129 error", "epochs"], rows)
+
+
+for t in (tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_ac_seeds, tab_stokes, tab_oseen, tab_gaot):
     try:
         t()
     except (FileNotFoundError, KeyError) as e:
