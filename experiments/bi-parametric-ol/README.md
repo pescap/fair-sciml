@@ -49,9 +49,12 @@ runs on one GPU.
 | Darcy | `darcy` | `cond_darcy_scaled`, `cond_own` |
 | Allen--Cahn | `ac_hsweep`, `ac_bmg_hpc` | `ac_lagged_small`, `ac_lagged` |
 | Stokes, Oseen | -- | `stokes_dual`, `oseen_dual`, `oseen_norms` |
+| perturbation with $\nu_h\sim h^2$ | `coef/n33_pls_nus0.3`, `nuh` | `nu_floor` |
+| conditioning on the tangent space | (checkpoints of `rough`, `coef`, `degraded`) | `tangent_65`, `tangent_129` |
+| second architecture (GAOT) | `gaot` | -- |
 
 The diagnostics that import `tensorpils` (`dichotomy_theory*`, `disc_error`, `kappa_lowmodes`, `bench_precond`,
-`ac_lagged*`, `stokes_dual`, `oseen_dual`, `oseen_norms`) measure the multigrid cycle and the problems of TensorPILS; the others
+`ac_lagged*`, `stokes_dual`, `oseen_dual`, `oseen_norms`, `nu_floor`, `tangent_*`) measure the multigrid cycle and the problems of TensorPILS; the others
 use only the `preconditioning` module.
 
 ## Environment

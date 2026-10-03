@@ -210,7 +210,24 @@ def tab_gaot():
     table("tab:gaot (test error %, epochs to 20%)", ["loss", "n=65 error", "epochs", "n=129 error", "epochs"], rows)
 
 
-for t in (tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_ac_seeds, tab_stokes, tab_oseen, tab_gaot):
+def tab_tangent():
+    t = {}
+    for n in (65, 129):
+        for line in open(f"{ROOT}/logs/tangent_{n}.log"):
+            m = re.match(r"^(\d+) (\S+) (\{.*\})$", line.strip())
+            if m:
+                t[(int(m.group(1)), m.group(2))] = ast.literal_eval(m.group(3))
+    runs = {"s2": "rough/n{n}_s2", "s1": "rough/n{n}_s1", "ngp1": "rough/n{n}_ngp1", "mu0.3": "coef/n{n}_pls_mu0.3",
+            "mu0.6": "coef/n{n}_pls_mu0.6", "mu0.9": "coef/n{n}_pls_mu0.9", "twogrid": "rough/n{n}_twogrid",
+            "s0": "degraded/n{n}_pls_nu0"}
+    k = lambda x: "inf" if x < 0 else fmt(x, 2)
+    rows = [[v] + sum([[k(t[(n, v)]["kappa16"]), k(t[(n, v)]["tangent_trained"]), fmt(err(r.format(n=n)))] for n in (65, 129)], [])
+            for v, r in runs.items()]
+    table("tab:tangent (kappa_16, kappa_T of the trained network, error)",
+          ["cycle", "n=65 kappa16", "kappa_T", "error", "n=129 kappa16", "kappa_T", "error"], rows)
+
+
+for t in (tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_ac_seeds, tab_stokes, tab_oseen, tab_gaot, tab_tangent):
     try:
         t()
     except (FileNotFoundError, KeyError) as e:
