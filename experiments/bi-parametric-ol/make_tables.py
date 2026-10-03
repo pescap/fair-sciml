@@ -91,6 +91,9 @@ def tab_dichotomy():
     rows = [["nu=0"] + sum([[fmt(disc[n]), "", fmt(err(f"hsweep_s42/n{n}_pls"))] for n in N[:3]], [])]
     for nu in (0.03, 0.1, 0.3):
         rows.append([f"nu={nu}"] + sum([[fmt(fl[n][f"nu{nu}"]["floor"]), "", fmt(err(f"coef/n{n}_pls_nus{nu}"))] for n in N[:3]], []))
+    nf = {int(k[0]): v["floor"] for k, v in log("nu_floor.log").items()}
+    nuh = {33: "coef/n33_pls_nus0.3", 65: "nuh/n65_pls_nus0.075", 129: "nuh/n129_pls_nus0.01875"}
+    rows.append(["nu_h=0.3(32h)^2"] + sum([[fmt(nf.get(n)), "", fmt(err(nuh[n]))] for n in N[:3]], []))
     for mu in (0.3, 0.6, 0.9):
         rows.append([f"mu={mu}"] + sum([[fmt(kd[n][f"mu{mu}"]["kappa"], 1), fmt(k16.get(n, {}).get(mu), 1),
                                           fmt(err(f"coef/n{n}_pls_mu{mu}"))] for n in N[:3]], []))
