@@ -33,9 +33,10 @@ def nodal(a):
 
 
 def train(a, u, sigma, loss="pls", prec="own", epochs=300, lr=None, seed=42, device="cuda",
-          splits=(1024, 128, 256), bs=32):
-    """Train an FNO a -> u with the data, least-squares or preconditioned residual loss.
+          splits=(1024, 128, 256), bs=32, build=None):
+    """Train a neural operator a -> u with the data, least-squares or preconditioned residual loss.
 
+    build returns the network, mapping [B, 1, n, n] to [B, 1, n, n]; the default is an FNO.
     prec selects the preconditioner of the residual: "fixed" is one cycle for the geometric mean
     coefficient, "fixed_diag" adds a diagonal scaling by the local coefficient, "own" is one cycle
     for the coefficient of each sample.
@@ -52,7 +53,7 @@ def train(a, u, sigma, loss="pls", prec="own", epochs=300, lr=None, seed=42, dev
     abar = float(torch.exp(torch.log(A[:ntr]).mean()))
     X = (torch.log(nodal(A)) / sigma)[:, None]
     torch.manual_seed(seed)
-    model = FNO(n_modes=(16, 16), hidden_channels=64, in_channels=1, out_channels=1, n_layers=5).to(dev)
+    model = (build or (lambda: FNO(n_modes=(16, 16), hidden_channels=64, in_channels=1, out_channels=1, n_layers=5)))().to(dev)
     lr = lr or (3e-3 if loss == "ls" else 3e-4)
     opt = torch.optim.Adam(model.parameters(), lr=lr)
     sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, epochs * (ntr // bs), eta_min=lr / 10)

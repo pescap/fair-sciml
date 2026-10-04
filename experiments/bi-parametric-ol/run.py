@@ -26,8 +26,8 @@ for e in json.load(open(f"{HERE}/runs.json")):
     result = f"{out}/results/{run}/result.json" if tpils else f"{out}/results/{run}.json"
     if os.path.exists(result):
         continue
-    cmd = e["command"].replace(f"runs/{run}", f"{out}/runs/{run}" if tpils else result)
-    env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, [SRC, os.environ.get("PYTHONPATH")])))
+    cmd = e["command"].replace(f"runs/{run}" if tpils else f"runs/{run}.json", f"{out}/runs/{run}" if tpils else result)
+    env = dict(os.environ, PYTHONPATH=os.pathsep.join(filter(None, [SRC, os.path.abspath(args.tensorpils), os.environ.get("PYTHONPATH")])))
     env.update(kv.split("=", 1) for kv in e["env"].replace("<repo>/src", SRC).split())
     print(run, e["env"], cmd, flush=True)
     if args.dry_run:

@@ -5,13 +5,16 @@ import sys
 import numpy as np
 import torch
 from torch.func import functional_call, jvp
+from torch.nn.attention import SDPBackend, sdpa_kernel
 
 from preconditioning import gram_kappa, interior, sine_basis, stiffness
+from tensorpils.cli import _build_model, build_parser
 from tensorpils.data import create_datasets
 from tensorpils.models import FNOModel
 from tensorpils.preconditioners.multigrid import GeometricMultigrid
 
 runs, n, k = sys.argv[1], int(sys.argv[2]), int(sys.argv[3])
+arch = sys.argv[4] if len(sys.argv) > 4 else "fno"
 dev = "cuda"
 L = int(np.log2((n - 1) / 8)) + 1
 variants = {
@@ -25,7 +28,7 @@ variants = {
     "mu0.9": ("coef/n{n}_pls_mu0.9", dict(n_levels=L), 0, 0.9),
 }
 
-_, _, te = create_datasets(1024, 128, 256, K=10, grid_resolution=n, seed=42, solution="analytic")
+tr, _, te = create_datasets(1024, 128, 256, K=10, grid_resolution=n, seed=42, solution="analytic")
 f = te.fs[0].float().view(1, 1, n, n).to(dev)
 I = interior(n)
 A = stiffness(n)
@@ -33,10 +36,19 @@ B = stiffness(n, np.random.RandomState(4321).uniform(-1, 1, (n - 1) ** 2))
 cfg = dict(n_modes=(16, 16), hidden_channels=64, in_channels=1, out_channels=1, n_layers=5)
 
 
+def build():
+    if arch == "fno":
+        return FNOModel(**cfg)
+    os.environ.setdefault("TPILS_DEEPONET_SENSORS", "33")
+    args = build_parser().parse_args(["--model", arch, "--grid_resolution", str(n), "--mg_levels", str(L)])
+    return _build_model(args, 1, train_ds=tr)
+
+
 def network(run):
     torch.manual_seed(42)
-    model = FNOModel(**cfg).to(dev)
+    model = build().to(dev)
     if run:
+        run = run if arch == "fno" else f"{arch}/" + run.replace("rough/n{n}_s2", "hsweep_s42/n{n}_pls")
         path = glob.glob(f"{runs}/{run.format(n=n)}/checkpoints/*_best.pth")[0]
         state = torch.load(path, map_location=dev, weights_only=False)["model_state_dict"]
         state.pop("_metadata", None)
@@ -50,7 +62,8 @@ def tangent(model):
     cols = []
     for _ in range(k):
         v = {name: torch.randn(p.shape, dtype=p.dtype, generator=g, device=dev) for name, p in params.items()}
-        _, t = jvp(lambda q: functional_call(model, q, (f,)), (params,), (v,))
+        with sdpa_kernel(SDPBackend.MATH):
+            _, t = jvp(lambda q: functional_call(model, q, (f,)), (params,), (v,))
         cols.append(t.flatten().double().cpu().numpy()[I])
     return np.linalg.qr(np.stack(cols, 1))[0]
 

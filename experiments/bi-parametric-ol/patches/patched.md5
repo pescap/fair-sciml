@@ -2,3 +2,4 @@ fa79f4f85dfc5f8230320c908d135871  tensorpils/losses.py
 0eb952b0f2c0c6e76fb89f621efa7923  tensorpils/physics.py
 e89374347a827560ca5d297433be2080  tensorpils/preconditioners/multigrid.py
 d4ec1b346f5b887554a86f2e3950d119  tensorpils/trainer.py
+f08ab23976cef374a8daab007fea96d1  tensorpils/cli.py

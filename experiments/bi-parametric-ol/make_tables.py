@@ -9,7 +9,7 @@ ROOT = sys.argv[1] if len(sys.argv) > 1 else os.path.dirname(os.path.abspath(__f
 
 
 def result(run):
-    p = f"{ROOT}/results/{run}/result.json" if not run.startswith("darcy/") else f"{ROOT}/results/{run}.json"
+    p = f"{ROOT}/results/{run}/result.json" if "darcy/" not in run else f"{ROOT}/results/{run}.json"
     return json.load(open(p)) if os.path.exists(p) else None
 
 
@@ -60,6 +60,11 @@ def table(title, header, rows):
 
 N = (33, 65, 129, 257)
 seeds = (42, 43, 44)
+ARCHS = {"fno": "", "gaot": "gaot/", "deeponet": "deeponet/"}
+
+
+def titled(title, p):
+    return title if not p else f"{title} [{p[:-1]}]"
 
 
 def tab_rho():
@@ -68,40 +73,40 @@ def tab_rho():
           [[k[0]] + [v[s][q] for s in (1, 2) for q in ("rhoA", "rho2", "kappa")] for k, v in c.items()])
 
 
-def tab_h():
+def tab_h(p=""):
     floor = {int(m.group(1)): float(m.group(2)) for m in
              (re.match(r"^(\d+) mean rel L2 of u_h - u: (\S+) %$", l.strip()) for l in open(f"{ROOT}/logs/disc_error.log")) if m}
-    table("tab:h", ["n", "D", "CA s=2", "A", "||u_h-u||/||u|| (%)"],
-          [[n] + [mean_range([f"hsweep_s{s}/n{n}_{l}" for s in seeds]) for l in ("data", "pls", "galerkin")]
+    table(titled("tab:h", p), ["n", "D", "CA s=2", "A", "||u_h-u||/||u|| (%)"],
+          [[n] + [mean_range([f"{p}hsweep_s{s}/n{n}_{l}" for s in seeds]) for l in ("data", "pls", "galerkin")]
            + [fmt(floor.get(n))] for n in N])
 
 
-def tab_epochs():
-    table("tab:epochs", ["n"] + [f"s{s} {l}" for s in seeds for l in ("D", "CA")],
-          [[n] + [f"{epochs_to(f'hsweep_s{s}/n{n}_{l}', 0.2)} / {epochs_to(f'hsweep_s{s}/n{n}_{l}', 0.1)}"
+def tab_epochs(p=""):
+    table(titled("tab:epochs", p), ["n"] + [f"s{s} {l}" for s in seeds for l in ("D", "CA")],
+          [[n] + [f"{epochs_to(f'{p}hsweep_s{s}/n{n}_{l}', 0.2)} / {epochs_to(f'{p}hsweep_s{s}/n{n}_{l}', 0.1)}"
                   for s in seeds for l in ("data", "pls")] for n in N])
 
 
-def tab_dichotomy():
+def tab_dichotomy(p=""):
     fl = {int(k[0]): v for k, v in log("dichotomy_theory_smooth.log").items()}
     kd = {int(k[0]): v for k, v in log("dichotomy_theory.log").items()}
     k16 = {int(k[0]): v for k, v in log("kappa_lowmodes_mu.log").items()}
     disc = {int(m.group(1)): float(m.group(2)) for m in
             (re.match(r"^(\d+) mean rel L2 of u_h - u: (\S+) %$", l.strip()) for l in open(f"{ROOT}/logs/disc_error.log")) if m}
-    rows = [["nu=0"] + sum([[fmt(disc[n]), "", fmt(err(f"hsweep_s42/n{n}_pls"))] for n in N[:3]], [])]
+    rows = [["nu=0"] + sum([[fmt(disc[n]), "", fmt(err(f"{p}hsweep_s42/n{n}_pls"))] for n in N[:3]], [])]
     for nu in (0.03, 0.1, 0.3):
-        rows.append([f"nu={nu}"] + sum([[fmt(fl[n][f"nu{nu}"]["floor"]), "", fmt(err(f"coef/n{n}_pls_nus{nu}"))] for n in N[:3]], []))
+        rows.append([f"nu={nu}"] + sum([[fmt(fl[n][f"nu{nu}"]["floor"]), "", fmt(err(f"{p}coef/n{n}_pls_nus{nu}"))] for n in N[:3]], []))
     nf = {int(k[0]): v["floor"] for k, v in log("nu_floor.log").items()}
-    nuh = {33: "coef/n33_pls_nus0.3", 65: "nuh/n65_pls_nus0.075", 129: "nuh/n129_pls_nus0.01875"}
+    nuh = {33: f"{p}coef/n33_pls_nus0.3", 65: f"{p}nuh/n65_pls_nus0.075", 129: f"{p}nuh/n129_pls_nus0.01875"}
     rows.append(["nu_h=0.3(32h)^2"] + sum([[fmt(nf.get(n)), "", fmt(err(nuh[n]))] for n in N[:3]], []))
     for mu in (0.3, 0.6, 0.9):
         rows.append([f"mu={mu}"] + sum([[fmt(kd[n][f"mu{mu}"]["kappa"], 1), fmt(k16.get(n, {}).get(mu), 1),
-                                          fmt(err(f"coef/n{n}_pls_mu{mu}"))] for n in N[:3]], []))
-    table("tab:dichotomy (nu rows: floor, -, error; mu rows: kappa_2, kappa_16, error)",
+                                          fmt(err(f"{p}coef/n{n}_pls_mu{mu}"))] for n in N[:3]], []))
+    table(titled("tab:dichotomy (nu rows: floor, -, error; mu rows: kappa_2, kappa_16, error)", p),
           ["", "n=33", "", "", "n=65", "", "", "n=129", "", ""], rows)
 
 
-def tab_rough():
+def tab_rough(p=""):
     rho_i = {}
     for line in open(f"{ROOT}/logs/bench_precond.log") if os.path.exists(f"{ROOT}/logs/bench_precond.log") else []:
         m = re.match(r"^129 (\S+) (\{.*\})$", line.strip())
@@ -119,10 +124,13 @@ def tab_rough():
             ("no smoothing", "", ["degraded/n65_pls_nu0", "degraded/n129_pls_nu0", None], ">=1", "inf"),
             ("weight W=A", "", ["coef/n65_pls_WA", "coef/n129_pls_WA", None], "--", "--")]
     kmap = {"s2": "s2", "s1": "s1", "s2_ngp2": "s2", "s2_ngp1": "ngp1", "two_grid_jac4": "twogrid"}
+    if p:
+        spec = [(name, b, [r and p + r.replace("rough/n65_s2", "hsweep_s42/n65_pls").replace("rough/n129_s2", "hsweep_s42/n129_pls")
+                           for r in runs[:2]] + [None], r0, k0) for name, b, runs, r0, k0 in spec]
     rows = []
     for name, b, runs, r0, k0 in spec:
         rows.append([name, r0 or fmt(rho_i.get(b), 3), k0 or fmt(kl.get(kmap.get(b, "")), 2)] + [fmt(err(r)) if r else "--" for r in runs])
-    table("tab:rough (rho_I and kappa_16 at n=129)", ["cycle", "rho_I", "kappa_16", "n=65", "n=129", "n=257"], rows)
+    table(titled("tab:rough (rho_I and kappa_16 at n=129)", p), ["cycle", "rho_I", "kappa_16", "n=65", "n=129", "n=257"], rows)
 
 
 def tab_darcy():
@@ -131,11 +139,11 @@ def tab_darcy():
           [[f"{k[0]}, {k[1]}", fmt(v["mean"], 1), fmt(v["scaled"], 1), fmt(v["own"], 2)] for k, v in dl.items()])
 
 
-def tab_darcy_train():
+def tab_darcy_train(p=""):
     rows = []
     for loss in ("data_fixed", "ls_fixed", "pls_fixed", "pls_fixed_diag", "pls_own"):
-        rows.append([loss] + [fmt(err(f"darcy/n{n}_s{s}_{loss}")) for s, n in (("0.5", 65), ("0.5", 129), ("0.5", 257), ("1.0", 65), ("1.0", 129))])
-    table("tab:darcy_train", ["loss", "s0.5 n65", "s0.5 n129", "s0.5 n257", "s1.0 n65", "s1.0 n129"], rows)
+        rows.append([loss] + [fmt(err(f"{p}darcy/n{n}_s{s}_{loss}")) for s, n in (("0.5", 65), ("0.5", 129), ("0.5", 257), ("1.0", 65), ("1.0", 129))])
+    table(titled("tab:darcy_train", p), ["loss", "s0.5 n65", "s0.5 n129", "s0.5 n257", "s1.0 n65", "s1.0 n129"], rows)
 
 
 def tab_ac():
@@ -146,31 +154,31 @@ def tab_ac():
             v[1]["frozen"][1], v[1]["lagged_vcycle"][1]] for n, v in al.items()])
 
 
-def tab_ac_train():
+def tab_ac_train(p=""):
     rows = []
     for name, tag in (("D", "ac_hsweep/n{n}_data"), ("A", "ac_hsweep/n{n}_galerkin"), ("CA frozen", "ac_hsweep/n{n}_pls"),
                       ("CA frozen, batched cycle", "ac_bmg_hpc/n{n}_frozen"), ("CA lagged", "ac_bmg_hpc/n{n}_lagged")):
         row = [name]
         for n in (65, 129):
-            run = tag.format(n=n)
+            run = p + tag.format(n=n)
             r = result(run)
             et = r["stats"].get("epoch_times") if r else None
             row += [fmt(err(run, "test_st_rel_l2")), epochs_to(run, 0.1, "val_errors"), fmt(sum(et) / len(et) if et else None)]
         rows.append(row)
-    table("tab:ac_train (space-time error %, epochs to 10%, s/epoch)",
+    table(titled("tab:ac_train (space-time error %, epochs to 10%, s/epoch)", p),
           ["loss", "n=65 error", "epochs", "s/epoch", "n=129 error", "epochs", "s/epoch"], rows)
 
 
-def tab_ac_seeds():
+def tab_ac_seeds(p=""):
     rows = []
     for name, s42, tag in (("D", "ac_hsweep/n{n}_data", "data"), ("CA frozen", "ac_hsweep/n{n}_pls", "pls"),
                            ("CA lagged", "ac_bmg_hpc/n{n}_lagged", "lagged")):
         row = [name]
         for n in (65, 129):
-            runs = [s42.format(n=n)] + [f"ac_seeds/n{n}_{tag}_s{s}" for s in (43, 44)]
+            runs = [p + s42.format(n=n)] + [f"{p}ac_seeds/n{n}_{tag}_s{s}" for s in (43, 44)]
             row += [mean_range(runs, "test_st_rel_l2", 2), " / ".join(str(epochs_to(r, 0.1, "val_errors")) for r in runs)]
         rows.append(row)
-    table("tab:ac_train over seeds 42, 43, 44 (space-time error %, epochs to 10% per seed)",
+    table(titled("tab:ac_train over seeds 42, 43, 44 (space-time error %, epochs to 10% per seed)", p),
           ["loss", "n=65 error", "epochs", "n=129 error", "epochs"], rows)
 
 
@@ -199,36 +207,48 @@ def tab_oseen():
           ["h", "N", "U=0", "U=10", "U=30", "U=100", "U=300", "U=1000"], rows)
 
 
-def tab_gaot():
+def tab_arch():
     rows = []
-    for name, tag in (("D", "data"), ("A", "galerkin"), ("CA", "pls"), ("CA mu=0.9", "pls_mu0.9"), ("CA nu=0.1", "pls_nus0.1")):
-        row = [name]
-        for n in (65, 129):
-            run = f"gaot/n{n}_{tag}"
-            row += [fmt(err(run)), epochs_to(run, 0.2)]
-        rows.append(row)
-    table("tab:gaot (test error %, epochs to 20%)", ["loss", "n=65 error", "epochs", "n=129 error", "epochs"], rows)
+    for arch, p in ARCHS.items():
+        for name, run in (("D", "hsweep_s42/n{n}_data"), ("A", "hsweep_s42/n{n}_galerkin"), ("CA", "hsweep_s42/n{n}_pls"),
+                          ("CA mu=0.9", "coef/n{n}_pls_mu0.9"), ("CA nu=0.1", "coef/n{n}_pls_nus0.1")):
+            rows.append([arch, name] + sum([[fmt(err(p + run.format(n=n))), epochs_to(p + run.format(n=n), 0.2)] for n in (65, 129)], []))
+    table("tab:arch (test error %, epochs to 20%)", ["architecture", "loss", "n=65 error", "epochs", "n=129 error", "epochs"], rows)
 
 
-def tab_tangent():
+def tab_tangent(p=""):
     t = {}
     for n in (65, 129):
-        for line in open(f"{ROOT}/logs/tangent_{n}.log"):
+        for line in open(f"{ROOT}/logs/tangent_{n}.log" if not p else f"{ROOT}/logs/tangent_{p[:-1]}_{n}.log"):
             m = re.match(r"^(\d+) (\S+) (\{.*\})$", line.strip())
             if m:
                 t[(int(m.group(1)), m.group(2))] = ast.literal_eval(m.group(3))
-    runs = {"s2": "rough/n{n}_s2", "s1": "rough/n{n}_s1", "ngp1": "rough/n{n}_ngp1", "mu0.3": "coef/n{n}_pls_mu0.3",
-            "mu0.6": "coef/n{n}_pls_mu0.6", "mu0.9": "coef/n{n}_pls_mu0.9", "twogrid": "rough/n{n}_twogrid",
-            "s0": "degraded/n{n}_pls_nu0"}
+    runs = {"s2": "rough/n{n}_s2" if not p else "hsweep_s42/n{n}_pls", "s1": "rough/n{n}_s1", "ngp1": "rough/n{n}_ngp1",
+            "mu0.3": "coef/n{n}_pls_mu0.3", "mu0.6": "coef/n{n}_pls_mu0.6", "mu0.9": "coef/n{n}_pls_mu0.9",
+            "twogrid": "rough/n{n}_twogrid", "s0": "degraded/n{n}_pls_nu0"}
     k = lambda x: "inf" if x < 0 else fmt(x, 2)
-    rows = [[v] + sum([[k(t[(n, v)]["kappa16"]), k(t[(n, v)]["tangent_trained"]), fmt(err(r.format(n=n)))] for n in (65, 129)], [])
+    rows = [[v] + sum([[k(t[(n, v)]["kappa16"]), k(t[(n, v)]["tangent_trained"]), fmt(err(p + r.format(n=n)))] for n in (65, 129)], [])
             for v, r in runs.items()]
-    table("tab:tangent (kappa_16, kappa_T of the trained network, error)",
+    table(titled("tab:tangent (kappa_16, kappa_T of the trained network, error)", p),
           ["cycle", "n=65 kappa16", "kappa_T", "error", "n=129 kappa16", "kappa_T", "error"], rows)
 
 
-for t in (tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_ac_seeds, tab_stokes, tab_oseen, tab_gaot, tab_tangent):
-    try:
-        t()
-    except (FileNotFoundError, KeyError) as e:
-        print(f"\n## {t.__name__[4:]}: missing input {e}")
+def tab_theta_h():
+    rows = []
+    for arch in ARCHS:
+        for line in open(f"{ROOT}/logs/theta_h_{arch}.log"):
+            m = re.match(r"^(\d+) (init|trained) (\{.*\})$", line.strip())
+            if m:
+                d = ast.literal_eval(m.group(3))
+                rows.append([arch, m.group(1), m.group(2)] + [f"{d[l]['dist100']} / {fmt(d[l]['kappa_T'], 2)}" for l in ("CA", "CA_mu0.9", "CA_twogrid", "A")])
+    table("tab:theta_h (dist100 to D / kappa_T, fixed weights, n varies)", ["architecture", "n", "weights", "CA", "CA mu=0.9", "CA two-grid", "A"], rows)
+
+
+tables = [tab_rho, tab_h, tab_epochs, tab_dichotomy, tab_rough, tab_darcy, tab_darcy_train, tab_ac, tab_ac_train, tab_ac_seeds,
+          tab_stokes, tab_oseen, tab_arch, tab_tangent, tab_theta_h]
+for t in tables:
+    for p in ARCHS.values() if "p" in t.__code__.co_varnames[:t.__code__.co_argcount] else [None]:
+        try:
+            t() if p is None else t(p)
+        except (FileNotFoundError, KeyError) as e:
+            print(f"\n## {titled(t.__name__[4:], p or '')}: missing input {e}")

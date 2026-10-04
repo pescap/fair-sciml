@@ -564,52 +564,52 @@
   "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/degraded/n65_pls_nu1 --mg_pre_smooth 1 --mg_post_smooth 1"
  },
  {
-  "run": "gaot/n129_data",
+  "run": "gaot/hsweep_s42/n129_data",
   "machine": "Quadro RTX 8000",
   "env": "",
-  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/n129_data"
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/hsweep_s42/n129_data"
  },
  {
-  "run": "gaot/n129_galerkin",
+  "run": "gaot/hsweep_s42/n129_galerkin",
   "machine": "Quadro RTX 8000",
   "env": "",
-  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 3e-3 --lr_min 3e-4 --output_dir runs/gaot/n129_galerkin"
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 3e-3 --lr_min 3e-4 --output_dir runs/gaot/hsweep_s42/n129_galerkin"
  },
  {
-  "run": "gaot/n129_pls",
+  "run": "gaot/hsweep_s42/n129_pls",
   "machine": "Quadro RTX 8000",
   "env": "",
-  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/n129_pls"
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/hsweep_s42/n129_pls"
  },
  {
-  "run": "gaot/n65_data",
+  "run": "gaot/hsweep_s42/n65_data",
   "machine": "Quadro RTX 8000",
   "env": "",
-  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/n65_data"
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/hsweep_s42/n65_data"
  },
  {
-  "run": "gaot/n65_galerkin",
+  "run": "gaot/hsweep_s42/n65_galerkin",
   "machine": "Quadro RTX 8000",
   "env": "",
-  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 3e-3 --lr_min 3e-4 --output_dir runs/gaot/n65_galerkin"
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 3e-3 --lr_min 3e-4 --output_dir runs/gaot/hsweep_s42/n65_galerkin"
  },
  {
-  "run": "gaot/n65_pls",
+  "run": "gaot/hsweep_s42/n65_pls",
   "machine": "Quadro RTX 8000",
   "env": "",
-  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/n65_pls"
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/hsweep_s42/n65_pls"
  },
  {
-  "run": "gaot/n65_pls_mu0.9",
+  "run": "gaot/coef/n65_pls_mu0.9",
   "machine": "Quadro RTX 8000",
   "env": "TPILS_MUC=0.9",
-  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/n65_pls_mu0.9"
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/coef/n65_pls_mu0.9"
  },
  {
-  "run": "gaot/n65_pls_nus0.1",
+  "run": "gaot/coef/n65_pls_nus0.1",
   "machine": "Quadro RTX 8000",
   "env": "TPILS_NUS=0.1",
-  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/n65_pls_nus0.1"
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/coef/n65_pls_nus0.1"
  },
  {
   "run": "hsweep_s42/n129_data",
@@ -940,5 +940,1391 @@
   "machine": "H100",
   "env": "",
   "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/rough_hpc/n257_s2"
+ },
+ {
+  "run": "gaot/hsweep_s42/n257_data",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s42/n257_data"
+ },
+ {
+  "run": "gaot/hsweep_s42/n257_galerkin",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s42/n257_galerkin"
+ },
+ {
+  "run": "gaot/hsweep_s42/n257_pls",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s42/n257_pls"
+ },
+ {
+  "run": "gaot/hsweep_s42/n33_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 33 --mg_levels 3 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s42/n33_data"
+ },
+ {
+  "run": "gaot/hsweep_s42/n33_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 33 --mg_levels 3 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s42/n33_galerkin"
+ },
+ {
+  "run": "gaot/hsweep_s42/n33_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s42/n33_pls"
+ },
+ {
+  "run": "gaot/hsweep_s43/n129_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 129 --mg_levels 5 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s43/n129_data "
+ },
+ {
+  "run": "gaot/hsweep_s43/n129_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s43/n129_galerkin "
+ },
+ {
+  "run": "gaot/hsweep_s43/n129_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s43/n129_pls "
+ },
+ {
+  "run": "gaot/hsweep_s43/n257_data",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s43/n257_data "
+ },
+ {
+  "run": "gaot/hsweep_s43/n257_galerkin",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s43/n257_galerkin "
+ },
+ {
+  "run": "gaot/hsweep_s43/n257_pls",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s43/n257_pls "
+ },
+ {
+  "run": "gaot/hsweep_s43/n33_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 33 --mg_levels 3 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s43/n33_data "
+ },
+ {
+  "run": "gaot/hsweep_s43/n33_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 33 --mg_levels 3 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s43/n33_galerkin "
+ },
+ {
+  "run": "gaot/hsweep_s43/n33_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s43/n33_pls "
+ },
+ {
+  "run": "gaot/hsweep_s43/n65_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 65 --mg_levels 4 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s43/n65_data "
+ },
+ {
+  "run": "gaot/hsweep_s43/n65_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s43/n65_galerkin "
+ },
+ {
+  "run": "gaot/hsweep_s43/n65_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s43/n65_pls "
+ },
+ {
+  "run": "gaot/hsweep_s44/n129_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 129 --mg_levels 5 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s44/n129_data "
+ },
+ {
+  "run": "gaot/hsweep_s44/n129_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s44/n129_galerkin "
+ },
+ {
+  "run": "gaot/hsweep_s44/n129_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s44/n129_pls "
+ },
+ {
+  "run": "gaot/hsweep_s44/n257_data",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s44/n257_data "
+ },
+ {
+  "run": "gaot/hsweep_s44/n257_galerkin",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s44/n257_galerkin "
+ },
+ {
+  "run": "gaot/hsweep_s44/n257_pls",
+  "machine": "H100",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s44/n257_pls "
+ },
+ {
+  "run": "gaot/hsweep_s44/n33_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 33 --mg_levels 3 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s44/n33_data "
+ },
+ {
+  "run": "gaot/hsweep_s44/n33_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 33 --mg_levels 3 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s44/n33_galerkin "
+ },
+ {
+  "run": "gaot/hsweep_s44/n33_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s44/n33_pls "
+ },
+ {
+  "run": "gaot/hsweep_s44/n65_data",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 65 --mg_levels 4 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s44/n65_data "
+ },
+ {
+  "run": "gaot/hsweep_s44/n65_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/gaot/hsweep_s44/n65_galerkin "
+ },
+ {
+  "run": "gaot/hsweep_s44/n65_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/hsweep_s44/n65_pls "
+ },
+ {
+  "run": "gaot/coef/n33_pls_nus0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n33_pls_nus0.03"
+ },
+ {
+  "run": "gaot/coef/n33_pls_nus0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n33_pls_nus0.1"
+ },
+ {
+  "run": "gaot/coef/n33_pls_nus0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n33_pls_nus0.3"
+ },
+ {
+  "run": "gaot/coef/n33_pls_mu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n33_pls_mu0.3"
+ },
+ {
+  "run": "gaot/coef/n33_pls_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n33_pls_mu0.6"
+ },
+ {
+  "run": "gaot/coef/n33_pls_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n33_pls_mu0.9"
+ },
+ {
+  "run": "gaot/coef/n65_pls_nus0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n65_pls_nus0.03"
+ },
+ {
+  "run": "gaot/coef/n65_pls_nus0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n65_pls_nus0.3"
+ },
+ {
+  "run": "gaot/coef/n65_pls_mu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n65_pls_mu0.3"
+ },
+ {
+  "run": "gaot/coef/n65_pls_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n65_pls_mu0.6"
+ },
+ {
+  "run": "gaot/coef/n129_pls_nus0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n129_pls_nus0.03"
+ },
+ {
+  "run": "gaot/coef/n129_pls_nus0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n129_pls_nus0.1"
+ },
+ {
+  "run": "gaot/coef/n129_pls_nus0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n129_pls_nus0.3"
+ },
+ {
+  "run": "gaot/coef/n129_pls_mu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n129_pls_mu0.3"
+ },
+ {
+  "run": "gaot/coef/n129_pls_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n129_pls_mu0.6"
+ },
+ {
+  "run": "gaot/coef/n129_pls_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n129_pls_mu0.9"
+ },
+ {
+  "run": "gaot/coef/n65_pls_WA",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n65_pls_WA"
+ },
+ {
+  "run": "gaot/coef/n129_pls_WA",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/coef/n129_pls_WA"
+ },
+ {
+  "run": "gaot/nuh/n129_pls_nus0.01875",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.01875",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/nuh/n129_pls_nus0.01875"
+ },
+ {
+  "run": "gaot/nuh/n65_pls_nus0.075",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_NUS=0.075",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/nuh/n65_pls_nus0.075"
+ },
+ {
+  "run": "gaot/rough/n65_s1",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n65_s1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "gaot/rough/n65_fp16",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_FP16=1",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n65_fp16"
+ },
+ {
+  "run": "gaot/rough/n65_ngp2",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_NGP=2",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n65_ngp2"
+ },
+ {
+  "run": "gaot/rough/n65_ngp1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_NGP=1",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n65_ngp1"
+ },
+ {
+  "run": "gaot/rough/n65_twogrid",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_COARSE_SWEEPS=4",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 2 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n65_twogrid"
+ },
+ {
+  "run": "gaot/rough/n129_s1",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n129_s1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "gaot/rough/n129_fp16",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_FP16=1",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n129_fp16"
+ },
+ {
+  "run": "gaot/rough/n129_ngp2",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_NGP=2",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n129_ngp2"
+ },
+ {
+  "run": "gaot/rough/n129_ngp1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_MG_NGP=1",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n129_ngp1"
+ },
+ {
+  "run": "gaot/rough/n129_twogrid",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_COARSE_SWEEPS=4",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 2 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/rough/n129_twogrid"
+ },
+ {
+  "run": "gaot/degraded/n65_pls_exact",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/degraded/n65_pls_exact --mg_levels 1"
+ },
+ {
+  "run": "gaot/degraded/n65_pls_nu0",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/degraded/n65_pls_nu0 --mg_pre_smooth 0 --mg_post_smooth 0"
+ },
+ {
+  "run": "gaot/degraded/n129_pls_exact",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/degraded/n129_pls_exact --mg_levels 1"
+ },
+ {
+  "run": "gaot/degraded/n129_pls_nu0",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model gaot -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/gaot/degraded/n129_pls_nu0 --mg_pre_smooth 0 --mg_post_smooth 0"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n129_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 129 --mg_levels 5 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s42/n129_data"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n129_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s42/n129_galerkin"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n129_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s42/n129_pls"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n257_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s42/n257_data"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n257_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s42/n257_galerkin"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n257_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s42/n257_pls"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n33_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 33 --mg_levels 3 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s42/n33_data"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n33_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 33 --mg_levels 3 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s42/n33_galerkin"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n33_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s42/n33_pls"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n65_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 65 --mg_levels 4 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s42/n65_data"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n65_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s42/n65_galerkin"
+ },
+ {
+  "run": "deeponet/hsweep_s42/n65_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s42/n65_pls"
+ },
+ {
+  "run": "deeponet/hsweep_s43/n129_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 129 --mg_levels 5 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s43/n129_data "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n129_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s43/n129_galerkin "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n129_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s43/n129_pls "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n257_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s43/n257_data "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n257_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s43/n257_galerkin "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n257_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s43/n257_pls "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n33_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 33 --mg_levels 3 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s43/n33_data "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n33_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 33 --mg_levels 3 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s43/n33_galerkin "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n33_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s43/n33_pls "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n65_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 65 --mg_levels 4 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s43/n65_data "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n65_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s43/n65_galerkin "
+ },
+ {
+  "run": "deeponet/hsweep_s43/n65_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s43/n65_pls "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n129_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 129 --mg_levels 5 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s44/n129_data "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n129_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s44/n129_galerkin "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n129_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s44/n129_pls "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n257_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s44/n257_data "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n257_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s44/n257_galerkin "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n257_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s44/n257_pls "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n33_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 33 --mg_levels 3 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s44/n33_data "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n33_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 33 --mg_levels 3 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s44/n33_galerkin "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n33_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s44/n33_pls "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n65_data",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 65 --mg_levels 4 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s44/n65_data "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n65_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/deeponet/hsweep_s44/n65_galerkin "
+ },
+ {
+  "run": "deeponet/hsweep_s44/n65_pls",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/hsweep_s44/n65_pls "
+ },
+ {
+  "run": "deeponet/coef/n33_pls_nus0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n33_pls_nus0.03"
+ },
+ {
+  "run": "deeponet/coef/n33_pls_nus0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n33_pls_nus0.1"
+ },
+ {
+  "run": "deeponet/coef/n33_pls_nus0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n33_pls_nus0.3"
+ },
+ {
+  "run": "deeponet/coef/n33_pls_mu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n33_pls_mu0.3"
+ },
+ {
+  "run": "deeponet/coef/n33_pls_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n33_pls_mu0.6"
+ },
+ {
+  "run": "deeponet/coef/n33_pls_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 33 --mg_levels 3 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n33_pls_mu0.9"
+ },
+ {
+  "run": "deeponet/coef/n65_pls_nus0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n65_pls_nus0.03"
+ },
+ {
+  "run": "deeponet/coef/n65_pls_nus0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n65_pls_nus0.1"
+ },
+ {
+  "run": "deeponet/coef/n65_pls_nus0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n65_pls_nus0.3"
+ },
+ {
+  "run": "deeponet/coef/n65_pls_mu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n65_pls_mu0.3"
+ },
+ {
+  "run": "deeponet/coef/n65_pls_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n65_pls_mu0.6"
+ },
+ {
+  "run": "deeponet/coef/n65_pls_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n65_pls_mu0.9"
+ },
+ {
+  "run": "deeponet/coef/n129_pls_nus0.03",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.03",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n129_pls_nus0.03"
+ },
+ {
+  "run": "deeponet/coef/n129_pls_nus0.1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.1",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n129_pls_nus0.1"
+ },
+ {
+  "run": "deeponet/coef/n129_pls_nus0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n129_pls_nus0.3"
+ },
+ {
+  "run": "deeponet/coef/n129_pls_mu0.3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MUC=0.3",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n129_pls_mu0.3"
+ },
+ {
+  "run": "deeponet/coef/n129_pls_mu0.6",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MUC=0.6",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n129_pls_mu0.6"
+ },
+ {
+  "run": "deeponet/coef/n129_pls_mu0.9",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MUC=0.9",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n129_pls_mu0.9"
+ },
+ {
+  "run": "deeponet/coef/n65_pls_WA",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_WA=1",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n65_pls_WA"
+ },
+ {
+  "run": "deeponet/coef/n129_pls_WA",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_WA=1",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/coef/n129_pls_WA"
+ },
+ {
+  "run": "deeponet/nuh/n129_pls_nus0.01875",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.01875",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/deeponet/nuh/n129_pls_nus0.01875"
+ },
+ {
+  "run": "deeponet/nuh/n65_pls_nus0.075",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_NUS=0.075",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-4 --lr_min 3e-5 --output_dir runs/deeponet/nuh/n65_pls_nus0.075"
+ },
+ {
+  "run": "deeponet/rough/n65_s1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n65_s1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "deeponet/rough/n65_fp16",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MG_FP16=1",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n65_fp16"
+ },
+ {
+  "run": "deeponet/rough/n65_ngp2",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MG_NGP=2",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n65_ngp2"
+ },
+ {
+  "run": "deeponet/rough/n65_ngp1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MG_NGP=1",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n65_ngp1"
+ },
+ {
+  "run": "deeponet/rough/n65_twogrid",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_COARSE_SWEEPS=4",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 2 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n65_twogrid"
+ },
+ {
+  "run": "deeponet/rough/n129_s1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n129_s1 --mg_pre_smooth 1 --mg_post_smooth 1"
+ },
+ {
+  "run": "deeponet/rough/n129_fp16",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MG_FP16=1",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n129_fp16"
+ },
+ {
+  "run": "deeponet/rough/n129_ngp2",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MG_NGP=2",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n129_ngp2"
+ },
+ {
+  "run": "deeponet/rough/n129_ngp1",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_MG_NGP=1",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n129_ngp1"
+ },
+ {
+  "run": "deeponet/rough/n129_twogrid",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_COARSE_SWEEPS=4",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 2 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/rough/n129_twogrid"
+ },
+ {
+  "run": "deeponet/degraded/n65_pls_exact",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/degraded/n65_pls_exact --mg_levels 1"
+ },
+ {
+  "run": "deeponet/degraded/n65_pls_nu0",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/degraded/n65_pls_nu0 --mg_pre_smooth 0 --mg_post_smooth 0"
+ },
+ {
+  "run": "deeponet/degraded/n129_pls_exact",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/degraded/n129_pls_exact --mg_levels 1"
+ },
+ {
+  "run": "deeponet/degraded/n129_pls_nu0",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/deeponet/degraded/n129_pls_nu0 --mg_pre_smooth 0 --mg_post_smooth 0"
+ },
+ {
+  "run": "gaot/darcy/n129_s0.5_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss data --prec fixed --model gaot --out runs/gaot/darcy/n129_s0.5_data_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s0.5_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s0.5_data_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n129_s0.5_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss ls --prec fixed --model gaot --out runs/gaot/darcy/n129_s0.5_ls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s0.5_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s0.5_ls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n129_s0.5_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec fixed --model gaot --out runs/gaot/darcy/n129_s0.5_pls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s0.5_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s0.5_pls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n129_s0.5_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec fixed_diag --model gaot --out runs/gaot/darcy/n129_s0.5_pls_fixed_diag.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s0.5_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n129_s0.5_pls_fixed_diag.json"
+ },
+ {
+  "run": "gaot/darcy/n129_s0.5_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec own --model gaot --out runs/gaot/darcy/n129_s0.5_pls_own.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s0.5_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n129_s0.5_pls_own.json"
+ },
+ {
+  "run": "gaot/darcy/n129_s1.0_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss data --prec fixed --model gaot --out runs/gaot/darcy/n129_s1.0_data_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s1.0_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s1.0_data_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n129_s1.0_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec fixed --model gaot --out runs/gaot/darcy/n129_s1.0_pls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s1.0_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s1.0_pls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n129_s1.0_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec fixed_diag --model gaot --out runs/gaot/darcy/n129_s1.0_pls_fixed_diag.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s1.0_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n129_s1.0_pls_fixed_diag.json"
+ },
+ {
+  "run": "gaot/darcy/n129_s1.0_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec own --model gaot --out runs/gaot/darcy/n129_s1.0_pls_own.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s1.0_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n129_s1.0_pls_own.json"
+ },
+ {
+  "run": "gaot/darcy/n257_s0.5_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss data --prec fixed --model gaot --out runs/gaot/darcy/n257_s0.5_data_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n257_s0.5_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n257_s0.5_data_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n257_s0.5_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss ls --prec fixed --model gaot --out runs/gaot/darcy/n257_s0.5_ls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n257_s0.5_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n257_s0.5_ls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n257_s0.5_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec fixed --model gaot --out runs/gaot/darcy/n257_s0.5_pls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n257_s0.5_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n257_s0.5_pls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n257_s0.5_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec fixed_diag --model gaot --out runs/gaot/darcy/n257_s0.5_pls_fixed_diag.json"
+ },
+ {
+  "run": "deeponet/darcy/n257_s0.5_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n257_s0.5_pls_fixed_diag.json"
+ },
+ {
+  "run": "gaot/darcy/n257_s0.5_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec own --model gaot --out runs/gaot/darcy/n257_s0.5_pls_own.json"
+ },
+ {
+  "run": "deeponet/darcy/n257_s0.5_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n257_s0.5_pls_own.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s0.5_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss data --prec fixed --model gaot --out runs/gaot/darcy/n65_s0.5_data_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s0.5_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s0.5_data_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s0.5_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss ls --prec fixed --model gaot --out runs/gaot/darcy/n65_s0.5_ls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s0.5_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s0.5_ls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s0.5_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec fixed --model gaot --out runs/gaot/darcy/n65_s0.5_pls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s0.5_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s0.5_pls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s0.5_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec fixed_diag --model gaot --out runs/gaot/darcy/n65_s0.5_pls_fixed_diag.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s0.5_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n65_s0.5_pls_fixed_diag.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s0.5_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec own --model gaot --out runs/gaot/darcy/n65_s0.5_pls_own.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s0.5_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n65_s0.5_pls_own.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s1.0_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss data --prec fixed --model gaot --out runs/gaot/darcy/n65_s1.0_data_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s1.0_data_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s1.0_data_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s1.0_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss ls --prec fixed --model gaot --out runs/gaot/darcy/n65_s1.0_ls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s1.0_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s1.0_ls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s1.0_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec fixed --model gaot --out runs/gaot/darcy/n65_s1.0_pls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s1.0_pls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s1.0_pls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s1.0_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec fixed_diag --model gaot --out runs/gaot/darcy/n65_s1.0_pls_fixed_diag.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s1.0_pls_fixed_diag",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n65_s1.0_pls_fixed_diag.json"
+ },
+ {
+  "run": "gaot/darcy/n65_s1.0_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec own --model gaot --out runs/gaot/darcy/n65_s1.0_pls_own.json"
+ },
+ {
+  "run": "deeponet/darcy/n65_s1.0_pls_own",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n65_s1.0_pls_own.json"
+ },
+ {
+  "run": "darcy/n129_s1.0_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss ls --prec fixed --out runs/darcy/n129_s1.0_ls_fixed.json"
+ },
+ {
+  "run": "gaot/darcy/n129_s1.0_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss ls --prec fixed --model gaot --out runs/gaot/darcy/n129_s1.0_ls_fixed.json"
+ },
+ {
+  "run": "deeponet/darcy/n129_s1.0_ls_fixed",
+  "machine": "A100",
+  "env": "",
+  "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s1.0_ls_fixed.json"
+ },
+ {
+  "run": "gaot/ac_bmg_hpc/n129_frozen",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=frozen",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 129 --mg_levels 5 --output_dir runs/gaot/ac_bmg_hpc/n129_frozen"
+ },
+ {
+  "run": "deeponet/ac_bmg_hpc/n129_frozen",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_OWN=<repo>/src TPILS_AC_BMG=frozen",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 129 --mg_levels 5 --output_dir runs/deeponet/ac_bmg_hpc/n129_frozen"
+ },
+ {
+  "run": "gaot/ac_bmg_hpc/n129_lagged",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 129 --mg_levels 5 --output_dir runs/gaot/ac_bmg_hpc/n129_lagged"
+ },
+ {
+  "run": "deeponet/ac_bmg_hpc/n129_lagged",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 129 --mg_levels 5 --output_dir runs/deeponet/ac_bmg_hpc/n129_lagged"
+ },
+ {
+  "run": "gaot/ac_bmg_hpc/n65_frozen",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=frozen",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 65 --mg_levels 4 --output_dir runs/gaot/ac_bmg_hpc/n65_frozen"
+ },
+ {
+  "run": "deeponet/ac_bmg_hpc/n65_frozen",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_OWN=<repo>/src TPILS_AC_BMG=frozen",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 65 --mg_levels 4 --output_dir runs/deeponet/ac_bmg_hpc/n65_frozen"
+ },
+ {
+  "run": "gaot/ac_bmg_hpc/n65_lagged",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 65 --mg_levels 4 --output_dir runs/gaot/ac_bmg_hpc/n65_lagged"
+ },
+ {
+  "run": "deeponet/ac_bmg_hpc/n65_lagged",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --grid_resolution 65 --mg_levels 4 --output_dir runs/deeponet/ac_bmg_hpc/n65_lagged"
+ },
+ {
+  "run": "gaot/ac_hsweep/n129_data",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 129 --mg_levels 5 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/ac_hsweep/n129_data"
+ },
+ {
+  "run": "deeponet/ac_hsweep/n129_data",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 129 --mg_levels 5 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/deeponet/ac_hsweep/n129_data"
+ },
+ {
+  "run": "gaot/ac_hsweep/n129_galerkin",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 1e-3 --lr_min 1e-4 --output_dir runs/gaot/ac_hsweep/n129_galerkin"
+ },
+ {
+  "run": "deeponet/ac_hsweep/n129_galerkin",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 1e-3 --lr_min 1e-4 --output_dir runs/deeponet/ac_hsweep/n129_galerkin"
+ },
+ {
+  "run": "gaot/ac_hsweep/n129_pls",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 129 --mg_levels 5 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/ac_hsweep/n129_pls"
+ },
+ {
+  "run": "deeponet/ac_hsweep/n129_pls",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 129 --mg_levels 5 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --output_dir runs/deeponet/ac_hsweep/n129_pls"
+ },
+ {
+  "run": "gaot/ac_hsweep/n65_data",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/ac_hsweep/n65_data"
+ },
+ {
+  "run": "deeponet/ac_hsweep/n65_data",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss data --lr 3e-4 --lr_min 3e-5 --output_dir runs/deeponet/ac_hsweep/n65_data"
+ },
+ {
+  "run": "gaot/ac_hsweep/n65_galerkin",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 1e-3 --lr_min 1e-4 --output_dir runs/gaot/ac_hsweep/n65_galerkin"
+ },
+ {
+  "run": "deeponet/ac_hsweep/n65_galerkin",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 1e-3 --lr_min 1e-4 --output_dir runs/deeponet/ac_hsweep/n65_galerkin"
+ },
+ {
+  "run": "gaot/ac_hsweep/n65_pls",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --output_dir runs/gaot/ac_hsweep/n65_pls"
+ },
+ {
+  "run": "deeponet/ac_hsweep/n65_pls",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --seed 42 --grid_resolution 65 --mg_levels 4 --loss galerkin --ac_precond multigrid --lr 3e-4 --lr_min 3e-5 --output_dir runs/deeponet/ac_hsweep/n65_pls"
+ },
+ {
+  "run": "gaot/ac_seeds/n129_data_s43",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss data --output_dir runs/gaot/ac_seeds/n129_data_s43"
+ },
+ {
+  "run": "deeponet/ac_seeds/n129_data_s43",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss data --output_dir runs/deeponet/ac_seeds/n129_data_s43"
+ },
+ {
+  "run": "gaot/ac_seeds/n129_data_s44",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss data --output_dir runs/gaot/ac_seeds/n129_data_s44"
+ },
+ {
+  "run": "deeponet/ac_seeds/n129_data_s44",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss data --output_dir runs/deeponet/ac_seeds/n129_data_s44"
+ },
+ {
+  "run": "gaot/ac_seeds/n129_lagged_s43",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n129_lagged_s43"
+ },
+ {
+  "run": "deeponet/ac_seeds/n129_lagged_s43",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/deeponet/ac_seeds/n129_lagged_s43"
+ },
+ {
+  "run": "gaot/ac_seeds/n129_lagged_s44",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n129_lagged_s44"
+ },
+ {
+  "run": "deeponet/ac_seeds/n129_lagged_s44",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/deeponet/ac_seeds/n129_lagged_s44"
+ },
+ {
+  "run": "gaot/ac_seeds/n129_pls_s43",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n129_pls_s43"
+ },
+ {
+  "run": "deeponet/ac_seeds/n129_pls_s43",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/deeponet/ac_seeds/n129_pls_s43"
+ },
+ {
+  "run": "gaot/ac_seeds/n129_pls_s44",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n129_pls_s44"
+ },
+ {
+  "run": "deeponet/ac_seeds/n129_pls_s44",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 129 --mg_levels 5 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/deeponet/ac_seeds/n129_pls_s44"
+ },
+ {
+  "run": "gaot/ac_seeds/n65_data_s43",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss data --output_dir runs/gaot/ac_seeds/n65_data_s43"
+ },
+ {
+  "run": "deeponet/ac_seeds/n65_data_s43",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss data --output_dir runs/deeponet/ac_seeds/n65_data_s43"
+ },
+ {
+  "run": "gaot/ac_seeds/n65_data_s44",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss data --output_dir runs/gaot/ac_seeds/n65_data_s44"
+ },
+ {
+  "run": "deeponet/ac_seeds/n65_data_s44",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss data --output_dir runs/deeponet/ac_seeds/n65_data_s44"
+ },
+ {
+  "run": "gaot/ac_seeds/n65_lagged_s43",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n65_lagged_s43"
+ },
+ {
+  "run": "deeponet/ac_seeds/n65_lagged_s43",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/deeponet/ac_seeds/n65_lagged_s43"
+ },
+ {
+  "run": "gaot/ac_seeds/n65_lagged_s44",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n65_lagged_s44"
+ },
+ {
+  "run": "deeponet/ac_seeds/n65_lagged_s44",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/deeponet/ac_seeds/n65_lagged_s44"
+ },
+ {
+  "run": "gaot/ac_seeds/n65_pls_s43",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n65_pls_s43"
+ },
+ {
+  "run": "deeponet/ac_seeds/n65_pls_s43",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/deeponet/ac_seeds/n65_pls_s43"
+ },
+ {
+  "run": "gaot/ac_seeds/n65_pls_s44",
+  "machine": "H100",
+  "env": "TPILS_GAOT_AC=1",
+  "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n65_pls_s44"
+ },
+ {
+  "run": "deeponet/ac_seeds/n65_pls_s44",
+  "machine": "A30 MIG 1g.6gb",
+  "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33",
+  "command": "python -m tensorpils.cli --pde ac --model deeponet --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/deeponet/ac_seeds/n65_pls_s44"
  }
 ]

@@ -33,6 +33,13 @@ diagnostics() {
   diag nu_floor nu_floor.py 0.3 33 65 129 257
   diag tangent_65 tangent_kappa.py "$out/runs" 65 512
   diag tangent_129 tangent_kappa.py "$out/runs" 129 512
+  for arch in gaot deeponet; do
+    diag tangent_${arch}_65 tangent_kappa.py "$out/runs" 65 512 $arch
+    diag tangent_${arch}_129 tangent_kappa.py "$out/runs" 129 512 $arch
+  done
+  for arch in fno gaot deeponet; do
+    diag theta_h_$arch theta_h.py "$out/runs" $arch 512 33 65 129 257
+  done
 }
 
 case ${1:-} in
