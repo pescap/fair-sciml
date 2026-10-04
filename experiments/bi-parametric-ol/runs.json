@@ -708,6 +708,12 @@
   "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s43/n257_data "
  },
  {
+  "run": "hsweep_s43/n257_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 43 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s43/n257_galerkin "
+ },
+ {
   "run": "hsweep_s43/n257_pls",
   "machine": "Quadro RTX 8000",
   "env": "",
@@ -772,6 +778,12 @@
   "machine": "Quadro RTX 8000",
   "env": "",
   "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss data --lr 0.0003 --lr_min 2.9999999999999997e-05 --output_dir runs/hsweep_s44/n257_data "
+ },
+ {
+  "run": "hsweep_s44/n257_galerkin",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 44 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 0.003 --lr_min 0.00030000000000000003 --output_dir runs/hsweep_s44/n257_galerkin "
  },
  {
   "run": "hsweep_s44/n257_pls",
