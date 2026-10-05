@@ -2362,5 +2362,41 @@
   "machine": "Quadro RTX 8000",
   "env": "TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33 TPILS_ENERGY=1",
   "command": "python -m tensorpils.cli --pde poisson --model deeponet -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 65 --mg_levels 4 --loss galerkin --lr 3e-3 --lr_min 0.0003 --output_dir runs/deeponet/energy_lr/n65_lr3e-3"
+ },
+ {
+  "run": "energy_lr/n65_data_lr3e-3",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 65 --mg_levels 4 --loss data --lr 3e-3 --lr_min 0.0003 --output_dir runs/energy_lr/n65_data_lr3e-3"
+ },
+ {
+  "run": "energy_lr/n65_pls_lr3e-3",
+  "machine": "Quadro RTX 8000",
+  "env": "",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-3 --lr_min 0.0003 --output_dir runs/energy_lr/n65_pls_lr3e-3"
+ },
+ {
+  "run": "energy_lr/n129_lr3e-3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_ENERGY=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 129 --mg_levels 5 --loss galerkin --lr 3e-3 --lr_min 0.0003 --output_dir runs/energy_lr/n129_lr3e-3"
+ },
+ {
+  "run": "energy_lr/n257_lr3e-3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_ENERGY=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --seed 42 --mg_omega 0.8888888888888888 --grid_resolution 257 --mg_levels 6 --loss galerkin --lr 3e-3 --lr_min 0.0003 --output_dir runs/energy_lr/n257_lr3e-3"
+ },
+ {
+  "run": "energy_lr/n65_pls_WA_lr3e-3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 65 --mg_levels 4 --loss pls --lr 3e-3 --lr_min 0.0003 --output_dir runs/energy_lr/n65_pls_WA_lr3e-3"
+ },
+ {
+  "run": "energy_lr/n129_pls_WA_lr3e-3",
+  "machine": "Quadro RTX 8000",
+  "env": "TPILS_WA=1",
+  "command": "python -m tensorpils.cli --pde poisson --model fno -k 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 500 --batch_size 32 --optimizer adam --device cuda --mg_omega 0.8888888888888888 --seed 42 --grid_resolution 129 --mg_levels 5 --loss pls --lr 3e-3 --lr_min 0.0003 --output_dir runs/energy_lr/n129_pls_WA_lr3e-3"
  }
 ]

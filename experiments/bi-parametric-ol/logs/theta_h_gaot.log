@@ -1,0 +1,42 @@
+/data/home/pescapil/precond-pils/TensorPILS/tensorpils/preconditioners/multigrid.py:172: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  cache[key] = build(L).coalesce().to_sparse_csr()
+Building model...
+  GAOT  latent=64x64 patch=2 -> 1024 tokens  lifting=64  transformer=256x3(8 heads)  radius=0.0636  scales=[1.0]  attn=cosine
+  parameters: 3,396,033
+
+33 init {'A': {'dist100': 2.688, 'kappa_T': 19246.77}, 'CA': {'dist100': 0.091, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.143, 'kappa_T': 96.16}, 'CA_twogrid': {'dist100': 1.463, 'kappa_T': 69.81}, 'energy': {'dist100': 2.351, 'kappa_T': 191.79}}
+Building model...
+  GAOT  latent=64x64 patch=2 -> 1024 tokens  lifting=64  transformer=256x3(8 heads)  radius=0.0636  scales=[1.0]  attn=cosine
+  parameters: 3,396,033
+
+33 trained {'A': {'dist100': 3.432, 'kappa_T': 34396.75}, 'CA': {'dist100': 0.069, 'kappa_T': 1.22}, 'CA_mu0.9': {'dist100': 0.165, 'kappa_T': 89.29}, 'CA_twogrid': {'dist100': 1.693, 'kappa_T': 70.13}, 'energy': {'dist100': 2.831, 'kappa_T': 193.53}}
+Building model...
+  GAOT  latent=64x64 patch=2 -> 1024 tokens  lifting=64  transformer=256x3(8 heads)  radius=0.0333  scales=[1.0]  attn=cosine
+  parameters: 3,396,033
+
+65 init {'A': {'dist100': 3.662, 'kappa_T': 14955.0}, 'CA': {'dist100': 0.099, 'kappa_T': 1.27}, 'CA_mu0.9': {'dist100': 0.148, 'kappa_T': 108.01}, 'CA_twogrid': {'dist100': 2.176, 'kappa_T': 654.54}, 'energy': {'dist100': 3.219, 'kappa_T': 691.21}}
+Building model...
+  GAOT  latent=64x64 patch=2 -> 1024 tokens  lifting=64  transformer=256x3(8 heads)  radius=0.0333  scales=[1.0]  attn=cosine
+  parameters: 3,396,033
+
+65 trained {'A': {'dist100': 4.393, 'kappa_T': 67613.83}, 'CA': {'dist100': 0.096, 'kappa_T': 1.27}, 'CA_mu0.9': {'dist100': 0.146, 'kappa_T': 90.47}, 'CA_twogrid': {'dist100': 2.394, 'kappa_T': 927.6}, 'energy': {'dist100': 3.648, 'kappa_T': 797.39}}
+Building model...
+  GAOT  latent=64x64 patch=2 -> 1024 tokens  lifting=64  transformer=256x3(8 heads)  radius=0.0333  scales=[1.0]  attn=cosine
+  parameters: 3,396,033
+
+129 init {'A': {'dist100': 2.124, 'kappa_T': 7542.3}, 'CA': {'dist100': 0.087, 'kappa_T': 1.28}, 'CA_mu0.9': {'dist100': 0.246, 'kappa_T': 60.19}, 'CA_twogrid': {'dist100': 2.018, 'kappa_T': 532.68}, 'energy': {'dist100': 2.305, 'kappa_T': 1035.35}}
+Building model...
+  GAOT  latent=64x64 patch=2 -> 1024 tokens  lifting=64  transformer=256x3(8 heads)  radius=0.0333  scales=[1.0]  attn=cosine
+  parameters: 3,396,033
+
+129 trained {'A': {'dist100': 2.757, 'kappa_T': 18108.41}, 'CA': {'dist100': 0.071, 'kappa_T': 1.28}, 'CA_mu0.9': {'dist100': 0.227, 'kappa_T': 60.25}, 'CA_twogrid': {'dist100': 2.802, 'kappa_T': 4589.62}, 'energy': {'dist100': 3.062, 'kappa_T': 2467.35}}
+Building model...
+  GAOT  latent=64x64 patch=2 -> 1024 tokens  lifting=64  transformer=256x3(8 heads)  radius=0.0333  scales=[1.0]  attn=cosine
+  parameters: 3,396,033
+
+257 init {'A': {'dist100': 2.91, 'kappa_T': 22534.5}, 'CA': {'dist100': 0.078, 'kappa_T': 1.23}, 'CA_mu0.9': {'dist100': 0.205, 'kappa_T': 55.03}, 'CA_twogrid': {'dist100': 1.935, 'kappa_T': 1078.87}, 'energy': {'dist100': 2.642, 'kappa_T': 2080.25}}
+Building model...
+  GAOT  latent=64x64 patch=2 -> 1024 tokens  lifting=64  transformer=256x3(8 heads)  radius=0.0333  scales=[1.0]  attn=cosine
+  parameters: 3,396,033
+
+257 trained {'A': {'dist100': 3.158, 'kappa_T': 32647.56}, 'CA': {'dist100': 0.067, 'kappa_T': 1.24}, 'CA_mu0.9': {'dist100': 0.205, 'kappa_T': 48.13}, 'CA_twogrid': {'dist100': 2.904, 'kappa_T': 6449.58}, 'energy': {'dist100': 3.232, 'kappa_T': 5619.18}}

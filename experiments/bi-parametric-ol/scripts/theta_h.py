@@ -80,4 +80,6 @@ for n in ns:
             r = np.abs(np.log(spectrum(Q) / lamD))
             row[lname] = {"dist100": round(float(r[:100].max()), 3),
                           "kappa_T": round(float(np.linalg.cond(Q @ np.linalg.lstsq(Y, U, rcond=None)[0]) ** 2), 2)}
+        r = np.abs(np.log(np.sort(np.linalg.eigvalsh(Y.T @ (A @ Y)))[::-1] / A.diagonal().mean() / lamD))
+        row["energy"] = {"dist100": round(float(r[:100].max()), 3), "kappa_T": round(float(np.linalg.cond(U.T @ (A @ U))), 2)}
         print(n, name, row, flush=True)
