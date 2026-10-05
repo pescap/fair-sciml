@@ -47,14 +47,16 @@ runs on one GPU.
 | residual and preconditioner perturbations | `coef/*_nus*`, `coef/*_mu*` | `dichotomy_theory`, `dichotomy_theory_smooth`, `kappa_lowmodes_mu`, `kappa_energy` |
 | rough cycles | `rough`, `rough_hpc`, `degraded`, `coef/*_WA` | `bench_precond` (GPU), `kappa_lowmodes` |
 | Darcy | `darcy` | `cond_darcy_scaled`, `cond_own` |
-| Allen--Cahn | `ac_hsweep`, `ac_bmg_hpc` | `ac_lagged_small`, `ac_lagged` |
+| Allen--Cahn | `ac_hsweep`, `ac_bmg_hpc`, `ac_seeds` | `ac_lagged_small`, `ac_lagged` |
 | Stokes, Oseen | -- | `stokes_dual`, `oseen_dual`, `oseen_norms` |
 | perturbation with $\nu_h\sim h^2$ | `coef/n33_pls_nus0.3`, `nuh` | `nu_floor` |
-| conditioning on the tangent space | (checkpoints of `rough`, `coef`, `degraded`) | `tangent_65`, `tangent_129` |
-| second architecture (GAOT) | `gaot` | -- |
+| conditioning on the tangent space | (checkpoints of `rough`, `coef`, `degraded`, `hsweep_s42`) | `tangent_65`, `tangent_129`, `tangent_gaot_*`, `tangent_deeponet_*` |
+| fixed weights, varying mesh | (checkpoints of `rough/n129_s2`, `*/hsweep_s42/n129_pls`) | `theta_h_fno`, `theta_h_gaot`, `theta_h_deeponet` |
+| energy loss and its learning rate | `energy_lr`, `gaot/energy_lr`, `deeponet/energy_lr` | -- |
+| three architectures | `gaot/<group>`, `deeponet/<group>` for every group above with a network | -- |
 
 The diagnostics that import `tensorpils` (`dichotomy_theory*`, `disc_error`, `kappa_lowmodes`, `bench_precond`,
-`ac_lagged*`, `stokes_dual`, `oseen_dual`, `oseen_norms`, `nu_floor`, `tangent_*`) measure the multigrid cycle and the problems of TensorPILS; the others
+`ac_lagged*`, `stokes_dual`, `oseen_dual`, `oseen_norms`, `nu_floor`, `tangent_*`, `theta_h_*`) measure the multigrid cycle and the problems of TensorPILS; the others
 use only the `preconditioning` module.
 
 ## Environment
@@ -63,8 +65,15 @@ Python 3.11, the versions in `requirements.txt` (CUDA 12.1 to 12.4 builds of tor
 `PYTHONPATH=<repo>/src`, which `reproduce.sh` and `run.py` set. The runs of TensorPILS execute from the
 checkout made by `setup_tensorpils.sh`; `TPILS_OWN=<repo>/src` lets its Allen--Cahn loss import the batched
 cycle. GPUs: Quadro RTX 8000 (Poisson up to $n=129$, Allen--Cahn baselines), H100 (Poisson at $n=257$ for the
-cheaper cycles, Allen--Cahn with the batched cycle), A100 and A30 MIG (Darcy); `runs.json` records the GPU of
-each run. Times per epoch depend on the GPU and on the load of the node.
+cheaper cycles, Allen--Cahn with the batched cycle, GAOT at $n=257$ and most GAOT Allen--Cahn runs), A100 and A30 MIG
+(Darcy, DeepONet Allen--Cahn); `runs.json` records the GPU of each run. Times per epoch depend on the GPU and on the load of the node.
+
+Every run with a network is repeated with GAOT and DeepONet under the names `gaot/<run>` and `deeponet/<run>`,
+with the same command and `--model gaot` or `--model deeponet`; `make_tables.py` prints each table once per
+architecture, and `tab:arch` and `tab:theta_h` compare the three. The DeepONet runs set
+`TPILS_DEEPONET_ANY=1 TPILS_DEEPONET_SENSORS=33`, the GAOT Allen--Cahn runs `TPILS_GAOT_AC=1`, and the energy runs
+`TPILS_ENERGY=1` (see `NOTICE.md`). The GAOT runs `hsweep_s42/n65_*`, `hsweep_s42/n129_*`, `coef/n65_pls_mu0.9` and
+`coef/n65_pls_nus0.1` predate `patch_models.py` and `patch_energy.py`, which do not change them.
 
 The archived results were produced before the code moved to `src/preconditioning`. The move kept the
 numerics: on the same GPU, the Darcy trainer reproduces the validation curve and the test error of the archived

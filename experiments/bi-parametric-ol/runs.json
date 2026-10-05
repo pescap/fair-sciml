@@ -1765,7 +1765,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s0.5_data_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s0.5_data_fixed.json"
  },
@@ -1777,7 +1777,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s0.5_ls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s0.5_ls_fixed.json"
  },
@@ -1789,7 +1789,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s0.5_pls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s0.5_pls_fixed.json"
  },
@@ -1801,7 +1801,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s0.5_pls_fixed_diag",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n129_s0.5_pls_fixed_diag.json"
  },
@@ -1813,7 +1813,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s0.5_pls_own",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 0.5 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n129_s0.5_pls_own.json"
  },
@@ -1825,7 +1825,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s1.0_data_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s1.0_data_fixed.json"
  },
@@ -1837,7 +1837,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s1.0_pls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s1.0_pls_fixed.json"
  },
@@ -1849,7 +1849,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s1.0_pls_fixed_diag",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n129_s1.0_pls_fixed_diag.json"
  },
@@ -1861,7 +1861,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s1.0_pls_own",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n129_s1.0_pls_own.json"
  },
@@ -1873,7 +1873,7 @@
  },
  {
   "run": "deeponet/darcy/n257_s0.5_data_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n257_s0.5_data_fixed.json"
  },
@@ -1885,7 +1885,7 @@
  },
  {
   "run": "deeponet/darcy/n257_s0.5_ls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n257_s0.5_ls_fixed.json"
  },
@@ -1897,7 +1897,7 @@
  },
  {
   "run": "deeponet/darcy/n257_s0.5_pls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n257_s0.5_pls_fixed.json"
  },
@@ -1909,7 +1909,7 @@
  },
  {
   "run": "deeponet/darcy/n257_s0.5_pls_fixed_diag",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n257_s0.5_pls_fixed_diag.json"
  },
@@ -1921,7 +1921,7 @@
  },
  {
   "run": "deeponet/darcy/n257_s0.5_pls_own",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 257 --sigma 0.5 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n257_s0.5_pls_own.json"
  },
@@ -1933,7 +1933,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s0.5_data_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s0.5_data_fixed.json"
  },
@@ -1945,7 +1945,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s0.5_ls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s0.5_ls_fixed.json"
  },
@@ -1957,7 +1957,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s0.5_pls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s0.5_pls_fixed.json"
  },
@@ -1969,7 +1969,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s0.5_pls_fixed_diag",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n65_s0.5_pls_fixed_diag.json"
  },
@@ -1981,7 +1981,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s0.5_pls_own",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 0.5 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n65_s0.5_pls_own.json"
  },
@@ -1993,7 +1993,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s1.0_data_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss data --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s1.0_data_fixed.json"
  },
@@ -2005,7 +2005,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s1.0_ls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s1.0_ls_fixed.json"
  },
@@ -2017,7 +2017,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s1.0_pls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec fixed --model deeponet --out runs/deeponet/darcy/n65_s1.0_pls_fixed.json"
  },
@@ -2029,7 +2029,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s1.0_pls_fixed_diag",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec fixed_diag --model deeponet --out runs/deeponet/darcy/n65_s1.0_pls_fixed_diag.json"
  },
@@ -2041,7 +2041,7 @@
  },
  {
   "run": "deeponet/darcy/n65_s1.0_pls_own",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 65 --sigma 1.0 --loss pls --prec own --model deeponet --out runs/deeponet/darcy/n65_s1.0_pls_own.json"
  },
@@ -2059,7 +2059,7 @@
  },
  {
   "run": "deeponet/darcy/n129_s1.0_ls_fixed",
-  "machine": "A100",
+  "machine": "A30 MIG 1g.6gb",
   "env": "",
   "command": "python scripts/train_darcy.py --n 129 --sigma 1.0 --loss ls --prec fixed --model deeponet --out runs/deeponet/darcy/n129_s1.0_ls_fixed.json"
  },
@@ -2257,7 +2257,7 @@
  },
  {
   "run": "gaot/ac_seeds/n65_data_s43",
-  "machine": "H100",
+  "machine": "Quadro RTX 8000",
   "env": "TPILS_GAOT_AC=1",
   "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss data --output_dir runs/gaot/ac_seeds/n65_data_s43"
  },
@@ -2269,7 +2269,7 @@
  },
  {
   "run": "gaot/ac_seeds/n65_data_s44",
-  "machine": "H100",
+  "machine": "Quadro RTX 8000",
   "env": "TPILS_GAOT_AC=1",
   "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss data --output_dir runs/gaot/ac_seeds/n65_data_s44"
  },
@@ -2281,7 +2281,7 @@
  },
  {
   "run": "gaot/ac_seeds/n65_lagged_s43",
-  "machine": "H100",
+  "machine": "Quadro RTX 8000",
   "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
   "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n65_lagged_s43"
  },
@@ -2293,7 +2293,7 @@
  },
  {
   "run": "gaot/ac_seeds/n65_lagged_s44",
-  "machine": "H100",
+  "machine": "Quadro RTX 8000",
   "env": "TPILS_GAOT_AC=1 TPILS_OWN=<repo>/src TPILS_AC_BMG=lagged",
   "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n65_lagged_s44"
  },
@@ -2305,7 +2305,7 @@
  },
  {
   "run": "gaot/ac_seeds/n65_pls_s43",
-  "machine": "H100",
+  "machine": "Quadro RTX 8000",
   "env": "TPILS_GAOT_AC=1",
   "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 43 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n65_pls_s43"
  },
@@ -2317,7 +2317,7 @@
  },
  {
   "run": "gaot/ac_seeds/n65_pls_s44",
-  "machine": "H100",
+  "machine": "Quadro RTX 8000",
   "env": "TPILS_GAOT_AC=1",
   "command": "python -m tensorpils.cli --pde ac --model gaot --ac_a 1.0 --ac_eps 32.0 -k 4 --dt 0.01 --n_steps 10 --rollout_steps 10 --n_train 1024 --n_val 128 --n_test 256 --epochs 200 --batch_size 16 --optimizer adam --device cuda --grid_resolution 65 --mg_levels 4 --lr 3e-4 --lr_min 3e-5 --seed 44 --loss galerkin --ac_precond multigrid --output_dir runs/gaot/ac_seeds/n65_pls_s44"
  },
