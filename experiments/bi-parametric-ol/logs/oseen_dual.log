@@ -1,0 +1,72 @@
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 5 (Ellipse)
+Info    : [ 30%] Meshing curve 6 (Line)
+Info    : [ 50%] Meshing curve 7 (Line)
+Info    : [ 70%] Meshing curve 8 (Line)
+Info    : [ 90%] Meshing curve 9 (Line)
+Info    : Done meshing 1D (Wall 0.000482084s, CPU 0.001274s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 0.0245978s, CPU 0.011473s)
+Info    : Meshing order 2 (curvilinear on)...
+Info    : [  0%] Meshing curve 5 order 2
+Info    : [ 20%] Meshing curve 6 order 2
+Info    : [ 40%] Meshing curve 7 order 2
+Info    : [ 60%] Meshing curve 8 order 2
+Info    : [ 70%] Meshing curve 9 order 2
+Info    : [ 90%] Meshing surface 1 order 2
+Info    : Surface mesh: worst distortion = 0.729523 (0 elements in ]0, 0.2]); worst gamma = 0.765207
+Info    : Done meshing order 2 (Wall 0.00783116s, CPU 0.002634s)
+Info    : 1139 nodes 611 elements
+Info    : Writing '/tmp/tmpb77izgyt/obstacle.msh'...
+Info    : Done writing '/tmp/tmpb77izgyt/obstacle.msh'
+
+0.07 2289 20 [{'U': 0.0, 'kG_stokes_weight': 508.8, 'rho_lagged': 0.0}, {'U': 10.0, 'kG_stokes_weight': 560.1, 'rho_lagged': 0.3713}, {'U': 30.0, 'kG_stokes_weight': 1050.1, 'rho_lagged': 1.2012}, {'U': 100.0, 'kG_stokes_weight': 15430.0, 'rho_lagged': 4.6492}, {'U': 300.0, 'kG_stokes_weight': 2170211.3, 'rho_lagged': 22.4426}, {'U': 1000.0, 'kG_stokes_weight': 1329055407.7, 'rho_lagged': 168.6173}]
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 5 (Ellipse)
+Info    : [ 30%] Meshing curve 6 (Line)
+Info    : [ 50%] Meshing curve 7 (Line)
+Info    : [ 70%] Meshing curve 8 (Line)
+Info    : [ 90%] Meshing curve 9 (Line)
+Info    : Done meshing 1D (Wall 0.000502406s, CPU 0.000479s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 0.104135s, CPU 0.029109s)
+Info    : Meshing order 2 (curvilinear on)...
+Info    : [  0%] Meshing curve 5 order 2
+Info    : [ 20%] Meshing curve 6 order 2
+Info    : [ 40%] Meshing curve 7 order 2
+Info    : [ 60%] Meshing curve 8 order 2
+Info    : [ 70%] Meshing curve 9 order 2
+Info    : [ 90%] Meshing surface 1 order 2
+Info    : Surface mesh: worst distortion = 0.838965 (0 elements in ]0, 0.2]); worst gamma = 0.749895
+Info    : Done meshing order 2 (Wall 0.00554769s, CPU 0.005444s)
+Info    : 3982 nodes 2067 elements
+Info    : Writing '/tmp/tmp74g74cij/obstacle.msh'...
+Info    : Done writing '/tmp/tmp74g74cij/obstacle.msh'
+
+0.035 8427 165 [{'U': 0.0, 'kG_stokes_weight': 505.2, 'rho_lagged': 0.0}, {'U': 10.0, 'kG_stokes_weight': 557.0, 'rho_lagged': 0.3704}, {'U': 30.0, 'kG_stokes_weight': 1044.1, 'rho_lagged': 1.1973}, {'U': 100.0, 'kG_stokes_weight': 15283.3, 'rho_lagged': 4.6185}, {'U': 300.0, 'kG_stokes_weight': 2175758.9, 'rho_lagged': 22.4935}, {'U': 1000.0, 'kG_stokes_weight': 1356903347.1, 'rho_lagged': 172.3459}]
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 5 (Ellipse)
+Info    : [ 30%] Meshing curve 6 (Line)
+Info    : [ 50%] Meshing curve 7 (Line)
+Info    : [ 70%] Meshing curve 8 (Line)
+Info    : [ 90%] Meshing curve 9 (Line)
+Info    : Done meshing 1D (Wall 0.000610415s, CPU 0.000604s)
+Info    : Meshing 2D...
+Info    : Meshing surface 1 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 0.630119s, CPU 0.117622s)
+Info    : Meshing order 2 (curvilinear on)...
+Info    : [  0%] Meshing curve 5 order 2
+Info    : [ 20%] Meshing curve 6 order 2
+Info    : [ 40%] Meshing curve 7 order 2
+Info    : [ 60%] Meshing curve 8 order 2
+Info    : [ 70%] Meshing curve 9 order 2
+Info    : [ 90%] Meshing surface 1 order 2
+Info    : Surface mesh: worst distortion = 0.928132 (0 elements in ]0, 0.2]); worst gamma = 0.746602
+Info    : Done meshing order 2 (Wall 0.233363s, CPU 0.028609s)
+Info    : 15105 nodes 7699 elements
+Info    : Writing '/tmp/tmpmifn2002/obstacle.msh'...
+Info    : Done writing '/tmp/tmpmifn2002/obstacle.msh'
+
+0.0175 32925 1412 [{'U': 0.0, 'kG_stokes_weight': 504.3, 'rho_lagged': 0.0}, {'U': 10.0, 'kG_stokes_weight': 556.2, 'rho_lagged': 0.3682}, {'U': 30.0, 'kG_stokes_weight': 1041.9, 'rho_lagged': 1.1902}, {'U': 100.0, 'kG_stokes_weight': 15221.0, 'rho_lagged': 4.5824}, {'U': 300.0, 'kG_stokes_weight': 2166390.4, 'rho_lagged': 22.4267}, {'U': 1000.0, 'kG_stokes_weight': 1348019780.0, 'rho_lagged': 172.5773}]

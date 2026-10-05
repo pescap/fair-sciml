@@ -1,0 +1,46 @@
+/data/home/pescapil/precond-pils/paper3/experiments/bi-parametric-ol/TensorPILS/tensorpils/preconditioners/multigrid.py:172: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  cache[key] = build(L).coalesce().to_sparse_csr()
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 s2 {'kappa16': 1.173, 'tangent_init': 1.219, 'tangent_trained': 1.218}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 s1 {'kappa16': 1.579, 'tangent_init': 1.812, 'tangent_trained': 1.809}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 ngp1 {'kappa16': 1.188, 'tangent_init': 1.26, 'tangent_trained': 1.249}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 twogrid {'kappa16': 11661.258, 'tangent_init': 13600.319, 'tangent_trained': 15017.627}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 s0 {'kappa16': -3017381716874112.0, 'tangent_init': -3663848270730714.5, 'tangent_trained': -4506086098726319.0}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 mu0.3 {'kappa16': 1.376, 'tangent_init': 2.82, 'tangent_trained': 2.781}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 mu0.6 {'kappa16': 1.815, 'tangent_init': 7.375, 'tangent_trained': 7.314}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 mu0.9 {'kappa16': 2.413, 'tangent_init': 18.025, 'tangent_trained': 17.658}

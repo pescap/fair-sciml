@@ -1,0 +1,46 @@
+/data/home/pescapil/precond-pils/paper3/experiments/bi-parametric-ol/TensorPILS/tensorpils/preconditioners/multigrid.py:172: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  cache[key] = build(L).coalesce().to_sparse_csr()
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.599
+  parameters: 641,025
+
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.599
+  parameters: 641,025
+
+65 s2 {'kappa16': 1.168, 'tangent_init': 1.215, 'tangent_trained': 1.214}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.599
+  parameters: 641,025
+
+65 s1 {'kappa16': 1.587, 'tangent_init': 1.755, 'tangent_trained': 1.754}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.599
+  parameters: 641,025
+
+65 ngp1 {'kappa16': 1.276, 'tangent_init': 1.499, 'tangent_trained': 1.457}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.599
+  parameters: 641,025
+
+65 twogrid {'kappa16': 965.966, 'tangent_init': 1009.723, 'tangent_trained': 1016.53}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.599
+  parameters: 641,025
+
+65 s0 {'kappa16': -3156462354332382.0, 'tangent_init': -2866281578681683.0, 'tangent_trained': -3804256080188170.0}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.599
+  parameters: 641,025
+
+65 mu0.3 {'kappa16': 1.759, 'tangent_init': 4.545, 'tangent_trained': 4.538}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.599
+  parameters: 641,025
+
+65 mu0.6 {'kappa16': 3.025, 'tangent_init': 17.863, 'tangent_trained': 17.65}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.599
+  parameters: 641,025
+
+65 mu0.9 {'kappa16': 5.166, 'tangent_init': 58.912, 'tangent_trained': 58.1}

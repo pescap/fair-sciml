@@ -1,0 +1,34 @@
+/data/home/pescapil/precond-pils/TensorPILS/tensorpils/preconditioners/multigrid.py:172: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  cache[key] = build(L).coalesce().to_sparse_csr()
+Building model...
+  parameters: 3,008,417
+
+33 init {'A': {'dist100': 3.985, 'kappa_T': 28418.71}, 'CA': {'dist100': 0.076, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.125, 'kappa_T': 88.75}, 'CA_twogrid': {'dist100': 1.764, 'kappa_T': 70.12}, 'energy': {'dist100': 3.038, 'kappa_T': 194.11}}
+Building model...
+  parameters: 3,008,417
+
+33 trained {'A': {'dist100': 3.988, 'kappa_T': 36046.44}, 'CA': {'dist100': 0.085, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.153, 'kappa_T': 91.33}, 'CA_twogrid': {'dist100': 1.768, 'kappa_T': 70.19}, 'energy': {'dist100': 3.042, 'kappa_T': 193.25}}
+Building model...
+  parameters: 3,008,417
+
+65 init {'A': {'dist100': 4.708, 'kappa_T': 144557.13}, 'CA': {'dist100': 0.106, 'kappa_T': 1.22}, 'CA_mu0.9': {'dist100': 0.138, 'kappa_T': 42.63}, 'CA_twogrid': {'dist100': 2.493, 'kappa_T': 997.18}, 'energy': {'dist100': 3.743, 'kappa_T': 570.05}}
+Building model...
+  parameters: 3,008,417
+
+65 trained {'A': {'dist100': 5.038, 'kappa_T': 186825.1}, 'CA': {'dist100': 0.109, 'kappa_T': 1.22}, 'CA_mu0.9': {'dist100': 0.153, 'kappa_T': 49.44}, 'CA_twogrid': {'dist100': 2.497, 'kappa_T': 1013.79}, 'energy': {'dist100': 3.746, 'kappa_T': 500.79}}
+Building model...
+  parameters: 3,008,417
+
+129 init {'A': {'dist100': 6.546, 'kappa_T': 377185.84}, 'CA': {'dist100': 0.117, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.152, 'kappa_T': 12.15}, 'CA_twogrid': {'dist100': 3.206, 'kappa_T': 11509.43}, 'energy': {'dist100': 4.442, 'kappa_T': 993.27}}
+Building model...
+  parameters: 3,008,417
+
+129 trained {'A': {'dist100': 6.548, 'kappa_T': 705198.83}, 'CA': {'dist100': 0.12, 'kappa_T': 1.22}, 'CA_mu0.9': {'dist100': 0.137, 'kappa_T': 13.13}, 'CA_twogrid': {'dist100': 3.208, 'kappa_T': 13666.55}, 'energy': {'dist100': 4.621, 'kappa_T': 1095.72}}
+Building model...
+  parameters: 3,008,417
+
+257 init {'A': {'dist100': 8.986, 'kappa_T': 1884445.72}, 'CA': {'dist100': 0.122, 'kappa_T': 1.2}, 'CA_mu0.9': {'dist100': 0.128, 'kappa_T': 4.86}, 'CA_twogrid': {'dist100': 4.006, 'kappa_T': 70992.72}, 'energy': {'dist100': 5.156, 'kappa_T': 2042.82}}
+Building model...
+  parameters: 3,008,417
+
+257 trained {'A': {'dist100': 8.934, 'kappa_T': 3735811.97}, 'CA': {'dist100': 0.125, 'kappa_T': 1.2}, 'CA_mu0.9': {'dist100': 0.132, 'kappa_T': 5.61}, 'CA_twogrid': {'dist100': 4.568, 'kappa_T': 106088.09}, 'energy': {'dist100': 5.563, 'kappa_T': 2318.74}}

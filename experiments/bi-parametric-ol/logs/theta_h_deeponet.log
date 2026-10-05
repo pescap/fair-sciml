@@ -1,0 +1,42 @@
+/data/home/pescapil/precond-pils/TensorPILS/tensorpils/preconditioners/multigrid.py:172: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  cache[key] = build(L).coalesce().to_sparse_csr()
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+33 init {'A': {'dist100': 3.982, 'kappa_T': 33308.15}, 'CA': {'dist100': 0.092, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.181, 'kappa_T': 114.34}, 'CA_twogrid': {'dist100': 1.762, 'kappa_T': 70.17}, 'energy': {'dist100': 3.038, 'kappa_T': 189.49}}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+33 trained {'A': {'dist100': 3.985, 'kappa_T': 31859.51}, 'CA': {'dist100': 0.1, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.173, 'kappa_T': 104.52}, 'CA_twogrid': {'dist100': 1.765, 'kappa_T': 70.16}, 'energy': {'dist100': 3.039, 'kappa_T': 187.72}}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+65 init {'A': {'dist100': 5.754, 'kappa_T': 162266.07}, 'CA': {'dist100': 0.106, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.212, 'kappa_T': 58.3}, 'CA_twogrid': {'dist100': 2.489, 'kappa_T': 1012.95}, 'energy': {'dist100': 3.743, 'kappa_T': 478.38}}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+65 trained {'A': {'dist100': 5.161, 'kappa_T': 131101.62}, 'CA': {'dist100': 0.113, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.15, 'kappa_T': 53.81}, 'CA_twogrid': {'dist100': 2.494, 'kappa_T': 1009.36}, 'energy': {'dist100': 3.743, 'kappa_T': 466.06}}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 init {'A': {'dist100': 8.043, 'kappa_T': 790937.49}, 'CA': {'dist100': 0.123, 'kappa_T': 1.22}, 'CA_mu0.9': {'dist100': 0.13, 'kappa_T': 18.35}, 'CA_twogrid': {'dist100': 3.294, 'kappa_T': 14272.25}, 'energy': {'dist100': 4.442, 'kappa_T': 1062.03}}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+129 trained {'A': {'dist100': 7.59, 'kappa_T': 611316.49}, 'CA': {'dist100': 0.123, 'kappa_T': 1.22}, 'CA_mu0.9': {'dist100': 0.142, 'kappa_T': 18.2}, 'CA_twogrid': {'dist100': 3.205, 'kappa_T': 13469.44}, 'energy': {'dist100': 4.441, 'kappa_T': 1049.23}}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+257 init {'A': {'dist100': 9.814, 'kappa_T': 4591293.6}, 'CA': {'dist100': 0.128, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.138, 'kappa_T': 6.55}, 'CA_twogrid': {'dist100': 5.508, 'kappa_T': 131923.3}, 'energy': {'dist100': 5.432, 'kappa_T': 2264.91}}
+Building model...
+  DeepONet  p=128 width=256 depth=4 fourier=64(scale 2.0)  f_scale=0.609
+  parameters: 641,025
+
+257 trained {'A': {'dist100': 10.032, 'kappa_T': 3499092.86}, 'CA': {'dist100': 0.126, 'kappa_T': 1.21}, 'CA_mu0.9': {'dist100': 0.136, 'kappa_T': 6.5}, 'CA_twogrid': {'dist100': 4.888, 'kappa_T': 107630.6}, 'energy': {'dist100': 5.5, 'kappa_T': 2243.56}}
