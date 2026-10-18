@@ -1,0 +1,6 @@
+/data/home/pescapil/precond-pils/.venv/lib/python3.11/site-packages/torch/functional.py:534: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3595.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/data/home/pescapil/precond-pils/TensorPILS/../own/pol/mg.py:10: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  return torch.sparse_csr_tensor(torch.from_numpy(S.indptr.astype(np.int64)),
+129 [{'k': 1, 'frozen': (0.9046, 108.46), 'lagged_exact': (2.8862, 15.67), 'lagged_vcycle': (2.8795, 18.06)}, {'k': 5, 'frozen': (0.7324, 13.74), 'lagged_exact': (0.3113, 1.92), 'lagged_vcycle': (0.3016, 2.09)}, {'k': 10, 'frozen': (0.7065, 11.33), 'lagged_exact': (0.1687, 1.6), 'lagged_vcycle': (0.1769, 1.64)}]
+257 [{'k': 1, 'frozen': (0.9046, 109.48), 'lagged_exact': (2.8863, 15.67), 'lagged_vcycle': (2.8797, 18.51)}, {'k': 5, 'frozen': (0.7327, 13.89), 'lagged_exact': (0.3115, 1.92), 'lagged_vcycle': (0.3034, 2.15)}, {'k': 10, 'frozen': (0.7067, 11.44), 'lagged_exact': (0.1686, 1.6), 'lagged_vcycle': (0.1813, 1.67)}]

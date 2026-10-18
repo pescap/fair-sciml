@@ -1,0 +1,12 @@
+torch==2.5.1
+neuraloperator==2.0.0
+tensormesh-fem==0.2.1
+torch_sla==0.3.3
+numpy
+scipy
+meshio
+gmsh
+matplotlib
+tqdm
+h5py<3.12
+wandb<0.19

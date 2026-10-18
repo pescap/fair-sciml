@@ -1,0 +1,29 @@
+/data/home/pescapil/precond-pils/TensorPILS/tensorpils/preconditioners/multigrid.py:172: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  cache[key] = build(L).coalesce().to_sparse_csr()
+129 s2 {'levels': 5, 'setup_s': 6.915, 'apply_ms': 3.55, 'step_ms': 9.938, 'mem_MB': 25.7, 'rhoI': 0.125}
+129 s1 {'levels': 5, 'setup_s': 6.081, 'apply_ms': 2.366, 'step_ms': 4.864, 'mem_MB': 17.3, 'rhoI': 0.375}
+129 s2_bf16 failed: RuntimeError Sparse operations with CUDA tensors of BFloat16 type are not supported on GPUs with compute capability < 8.0 (current: 7
+129 s1_bf16 failed: RuntimeError Sparse operations with CUDA tensors of BFloat16 type are not supported on GPUs with compute capability < 8.0 (current: 7
+129 s2_fp16 {'levels': 5, 'setup_s': 6.352, 'apply_ms': 3.553, 'step_ms': 7.578, 'mem_MB': 11.5, 'rhoI': 0.123}
+129 s2_ngp1 {'levels': 5, 'setup_s': 4.143, 'apply_ms': 3.604, 'step_ms': 7.809, 'mem_MB': 17.6, 'rhoI': 0.994}
+129 s2_ngp2 {'levels': 5, 'setup_s': 5.745, 'apply_ms': 3.722, 'step_ms': 7.43, 'mem_MB': 17.3, 'rhoI': 0.125}
+129 c17_jac4 {'levels': 4, 'setup_s': 6.099, 'apply_ms': 3.118, 'step_ms': 7.489, 'mem_MB': 17.3, 'rhoI': 0.872}
+129 c33_jac8 {'levels': 3, 'setup_s': 5.51, 'apply_ms': 3.079, 'step_ms': 6.605, 'mem_MB': 17.3, 'rhoI': 0.942}
+129 two_grid_jac4 {'levels': 2, 'setup_s': 5.348, 'apply_ms': 1.442, 'step_ms': 3.582, 'mem_MB': 17.3, 'rhoI': 0.991}
+257 s2 {'levels': 6, 'setup_s': 10.231, 'apply_ms': 8.76, 'step_ms': 17.542, 'mem_MB': 67.8, 'rhoI': 0.131}
+257 s1 {'levels': 6, 'setup_s': 10.521, 'apply_ms': 3.796, 'step_ms': 6.685, 'mem_MB': 67.8, 'rhoI': 0.406}
+257 s2_bf16 failed: RuntimeError Sparse operations with CUDA tensors of BFloat16 type are not supported on GPUs with compute capability < 8.0 (current: 7
+257 s1_bf16 failed: RuntimeError Sparse operations with CUDA tensors of BFloat16 type are not supported on GPUs with compute capability < 8.0 (current: 7
+257 s2_fp16 {'levels': 6, 'setup_s': 9.419, 'apply_ms': 8.283, 'step_ms': 15.499, 'mem_MB': 42.8, 'rhoI': 0.244}
+257 s2_ngp1 {'levels': 6, 'setup_s': 7.618, 'apply_ms': 7.19, 'step_ms': 13.048, 'mem_MB': 67.7, 'rhoI': 0.993}
+257 s2_ngp2 {'levels': 6, 'setup_s': 9.275, 'apply_ms': 6.205, 'step_ms': 10.219, 'mem_MB': 67.8, 'rhoI': 0.131}
+257 c17_jac4 {'levels': 5, 'setup_s': 9.675, 'apply_ms': 6.074, 'step_ms': 9.634, 'mem_MB': 67.8, 'rhoI': 0.872}
+257 c33_jac8 {'levels': 4, 'setup_s': 10.507, 'apply_ms': 6.083, 'step_ms': 11.635, 'mem_MB': 67.8, 'rhoI': 0.942}
+257 two_grid_jac4 {'levels': 2, 'setup_s': 5.652, 'apply_ms': 4.91, 'step_ms': 7.641, 'mem_MB': 67.8, 'rhoI': 0.991}
+513 s2 {'levels': 7, 'setup_s': 15.991, 'apply_ms': 23.162, 'step_ms': 38.037, 'mem_MB': 270.3, 'rhoI': 0.134}
+513 s1 {'levels': 7, 'setup_s': 15.982, 'apply_ms': 16.276, 'step_ms': 24.23, 'mem_MB': 270.3, 'rhoI': 0.433}
+513 s2_bf16 failed: RuntimeError Sparse operations with CUDA tensors of BFloat16 type are not supported on GPUs with compute capability < 8.0 (current: 7
+513 s1_bf16 failed: RuntimeError Sparse operations with CUDA tensors of BFloat16 type are not supported on GPUs with compute capability < 8.0 (current: 7
+513 s2_fp16 {'levels': 7, 'setup_s': 14.907, 'apply_ms': 17.679, 'step_ms': 32.197, 'mem_MB': 169.2, 'rhoI': 0.372}
+513 s2_ngp1 {'levels': 7, 'setup_s': 9.488, 'apply_ms': 21.237, 'step_ms': 35.175, 'mem_MB': 269.9, 'rhoI': 0.995}
+513 s2_ngp2 {'levels': 7, 'setup_s': 13.232, 'apply_ms': 47.38, 'step_ms': 76.89, 'mem_MB': 270.3, 'rhoI': 0.134}

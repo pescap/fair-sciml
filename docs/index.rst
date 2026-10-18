@@ -13,6 +13,7 @@ Contents
    simulators.rst
    deeponet.rst
    fno.rst
+   preconditioning.rst
    utils.rst
    references.rst
 

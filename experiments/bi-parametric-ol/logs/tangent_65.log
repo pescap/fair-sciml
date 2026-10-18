@@ -1,0 +1,10 @@
+/data/home/pescapil/precond-pils/TensorPILS/tensorpils/preconditioners/multigrid.py:172: UserWarning: Sparse CSR tensor support is in beta state. If you miss a functionality in the sparse tensor support, please submit a feature request to https://github.com/pytorch/pytorch/issues. (Triggered internally at ../aten/src/ATen/SparseCsrTensorImpl.cpp:53.)
+  cache[key] = build(L).coalesce().to_sparse_csr()
+65 s2 {'kappa16': 1.168, 'tangent_init': 1.214, 'tangent_trained': 1.215}
+65 s1 {'kappa16': 1.587, 'tangent_init': 1.745, 'tangent_trained': 1.747}
+65 ngp1 {'kappa16': 1.276, 'tangent_init': 1.572, 'tangent_trained': 1.463}
+65 twogrid {'kappa16': 965.966, 'tangent_init': 973.937, 'tangent_trained': 1015.38}
+65 s0 {'kappa16': -3156462354332382.0, 'tangent_init': -2671418986185155.0, 'tangent_trained': -3003160913906971.5}
+65 mu0.3 {'kappa16': 1.759, 'tangent_init': 4.255, 'tangent_trained': 4.421}
+65 mu0.6 {'kappa16': 3.025, 'tangent_init': 15.715, 'tangent_trained': 16.93}
+65 mu0.9 {'kappa16': 5.166, 'tangent_init': 48.899, 'tangent_trained': 56.41}

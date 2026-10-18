@@ -1,0 +1,8 @@
+65 s2 {'kappa16': 1.168, 'tangent_init': 1.134, 'tangent_trained': 1.158}
+65 s1 {'kappa16': 1.587, 'tangent_init': 1.479, 'tangent_trained': 1.558}
+65 ngp1 {'kappa16': 1.276, 'tangent_init': 1.131, 'tangent_trained': 1.14}
+65 twogrid {'kappa16': 965.966, 'tangent_init': 46.29, 'tangent_trained': 158.792}
+65 s0 {'kappa16': -3156462354332382.0, 'tangent_init': 3316.004, 'tangent_trained': 3851.23}
+65 mu0.3 {'kappa16': 1.759, 'tangent_init': 1.437, 'tangent_trained': 1.417}
+65 mu0.6 {'kappa16': 3.025, 'tangent_init': 2.008, 'tangent_trained': 1.924}
+65 mu0.9 {'kappa16': 5.166, 'tangent_init': 2.805, 'tangent_trained': 2.61}
